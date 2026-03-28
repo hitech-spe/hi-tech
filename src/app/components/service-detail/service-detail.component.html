@@ -1,0 +1,47 @@
+<section class="service-detail fade-in" *ngIf="service; else notFound">
+  <div class="back-nav">
+    <a routerLink="/services" class="back-link">
+      <span class="icon">←</span> Torna ai Servizi
+    </a>
+  </div>
+
+  <div class="detail-header">
+    <div class="icon-wrapper">
+      <span class="service-icon">{{service.icon}}</span>
+    </div>
+    <h1 class="text-gradient">{{service.title}}</h1>
+    <p class="lead-text">{{service.description}}</p>
+  </div>
+
+  <div class="detail-content">
+    <div class="glass-card main-info">
+      <h3>Dettaglio Soluzione</h3>
+      <p>{{service.fullContent}}</p>
+    </div>
+
+    <div class="glass-card features-list">
+      <h3>Cosa offriamo</h3>
+      <ul>
+        <li *ngFor="let feature of service.features">
+          <span class="check-icon">✓</span> {{feature}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="glass-card cta-card">
+      <h3>Interessato a questa soluzione?</h3>
+      <p>Inizia oggi il tuo percorso verso l'innovazione digitale.</p>
+      <a routerLink="/contact" class="btn btn-primary">Richiedi Preventivo</a>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <div class="not-found">
+    <h2 class="text-gradient">Servizio non trovato</h2>
+    <p>Spiacenti, il servizio richiesto non è disponibile.</p>
+    <a routerLink="/services" class="btn btn-outline">Torna alla lista</a>
+  </div>
+</ng-template>

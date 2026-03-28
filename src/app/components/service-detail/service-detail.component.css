@@ -1,0 +1,103 @@
+.service-detail {
+  padding: 4rem 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.service-detail .back-nav {
+  margin-bottom: 2rem;
+}
+.service-detail .back-nav .back-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s;
+  font-weight: 500;
+}
+.service-detail .back-nav .back-link:hover {
+  color: var(--primary);
+}
+.service-detail .detail-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.service-detail .detail-header .icon-wrapper {
+  margin-bottom: 1.5rem;
+}
+.service-detail .detail-header .icon-wrapper .service-icon {
+  font-size: 5rem;
+}
+.service-detail .detail-header h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 1rem;
+}
+.service-detail .detail-header .lead-text {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto;
+}
+.service-detail .detail-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+.service-detail .detail-content h3 {
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+.service-detail .detail-content .main-info p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-light);
+}
+.service-detail .detail-content .features-list ul {
+  list-style: none;
+  padding: 0;
+}
+.service-detail .detail-content .features-list ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+.service-detail .detail-content .features-list ul li .check-icon {
+  color: var(--primary);
+  font-weight: bold;
+}
+.service-detail .cta-section .cta-card {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.05), rgba(58, 123, 213, 0.05));
+  border: 1px solid rgba(0, 210, 255, 0.2);
+}
+.service-detail .cta-section .cta-card h3 {
+  margin-bottom: 1rem;
+}
+.service-detail .cta-section .cta-card p {
+  margin-bottom: 2rem;
+  color: var(--text-muted);
+}
+
+.not-found {
+  text-align: center;
+  padding: 10rem 0;
+}
+.not-found h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.not-found p {
+  margin-bottom: 2.5rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 850px) {
+  .service-detail .detail-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*# sourceMappingURL=service-detail.component.css.map */
