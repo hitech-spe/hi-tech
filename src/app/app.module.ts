@@ -10,6 +10,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -22,10 +23,11 @@ import { ServiceDetailComponent } from './components/service-detail/service-deta
     FooterComponent,
     ServiceDetailComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgOptimizedImage
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

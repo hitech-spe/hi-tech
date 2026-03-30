@@ -1,15 +1,22 @@
 <header class="header">
   <div class="logo">
     <a routerLink="/home">
-      <img src="../../../assets/images/logo.png" alt="Hi-Tech Logo">
+      <img ngSrc="../../../assets/images/logo.png" alt="Hi-Tech Logo" height="1080" width="1920">
     </a>
   </div>
-  <nav class="nav">
+
+  <button class="mobile-menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="nav" [class.open]="isMenuOpen">
     <ul>
-      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/about" routerLinkActive="active">About</a></li>
-      <li><a routerLink="/services" routerLinkActive="active">Services</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+      <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a></li>
+      <li><a routerLink="/services" routerLinkActive="active" (click)="closeMenu()">Services</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a></li>
     </ul>
   </nav>
 </header>
