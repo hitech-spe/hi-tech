@@ -1,0 +1,111 @@
+{
+  "HEADER": {
+    "HOME": "Home",
+    "ABOUT": "About Us",
+    "SERVICES": "Services",
+    "QUOTE_AI": "AI Quote",
+    "CONTACT": "Contact"
+  },
+  "SERVICES": {
+    "TITLE": "Our",
+    "SUBTITLE": "Services",
+    "WEB": {
+      "TITLE": "Web Development",
+      "DESC": "We create modern and responsive web applications using the latest technologies on the market.",
+      "MORE": "Discover more →"
+    },
+    "MOBILE": {
+      "TITLE": "Mobile App Development",
+      "DESC": "We develop native and cross-platform apps for iOS and Android with exceptional performance.",
+      "MORE": "Discover more →"
+    },
+    "CLOUD": {
+      "TITLE": "Cloud Consulting",
+      "DESC": "We help you migrate and manage your cloud infrastructure securely and scalably.",
+      "MORE": "Discover more →"
+    }
+  },
+  "CONTACT": {
+    "TITLE": "Let's talk about your",
+    "SUBTITLE": "Project",
+    "INFO": "Information",
+    "INFO_DESC": "We are ready to listen to your ideas and transform them into digital reality.",
+    "NAME": "Name",
+    "NAME_PLACEHOLDER": "Your name",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Your email",
+    "MESSAGE": "Message",
+    "MESSAGE_PLACEHOLDER": "How can we help you?",
+    "SEND": "Send Message",
+    "SENDING": "Sending...",
+    "SUCCESS": "Message sent successfully!",
+    "ERROR": "Error while sending. Please try again later."
+  },
+  "HOME": {
+    "HERO": {
+      "TITLE": "Innovation without",
+      "SUBTITLE": "Limits",
+      "DESC": "We create custom software solutions to transform your ideas into digital reality. Cutting-edge technology for a Hi-Tech future.",
+      "CTA_SERVICES": "Explore Services",
+      "CTA_CONTACT": "Contact Us"
+    },
+    "FEATURES": {
+      "FAST": {
+        "TITLE": "Fast Delivery",
+        "DESC": "Agile development for fast and high-quality results."
+      },
+      "CUTTING": {
+        "TITLE": "Cutting Edge",
+        "DESC": "We use only the latest technologies on the market."
+      },
+      "SECURE": {
+        "TITLE": "Secure & Scalable",
+        "DESC": "Architectures designed to grow securely."
+      }
+    }
+  },
+  "ABOUT": {
+    "TITLE": "Our History",
+    "P1": "Hi-Tech was born with the aim of guiding companies on the path of digital transformation through technical excellence and creative innovation.",
+    "P2": "Our team is made up of passionate technology experts who constantly work to offer the best software solutions on the market.",
+    "MISSION_TITLE": "Our Mission",
+    "MISSION_DESC": "Simplifying complexity through code, bringing innovation and value to every project we realize."
+  },
+  "FOOTER": {
+    "RIGHTS": "All rights reserved.",
+    "PRIVACY": "Privacy Policy",
+    "TERMS": "Terms of Service"
+  },
+  "SERVICE_DETAIL": {
+    "BACK": "Back to Services",
+    "SOLUTION_DETAIL": "Solution Detail",
+    "OFFERING": "What we offer",
+    "INTERESTED": "Interested in this solution?",
+    "CTA_DESC": "Start your journey towards digital innovation today.",
+    "GET_QUOTE": "Request a Quote",
+    "NOT_FOUND": "Service not found",
+    "NOT_FOUND_DESC": "Sorry, the requested service is not available.",
+    "BACK_TO_LIST": "Back to list"
+  },
+  "QUOTE": {
+    "TITLE": "AI Quote",
+    "SUBTITLE": "Simulator",
+    "INPUT_TITLE": "Describe your project",
+    "INPUT_DESC": "Use natural language. The more details you provide, the more precise the AI will be.",
+    "PLACEHOLDER": "Example: I want a mobile app for gym management with user login and payments...",
+    "GENERATE": "Generate Quote",
+    "GENERATING": "Generating...",
+    "ANALYZING": "AI is analyzing requirements...",
+    "RESULT_TITLE": "AI Project Estimate",
+    "ESTIMATED_COST": "Estimated Cost",
+    "ESTIMATED_TIME": "Development Time",
+    "FEATURES_IDENTIFIED": "Identified features:",
+    "WANT_PRECISE": "Want an official quote?",
+    "NAME_PLACEHOLDER": "Your name",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "SEND_ME_PDF": "Get details via email",
+    "SENDING": "Sending...",
+    "SUCCESS": "Details sent! We will contact you soon.",
+    "ERROR": "Error while sending. Please try again later."
+  }
+}

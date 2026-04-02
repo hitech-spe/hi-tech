@@ -1,7 +1,7 @@
 <section class="service-detail fade-in" *ngIf="service; else notFound">
   <div class="back-nav">
     <a routerLink="/services" class="back-link">
-      <span class="icon">←</span> Torna ai Servizi
+      <span class="icon">←</span> {{ 'SERVICE_DETAIL.BACK' | translate }}
     </a>
   </div>
 
@@ -15,12 +15,12 @@
 
   <div class="detail-content">
     <div class="glass-card main-info">
-      <h3>Dettaglio Soluzione</h3>
+      <h3>{{ 'SERVICE_DETAIL.SOLUTION_DETAIL' | translate }}</h3>
       <p>{{service.fullContent}}</p>
     </div>
 
     <div class="glass-card features-list">
-      <h3>Cosa offriamo</h3>
+      <h3>{{ 'SERVICE_DETAIL.OFFERING' | translate }}</h3>
       <ul>
         <li *ngFor="let feature of service.features">
           <span class="check-icon">✓</span> {{feature}}
@@ -31,17 +31,17 @@
 
   <div class="cta-section">
     <div class="glass-card cta-card">
-      <h3>Interessato a questa soluzione?</h3>
-      <p>Inizia oggi il tuo percorso verso l'innovazione digitale.</p>
-      <a routerLink="/contact" class="btn btn-primary">Richiedi Preventivo</a>
+      <h3>{{ 'SERVICE_DETAIL.INTERESTED' | translate }}</h3>
+      <p>{{ 'SERVICE_DETAIL.CTA_DESC' | translate }}</p>
+      <a routerLink="/contact" class="btn btn-primary">{{ 'SERVICE_DETAIL.GET_QUOTE' | translate }}</a>
     </div>
   </div>
 </section>
 
 <ng-template #notFound>
   <div class="not-found">
-    <h2 class="text-gradient">Servizio non trovato</h2>
-    <p>Spiacenti, il servizio richiesto non è disponibile.</p>
-    <a routerLink="/services" class="btn btn-outline">Torna alla lista</a>
+    <h2 class="text-gradient">{{ 'SERVICE_DETAIL.NOT_FOUND' | translate }}</h2>
+    <p>{{ 'SERVICE_DETAIL.NOT_FOUND_DESC' | translate }}</p>
+    <a routerLink="/services" class="btn btn-outline">{{ 'SERVICE_DETAIL.BACK_TO_LIST' | translate }}</a>
   </div>
 </ng-template>

@@ -5,6 +5,7 @@ import { AboutComponent } from './components/about/about.component';
 import { ServicesComponent } from './components/services/services.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
+import { QuoteSimulatorComponent } from './components/quote-simulator/quote-simulator.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'services/:id', component: ServiceDetailComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'quote-ai', component: QuoteSimulatorComponent },
   { path: '**', redirectTo: '/home' }
 ];
 

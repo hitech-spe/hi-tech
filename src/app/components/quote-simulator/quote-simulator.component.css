@@ -1,0 +1,204 @@
+.quote-simulator {
+  padding: 4rem 0;
+}
+.quote-simulator .section-title {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.quote-simulator .simulator-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  align-items: flex-start;
+}
+.quote-simulator .input-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #00d2ff;
+}
+.quote-simulator .input-section p {
+  color: #94a3b8;
+  margin-bottom: 2rem;
+}
+.quote-simulator .input-section .form-group {
+  margin-bottom: 2rem;
+}
+.quote-simulator .input-section .form-group textarea {
+  width: 100%;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: white;
+  font-family: inherit;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  transition: all 0.3s;
+  resize: none;
+}
+.quote-simulator .input-section .form-group textarea:focus {
+  outline: none;
+  border-color: #00d2ff;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+}
+.quote-simulator .ai-output .loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  gap: 2rem;
+}
+.quote-simulator .ai-output .loading-card p {
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #94a3b8;
+}
+.quote-simulator .ai-output .result-card .result-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.quote-simulator .ai-output .result-card .result-header .icon {
+  font-size: 2rem;
+}
+.quote-simulator .ai-output .result-card .result-header h3 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: white;
+}
+.quote-simulator .ai-output .result-card .estimate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.quote-simulator .ai-output .result-card .estimate-grid .estimate-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.quote-simulator .ai-output .result-card .estimate-grid .estimate-item .label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.quote-simulator .ai-output .result-card .estimate-grid .estimate-item .value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+}
+.quote-simulator .ai-output .result-card .features-breakdown {
+  margin-bottom: 2.5rem;
+}
+.quote-simulator .ai-output .result-card .features-breakdown h4 {
+  margin-bottom: 1rem;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+.quote-simulator .ai-output .result-card .features-breakdown ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
+}
+.quote-simulator .ai-output .result-card .features-breakdown ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #cbd5e1;
+}
+.quote-simulator .ai-output .result-card .features-breakdown ul li .check-icon {
+  color: #10b981;
+  font-weight: bold;
+}
+.quote-simulator .ai-output .result-card .ai-suggestion {
+  background: rgba(0, 210, 255, 0.05);
+  border-left: 4px solid #00d2ff;
+  padding: 1.5rem;
+  border-radius: 4px 16px 16px 4px;
+  margin-bottom: 2.5rem;
+  color: #e2e8f0;
+  font-style: italic;
+}
+.quote-simulator .ai-output .result-card .lead-generation h4 {
+  margin-bottom: 1.2rem;
+  color: white;
+}
+.quote-simulator .ai-output .result-card .lead-generation .form-group.inline {
+  display: flex;
+  gap: 1rem;
+}
+.quote-simulator .ai-output .result-card .lead-generation .form-group.inline input {
+  flex: 1;
+  padding: 0.9rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+}
+.quote-simulator .ai-output .result-card .lead-generation .form-group.inline input:focus {
+  outline: none;
+  border-color: #00d2ff;
+}
+.quote-simulator .ai-output .result-card .lead-generation .status-message {
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.quote-simulator .ai-output .result-card .lead-generation .status-message.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+.quote-simulator .ai-output .result-card .lead-generation .status-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.pulse-loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #00d2ff;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+    box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    box-shadow: 0 0 20px 10px rgba(0, 210, 255, 0.2);
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+    box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4);
+  }
+}
+@media (max-width: 768px) {
+  .simulator-container {
+    grid-template-columns: 1fr !important;
+  }
+  .form-group.inline {
+    flex-direction: column;
+  }
+  .estimate-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/*# sourceMappingURL=quote-simulator.component.css.map */

@@ -1,0 +1,111 @@
+{
+  "HEADER": {
+    "HOME": "Home",
+    "ABOUT": "Chi Siamo",
+    "SERVICES": "Servizi",
+    "QUOTE_AI": "Preventivo AI",
+    "CONTACT": "Contatti"
+  },
+  "SERVICES": {
+    "TITLE": "I nostri",
+    "SUBTITLE": "Servizi",
+    "WEB": {
+      "TITLE": "Sviluppo Web",
+      "DESC": "Creiamo applicazioni web moderne e responsive utilizzando le ultime tecnologie del mercato.",
+      "MORE": "Scopri di più →"
+    },
+    "MOBILE": {
+      "TITLE": "Sviluppo App Mobile",
+      "DESC": "Sviluppiamo app native e cross-platform per iOS e Android con performance eccezionali.",
+      "MORE": "Scopri di più →"
+    },
+    "CLOUD": {
+      "TITLE": "Consulenza Cloud",
+      "DESC": "Ti aiutiamo a migrare e gestire le tue infrastrutture sul cloud in modo sicuro e scalabile.",
+      "MORE": "Scopri di più →"
+    }
+  },
+  "CONTACT": {
+    "TITLE": "Parliamo del tuo",
+    "SUBTITLE": "Progetto",
+    "INFO": "Informazioni",
+    "INFO_DESC": "Siamo pronti ad ascoltare le tue idee e trasformarle in realtà digitale.",
+    "NAME": "Nome",
+    "NAME_PLACEHOLDER": "Il tuo nome",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "La tua email",
+    "MESSAGE": "Messaggio",
+    "MESSAGE_PLACEHOLDER": "Come possiamo aiutarti?",
+    "SEND": "Invia Messaggio",
+    "SENDING": "Invio in corso...",
+    "SUCCESS": "Messaggio inviato con successo!",
+    "ERROR": "Errore durante l'invio. Riprova più tardi."
+  },
+  "HOME": {
+    "HERO": {
+      "TITLE": "Innovazione senza",
+      "SUBTITLE": "Limiti",
+      "DESC": "Creiamo soluzioni software su misura per trasformare le tue idee in realtà digitale. Tecnologia all'avanguardia per un futuro Hi-Tech.",
+      "CTA_SERVICES": "Esplora Servizi",
+      "CTA_CONTACT": "Contattaci"
+    },
+    "FEATURES": {
+      "FAST": {
+        "TITLE": "Fast Delivery",
+        "DESC": "Sviluppo agile per risultati rapidi e di qualità."
+      },
+      "CUTTING": {
+        "TITLE": "Cutting Edge",
+        "DESC": "Utilizziamo solo le ultime tecnologie sul mercato."
+      },
+      "SECURE": {
+        "TITLE": "Secure & Scalable",
+        "DESC": "Architetture progettate per crescere in sicurezza."
+      }
+    }
+  },
+  "ABOUT": {
+    "TITLE": "La Nostra Storia",
+    "P1": "Hi-Tech nasce con l'obiettivo di guidare le aziende nel percorso di trasformazione digitale attraverso l'eccellenza tecnica e l'innovazione creativa.",
+    "P2": "Il nostro team è composto da esperti appassionati di tecnologia che lavorano costantemente per offrire le migliori soluzioni software sul mercato.",
+    "MISSION_TITLE": "La nostra Mission",
+    "MISSION_DESC": "Semplificare la complessità attraverso il codice, portando innovazione e valore in ogni progetto che realizziamo."
+  },
+  "FOOTER": {
+    "RIGHTS": "Tutti i diritti riservati.",
+    "PRIVACY": "Privacy Policy",
+    "TERMS": "Terms of Service"
+  },
+  "SERVICE_DETAIL": {
+    "BACK": "Torna ai Servizi",
+    "SOLUTION_DETAIL": "Dettaglio Soluzione",
+    "OFFERING": "Cosa offriamo",
+    "INTERESTED": "Interessato a questa soluzione?",
+    "CTA_DESC": "Inizia oggi il tuo percorso verso l'innovazione digitale.",
+    "GET_QUOTE": "Richiedi Preventivo",
+    "NOT_FOUND": "Servizio non trovato",
+    "NOT_FOUND_DESC": "Spiacenti, il servizio richiesto non è disponibile.",
+    "BACK_TO_LIST": "Torna alla lista"
+  },
+  "QUOTE": {
+    "TITLE": "Simulatore",
+    "SUBTITLE": "Preventivo AI",
+    "INPUT_TITLE": "Descrivi il tuo progetto",
+    "INPUT_DESC": "Usa il linguaggio naturale. Più dettagli fornisci, più precisa sarà l'AI.",
+    "PLACEHOLDER": "Esempio: Vorrei un'app mobile per la gestione di una palestra con login utenti e pagamenti...",
+    "GENERATE": "Genera Preventivo",
+    "GENERATING": "Generazione in corso...",
+    "ANALYZING": "L'AI sta analizzando i requisiti...",
+    "RESULT_TITLE": "Stima AI del Progetto",
+    "ESTIMATED_COST": "Costo Stimato",
+    "ESTIMATED_TIME": "Tempo di Sviluppo",
+    "FEATURES_IDENTIFIED": "Funzionalità identificate:",
+    "WANT_PRECISE": "Vuoi un preventivo ufficiale?",
+    "NAME_PLACEHOLDER": "Il tuo nome",
+    "EMAIL_PLACEHOLDER": "Inserisci la tua email",
+    "SEND_ME_PDF": "Ricevi i dettagli via mail",
+    "SENDING": "Invio...",
+    "SUCCESS": "Dettagli inviati! Ti contatteremo presto.",
+    "ERROR": "Errore nell'invio. Riprova più tardi."
+  }
+}

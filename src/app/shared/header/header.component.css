@@ -59,6 +59,31 @@
   color: white;
   box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
 }
+.header .nav ul .lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+.header .nav ul .lang-selector button {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.header .nav ul .lang-selector button:hover {
+  color: white;
+}
+.header .nav ul .lang-selector button.active {
+  color: #00d2ff;
+  background: rgba(0, 210, 255, 0.1);
+}
 .header .mobile-menu-toggle {
   display: none;
   flex-direction: column;

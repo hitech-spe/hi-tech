@@ -13,10 +13,16 @@
 
   <nav class="nav" [class.open]="isMenuOpen">
     <ul>
-      <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a></li>
-      <li><a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a></li>
-      <li><a routerLink="/services" routerLinkActive="active" (click)="closeMenu()">Services</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a></li>
+      <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
+      <li><a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
+      <li><a routerLink="/services" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
+      <li><a routerLink="/quote-ai" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
+      <li class="lang-selector">
+        <button (click)="changeLang('it')" [class.active]="currentLang === 'it'">IT</button>
+        <span>|</span>
+        <button (click)="changeLang('en')" [class.active]="currentLang === 'en'">EN</button>
+      </li>
     </ul>
   </nav>
 </header>
