@@ -61,26 +61,7 @@
   box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
 }
 .contact .contact-container .contact-form .status-message {
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.95rem;
   animation: slideDown 0.3s ease-out;
-}
-.contact .contact-container .contact-form .status-message.success {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-}
-.contact .contact-container .contact-form .status-message.error {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-.contact .contact-container .contact-form .w-100 {
-  width: 100%;
 }
 .contact .contact-container .contact-form .w-100:disabled {
   opacity: 0.7;
@@ -88,7 +69,6 @@
   background: #64748b;
   box-shadow: none;
 }
-
 @keyframes slideDown {
   from {
     opacity: 0;

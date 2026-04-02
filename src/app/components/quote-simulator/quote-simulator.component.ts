@@ -70,9 +70,9 @@ ${this.aiResponse.suggestion}
     };
 
     // Usiamo le stesse chiavi già configurate nel ContactComponent
-    const serviceID = 'service_r3ra8n2';
-    const templateID = 'template_q9uvika'; // Nota: andrebbe creato un template specifico, ma riusiamo quello esistente per ora
-    const publicKey = '3Ypls9oEIkHR_e7zO';
+    const serviceID = 'service_dvvpn9b';
+    const templateID = 'template_c7lex0n';
+    const publicKey = 'BeTmkZ_BQMgszAUkE';
 
     try {
       await emailjs.send(serviceID, templateID, templateParams, publicKey);

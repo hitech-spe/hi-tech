@@ -12,9 +12,9 @@
   align-items: flex-start;
 }
 .quote-simulator .input-section h3 {
+  color: #00d2ff;
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  color: #00d2ff;
 }
 .quote-simulator .input-section p {
   color: #94a3b8;
@@ -147,21 +147,6 @@
 .quote-simulator .ai-output .result-card .lead-generation .form-group.inline input:focus {
   outline: none;
   border-color: #00d2ff;
-}
-.quote-simulator .ai-output .result-card .lead-generation .status-message {
-  padding: 0.8rem;
-  border-radius: 8px;
-  margin-top: 1rem;
-  text-align: center;
-  font-size: 0.9rem;
-}
-.quote-simulator .ai-output .result-card .lead-generation .status-message.success {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-}
-.quote-simulator .ai-output .result-card .lead-generation .status-message.error {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
 }
 
 .pulse-loader {
