@@ -9,45 +9,118 @@
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    padding: 1rem;
 
     .service-card {
-      transition: all 0.3s ease;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(30, 41, 59, 0.4);
+
+      .card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 210, 255, 0.06), transparent 40%);
+        opacity: 0;
+        transition: opacity 0.5s;
+        z-index: 0;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 50%, rgba(0, 210, 255, 0.2));
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        padding: 1px;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .icon, h3, p, .more-link {
+        position: relative;
+        z-index: 1;
+      }
 
       .icon {
-        font-size: 3.5rem;
+        font-size: 3rem;
         margin-bottom: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       }
 
       h3 {
-        margin-bottom: 1rem;
-        color: var(--primary);
+        margin-bottom: 0.75rem;
+        color: var(--text-light);
+        font-size: 1.5rem;
       }
 
       p {
         color: var(--text-muted);
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
       }
 
       .more-link {
+        margin-top: auto;
         color: var(--primary);
         font-weight: 600;
         text-decoration: none;
         font-size: 0.9rem;
-        display: inline-block;
-        transition: transform 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+
+        &::after {
+          content: '→';
+          transition: transform 0.3s;
+        }
       }
 
       &:hover {
-        transform: translateY(-10px);
-        background: rgba(255, 255, 255, 0.05);
-        border-color: var(--primary);
+        transform: translateY(-10px) scale(1.02);
+        background: rgba(30, 41, 59, 0.6);
+        border-color: rgba(0, 210, 255, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+        .card-bg {
+          opacity: 1;
+        }
+
+        .icon {
+          transform: scale(1.1) rotate(5deg);
+          background: rgba(0, 210, 255, 0.1);
+          border-color: rgba(0, 210, 255, 0.2);
+        }
 
         .more-link {
-          transform: translateX(5px);
+          color: #fff;
+          &::after {
+            transform: translateX(5px);
+          }
         }
       }
     }

@@ -23,6 +23,16 @@
       "TITLE": "Consulenza Cloud",
       "DESC": "Ti aiutiamo a migrare e gestire le tue infrastrutture sul cloud in modo sicuro e scalabile.",
       "MORE": "Scopri di più →"
+    },
+    "SOCIAL": {
+      "TITLE": "Social Media Manager",
+      "DESC": "Gestiamo la tua presenza online per aumentare l'engagement e la visibilità del tuo brand.",
+      "MORE": "Scopri di più →"
+    },
+    "GRAPHIC": {
+      "TITLE": "Grafica & Design",
+      "DESC": "Creiamo un'identità visiva unica e accattivante per il tuo brand, dal logo ai materiali di marketing.",
+      "MORE": "Scopri di più →"
     }
   },
   "CONTACT": {
@@ -61,6 +71,31 @@
       "SECURE": {
         "TITLE": "Secure & Scalable",
         "DESC": "Architetture progettate per crescere in sicurezza."
+      }
+    },
+    "STATS": {
+      "PROJECTS": "Progetti Completati",
+      "CLIENTS": "Clienti Felici",
+      "EXPERIENCE": "Anni di Esperienza",
+      "TEAM": "Esperti nel Team"
+    },
+    "TESTIMONIALS": {
+      "TITLE": "Cosa dicono i",
+      "SUBTITLE": "Nostri Clienti",
+      "1": {
+        "NAME": "Marco Rossi",
+        "ROLE": "CEO, TechStart",
+        "TEXT": "Un team eccezionale. Hanno trasformato la nostra idea in un'app di successo in tempi record."
+      },
+      "2": {
+        "NAME": "Laura Bianchi",
+        "ROLE": "Product Manager, E-Shop Pro",
+        "TEXT": "Professionalità e competenza tecnica incredibili. Consigliatissimi per progetti complessi."
+      },
+      "3": {
+        "NAME": "Giulia Verdi",
+        "ROLE": "Founder, GreenApp",
+        "TEXT": "Sanno ascoltare le esigenze del cliente e trovare sempre la soluzione tecnica migliore."
       }
     }
   },
