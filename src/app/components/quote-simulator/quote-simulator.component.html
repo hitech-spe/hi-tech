@@ -20,78 +20,89 @@
         class="btn btn-primary w-100"
         (click)="generateQuote()"
         [disabled]="isLoading || !userInput.trim()"
-      >
-        <span *ngIf="!isLoading">{{ 'QUOTE.GENERATE' | translate }}</span>
-        <span *ngIf="isLoading" class="loader"></span>
-        <span *ngIf="isLoading">{{ 'QUOTE.GENERATING' | translate }}</span>
+        >
+        @if (!isLoading) {
+          <span>{{ 'QUOTE.GENERATE' | translate }}</span>
+        }
+        @if (isLoading) {
+          <span class="loader"></span>
+        }
+        @if (isLoading) {
+          <span>{{ 'QUOTE.GENERATING' | translate }}</span>
+        }
       </button>
     </div>
 
     <!-- AI Output Section -->
-    <div class="ai-output" *ngIf="aiResponse || isLoading">
-      <div *ngIf="isLoading" class="glass-card loading-card">
-        <div class="pulse-loader"></div>
-        <p>{{ 'QUOTE.ANALYZING' | translate }}</p>
+    @if (aiResponse || isLoading) {
+      <div class="ai-output">
+        @if (isLoading) {
+          <div class="glass-card loading-card">
+            <div class="pulse-loader"></div>
+            <p>{{ 'QUOTE.ANALYZING' | translate }}</p>
+          </div>
+        }
+        @if (aiResponse && !isLoading) {
+          <div class="glass-card result-card fade-in">
+            <div class="result-header">
+              <div class="icon">✨</div>
+              <h3>{{ 'QUOTE.RESULT_TITLE' | translate }}</h3>
+            </div>
+            <div class="estimate-grid">
+              <div class="estimate-item">
+                <span class="label">{{ 'QUOTE.ESTIMATED_COST' | translate }}</span>
+                <span class="value text-gradient">{{ aiResponse.estimatedCost }}</span>
+              </div>
+              <div class="estimate-item">
+                <span class="label">{{ 'QUOTE.ESTIMATED_TIME' | translate }}</span>
+                <span class="value">{{ aiResponse.estimatedTime }}</span>
+              </div>
+            </div>
+            <div class="features-breakdown">
+              <h4>{{ 'QUOTE.FEATURES_IDENTIFIED' | translate }}</h4>
+              <ul>
+                @for (feature of aiResponse.features; track feature) {
+                  <li>
+                    <span class="check-icon">✓</span> {{ feature }}
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="ai-suggestion">
+              <p><strong>Note:</strong> {{ aiResponse.suggestion }}</p>
+            </div>
+            <div class="lead-generation">
+              <h4>{{ 'QUOTE.WANT_PRECISE' | translate }}</h4>
+              <div class="form-group inline">
+                <input
+                  type="email"
+                  [(ngModel)]="userEmail"
+                  [placeholder]="'QUOTE.EMAIL_PLACEHOLDER' | translate"
+                  [disabled]="isSending"
+                  >
+                <input
+                  type="text"
+                  [(ngModel)]="userName"
+                  [placeholder]="'QUOTE.NAME_PLACEHOLDER' | translate"
+                  [disabled]="isSending"
+                  >
+                <button
+                  class="btn btn-outline"
+                  (click)="sendQuoteToEmail()"
+                  [disabled]="isSending || !userEmail"
+                  >
+                  {{ (isSending ? 'QUOTE.SENDING' : 'QUOTE.SEND_ME_PDF') | translate }}
+                </button>
+              </div>
+              @if (submitStatus) {
+                <div class="status-message" [ngClass]="submitStatus">
+                  {{ (submitStatus === 'success' ? 'QUOTE.SUCCESS' : 'QUOTE.ERROR') | translate }}
+                </div>
+              }
+            </div>
+          </div>
+        }
       </div>
-
-      <div *ngIf="aiResponse && !isLoading" class="glass-card result-card fade-in">
-        <div class="result-header">
-          <div class="icon">✨</div>
-          <h3>{{ 'QUOTE.RESULT_TITLE' | translate }}</h3>
-        </div>
-
-        <div class="estimate-grid">
-          <div class="estimate-item">
-            <span class="label">{{ 'QUOTE.ESTIMATED_COST' | translate }}</span>
-            <span class="value text-gradient">{{ aiResponse.estimatedCost }}</span>
-          </div>
-          <div class="estimate-item">
-            <span class="label">{{ 'QUOTE.ESTIMATED_TIME' | translate }}</span>
-            <span class="value">{{ aiResponse.estimatedTime }}</span>
-          </div>
-        </div>
-
-        <div class="features-breakdown">
-          <h4>{{ 'QUOTE.FEATURES_IDENTIFIED' | translate }}</h4>
-          <ul>
-            <li *ngFor="let feature of aiResponse.features">
-              <span class="check-icon">✓</span> {{ feature }}
-            </li>
-          </ul>
-        </div>
-
-        <div class="ai-suggestion">
-          <p><strong>Note:</strong> {{ aiResponse.suggestion }}</p>
-        </div>
-
-        <div class="lead-generation">
-          <h4>{{ 'QUOTE.WANT_PRECISE' | translate }}</h4>
-          <div class="form-group inline">
-            <input
-              type="email"
-              [(ngModel)]="userEmail"
-              [placeholder]="'QUOTE.EMAIL_PLACEHOLDER' | translate"
-              [disabled]="isSending"
-            >
-            <input
-              type="text"
-              [(ngModel)]="userName"
-              [placeholder]="'QUOTE.NAME_PLACEHOLDER' | translate"
-              [disabled]="isSending"
-            >
-            <button
-              class="btn btn-outline"
-              (click)="sendQuoteToEmail()"
-              [disabled]="isSending || !userEmail"
-            >
-              {{ (isSending ? 'QUOTE.SENDING' : 'QUOTE.SEND_ME_PDF') | translate }}
-            </button>
-          </div>
-          <div *ngIf="submitStatus" class="status-message" [ngClass]="submitStatus">
-            {{ (submitStatus === 'success' ? 'QUOTE.SUCCESS' : 'QUOTE.ERROR') | translate }}
-          </div>
-        </div>
-      </div>
-    </div>
+    }
   </div>
 </section>

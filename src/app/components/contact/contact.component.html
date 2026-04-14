@@ -24,9 +24,11 @@
         <textarea id="message" name="message" rows="5" [(ngModel)]="formData.message" [placeholder]="'CONTACT.MESSAGE_PLACEHOLDER' | translate" required></textarea>
       </div>
 
-      <div *ngIf="submitStatus" class="status-message" [ngClass]="submitStatus">
-        {{ (submitStatus === 'success' ? 'CONTACT.SUCCESS' : 'CONTACT.ERROR') | translate }}
-      </div>
+      @if (submitStatus) {
+        <div class="status-message" [ngClass]="submitStatus">
+          {{ (submitStatus === 'success' ? 'CONTACT.SUCCESS' : 'CONTACT.ERROR') | translate }}
+        </div>
+      }
 
       <button type="submit" class="btn btn-primary w-100" [disabled]="isSending">
         {{ (isSending ? 'CONTACT.SENDING' : 'CONTACT.SEND') | translate }}
