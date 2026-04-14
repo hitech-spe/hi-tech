@@ -4,9 +4,10 @@ import { AiService } from '../../services/ai.service';
 import emailjs from '@emailjs/browser';
 
 @Component({
-  selector: 'app-quote-simulator',
-  templateUrl: './quote-simulator.component.html',
-  styleUrls: ['./quote-simulator.component.scss']
+    selector: 'app-quote-simulator',
+    templateUrl: './quote-simulator.component.html',
+    styleUrls: ['./quote-simulator.component.scss'],
+    standalone: false
 })
 export class QuoteSimulatorComponent implements OnInit {
   userInput: string = '';

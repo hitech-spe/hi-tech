@@ -21,9 +21,10 @@ interface Service {
 }
 
 @Component({
-  selector: 'app-service-detail',
-  templateUrl: './service-detail.component.html',
-  styleUrls: ['./service-detail.component.scss']
+    selector: 'app-service-detail',
+    templateUrl: './service-detail.component.html',
+    styleUrls: ['./service-detail.component.scss'],
+    standalone: false
 })
 export class ServiceDetailComponent implements OnInit, OnDestroy {
   service: Service | undefined;
