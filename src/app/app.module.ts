@@ -12,7 +12,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { QuoteSimulatorComponent } from './components/quote-simulator/quote-simulator.component';
 import {NgOptimizedImage} from "@angular/common";
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {FormsModule} from "@angular/forms";
@@ -22,33 +22,26 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent,
-    ServicesComponent,
-    ContactComponent,
-    HeaderComponent,
-    FooterComponent,
-    ServiceDetailComponent,
-    QuoteSimulatorComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgOptimizedImage,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        AboutComponent,
+        ServicesComponent,
+        ContactComponent,
+        HeaderComponent,
+        FooterComponent,
+        ServiceDetailComponent,
+        QuoteSimulatorComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
