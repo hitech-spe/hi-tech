@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hi-tech:build:production"
+              "buildTarget": "hi-tech:build:production"
             },
             "development": {
-              "browserTarget": "hi-tech:build:development"
+              "buildTarget": "hi-tech:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hi-tech:build"
+            "buildTarget": "hi-tech:build"
           }
         },
         "test": {
