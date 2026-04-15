@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Firestore, collection, addDoc, collectionData, doc, setDoc, getDoc} from '@angular/fire/firestore';
+import {Firestore, collection, addDoc, collectionData, doc, setDoc, getDoc, query, where} from '@angular/fire/firestore';
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class FirestoreService {
 
   getUsers(): Observable<any[]> {
     const ref = collection(this.firestore, 'users');
-    return collectionData(ref, { idField: 'id' }) as Observable<any[]>;
+    return collectionData(query(ref), { idField: 'id' }) as Observable<any[]>;
   }
 
   saveQuote(quote: any) {
@@ -37,12 +37,24 @@ export class FirestoreService {
     });
   }
 
+  // --- Clienti per preventivi ---
+
+  getClientsByUser(userId: string): Observable<any[]> {
+    const ref = collection(this.firestore, 'clients');
+    return collectionData(query(ref), { idField: 'id' }) as Observable<any[]>;
+  }
+
+  addClient(client: any) {
+    const ref = collection(this.firestore, 'clients');
+    return addDoc(ref, {
+      ...client,
+      createdAt: new Date().toISOString()
+    });
+  }
+
   getQuotesByUser(userId: string): Observable<any[]> {
     const ref = collection(this.firestore, 'quotes');
-    // Nota: Firebase v9+ suggerisce l'uso di query() per filtri complessi,
-    // ma collectionData con un filtro semplice può funzionare se configurato correttamente.
-    // Per semplicità qui usiamo la collezione intera e filtreremo se necessario o implementeremo query()
-    return collectionData(ref, { idField: 'id' }) as Observable<any[]>;
+    return collectionData(query(ref), { idField: 'id' }) as Observable<any[]>;
   }
 
 }

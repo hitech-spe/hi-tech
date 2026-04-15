@@ -12,6 +12,18 @@
 
         <div class="form-group-row">
           <div class="form-group">
+            <label>{{ 'QUOTES.SELECT_CLIENT' | translate }}</label>
+            <select (change)="onClientSelect($event)">
+              <option value="">-- {{ 'QUOTES.NEW_CLIENT' | translate }} --</option>
+              @for (c of clients; track c.id) {
+                <option [value]="c.id" [selected]="client.id === c.id">{{ c.name }} {{ c.company ? '- ' + c.company : '' }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
             <label>{{ 'QUOTES.CLIENT_NAME' | translate }} *</label>
             <input type="text" [(ngModel)]="client.name" [placeholder]="'QUOTES.CLIENT_NAME_PLACEHOLDER' | translate">
           </div>
@@ -30,6 +42,11 @@
             <label>{{ 'QUOTES.PHONE' | translate }}</label>
             <input type="text" [(ngModel)]="client.phone" placeholder="+39 ...">
           </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'QUOTES.ADDRESS' | translate }}</label>
+          <input type="text" [(ngModel)]="client.address" [placeholder]="'QUOTES.ADDRESS_PLACEHOLDER' | translate">
         </div>
 
         <div class="items-header">
@@ -86,7 +103,10 @@
                 <p class="date">{{ q.date | date:'dd/MM/yyyy HH:mm' }}</p>
               </div>
               <div class="history-amount">€ {{ q.total.toFixed(2) }}</div>
-              <div class="history-actions">
+              <div class="history-actions" style="margin-left: 2rem">
+                <button class="btn-icon" style="margin-bottom: 0.5rem" (click)="loadQuoteIntoForm(q)" [title]="'QUOTES.LOAD_QUOTE' | translate">
+                  <i>Edit</i>
+                </button>
                 <button class="btn-icon" (click)="downloadPDF(q)" [title]="'QUOTES.DOWNLOAD_PDF' | translate">
                   <i>PDF</i>
                 </button>

@@ -163,7 +163,12 @@
     "DOWNLOAD_PDF": "Scarica PDF",
     "HISTORY": "Storico Preventivi",
     "NO_HISTORY": "Nessun preventivo salvato.",
-    "SUCCESS_SAVE": "Preventivo salvato correttamente!"
+    "SUCCESS_SAVE": "Preventivo salvato correttamente!",
+    "SELECT_CLIENT": "Seleziona Cliente",
+    "NEW_CLIENT": "Nuovo Cliente",
+    "ADDRESS": "Indirizzo",
+    "ADDRESS_PLACEHOLDER": "Via, Città, CAP",
+    "LOAD_QUOTE": "Carica nel form"
   },
   "AUTH": {
     "LOGIN_TITLE": "Bentornato",

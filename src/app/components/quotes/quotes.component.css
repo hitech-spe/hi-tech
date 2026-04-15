@@ -60,7 +60,7 @@
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
-.quotes-section .form-group input {
+.quotes-section .form-group input, .quotes-section .form-group select {
   width: 100%;
   background: rgba(15, 23, 42, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -69,10 +69,33 @@
   color: white;
   transition: all 0.3s;
 }
-.quotes-section .form-group input:focus {
+.quotes-section .form-group input:focus, .quotes-section .form-group select:focus {
   border-color: #00d2ff;
   outline: none;
   box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+}
+.quotes-section .form-group input::placeholder, .quotes-section .form-group select::placeholder {
+  color: #64748b;
+}
+.quotes-section .form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  cursor: pointer;
+  padding-right: 2.5rem;
+}
+.quotes-section .form-group select option {
+  background: #1e293b;
+  color: white;
+  padding: 0.5rem;
+}
+.quotes-section .form-group input[type=number] {
+  appearance: auto;
+  padding-right: 0.5rem;
 }
 .quotes-section .items-header {
   display: flex;
@@ -122,6 +145,12 @@
   padding: 0.6rem;
   color: white;
   font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.quotes-section .item-row input:focus {
+  border-color: #00d2ff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
 }
 .quotes-section .item-row .col-total {
   text-align: right;

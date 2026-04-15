@@ -16,10 +16,12 @@ interface QuoteItem {
 }
 
 interface ClientData {
+  id?: string;
   name: string;
   company: string;
   email: string;
   phone: string;
+  address: string;
 }
 
 @Component({
@@ -34,16 +36,40 @@ export class QuotesComponent implements OnInit {
   private authService = inject(AuthService);
   private loadingService = inject(LoadingService);
 
-  client: ClientData = { name: '', company: '', email: '', phone: '' };
+  client: ClientData = { name: '', company: '', email: '', phone: '', address: '' };
   items: QuoteItem[] = [{ description: '', quantity: 1, price: 0 }];
   quotes: any[] = [];
+  clients: ClientData[] = [];
   currentUser: any = null;
 
   async ngOnInit() {
     this.currentUser = await firstValueFrom(this.authService.user$);
     if (this.currentUser) {
       this.loadQuotes();
+      this.loadClients();
     }
+  }
+
+  loadClients() {
+    this.firestoreService.getClientsByUser(this.currentUser.uid).subscribe(data => {
+      this.clients = data.filter(c => c.userId === this.currentUser.uid);
+    });
+  }
+
+  onClientSelect(event: any) {
+    const clientId = event.target.value;
+    if (clientId) {
+      const selectedClient = this.clients.find(c => c.id === clientId);
+      if (selectedClient) {
+        this.client = { ...selectedClient };
+      }
+    } else {
+      this.resetClientForm();
+    }
+  }
+
+  resetClientForm() {
+    this.client = { name: '', company: '', email: '', phone: '', address: '' };
   }
 
   addItem() {
@@ -68,6 +94,13 @@ export class QuotesComponent implements OnInit {
 
     this.loadingService.show();
     try {
+      // Se il cliente è nuovo (non ha ID), lo salviamo nella collezione clients
+      if (!this.client.id) {
+        const newClient = { ...this.client, userId: this.currentUser.uid };
+        const clientRef = await this.firestoreService.addClient(newClient);
+        this.client.id = clientRef.id;
+      }
+
       const quote = {
         userId: this.currentUser.uid,
         client: { ...this.client },
@@ -85,6 +118,13 @@ export class QuotesComponent implements OnInit {
     }
   }
 
+  loadQuoteIntoForm(quote: any) {
+    this.client = { ...quote.client };
+    this.items = quote.items.map((item: any) => ({ ...item }));
+    // Scorri verso l'alto per mostrare il form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   loadQuotes() {
     this.firestoreService.getQuotesByUser(this.currentUser.uid).subscribe(data => {
       // Nota: in FirestoreService ho già aggiunto il filtraggio utente nel piano futuro,
@@ -95,7 +135,7 @@ export class QuotesComponent implements OnInit {
   }
 
   resetForm() {
-    this.client = { name: '', company: '', email: '', phone: '' };
+    this.resetClientForm();
     this.items = [{ description: '', quantity: 1, price: 0 }];
   }
 
@@ -119,6 +159,7 @@ export class QuotesComponent implements OnInit {
     doc.text(`Nome: ${data.client.name}`, 20, 60);
     if (data.client.company) doc.text(`Azienda: ${data.client.company}`, 20, 67);
     doc.text(`Email: ${data.client.email}`, 20, 74);
+    if (data.client.address) doc.text(`Indirizzo: ${data.client.address}`, 20, 81);
 
     // Tabella Articoli
     const tableRows = data.items.map((item: any) => [
