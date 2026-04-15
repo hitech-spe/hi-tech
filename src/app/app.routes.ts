@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ServicesComponent } from './components/services/services.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { QuoteSimulatorComponent } from './components/quote-simulator/quote-simulator.component';
+import { LoginComponent } from "./components/login/login.component";
+import { QuotesComponent } from "./components/quotes/quotes.component";
+import { authGuard } from "./guards/auth.guard";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -15,11 +17,7 @@ const routes: Routes = [
   { path: 'services/:id', component: ServiceDetailComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'quote-ai', component: QuoteSimulatorComponent },
+  { path: 'quotes', component: QuotesComponent, canActivate: [authGuard] },
+  { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '/home' }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

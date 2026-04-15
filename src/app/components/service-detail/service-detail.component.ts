@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 interface Service {
@@ -21,10 +21,14 @@ interface Service {
 }
 
 @Component({
-    selector: 'app-service-detail',
-    templateUrl: './service-detail.component.html',
-    styleUrls: ['./service-detail.component.scss'],
-    standalone: false
+  selector: 'app-service-detail',
+  templateUrl: './service-detail.component.html',
+  styleUrls: ['./service-detail.component.scss'],
+  imports: [
+    RouterLink,
+    TranslateModule
+  ],
+  standalone: true
 })
 export class ServiceDetailComponent implements OnInit, OnDestroy {
   service: Service | undefined;

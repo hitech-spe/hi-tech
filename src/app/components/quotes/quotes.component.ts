@@ -1,0 +1,145 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FirestoreService } from '../../services/firestore.service';
+import { AuthService } from '../../services/auth.service';
+import { LoadingService } from '../../services/loading.service';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { firstValueFrom } from 'rxjs';
+
+interface QuoteItem {
+  description: string;
+  quantity: number;
+  price: number;
+}
+
+interface ClientData {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+}
+
+@Component({
+  selector: 'app-quotes',
+  standalone: true,
+  imports: [CommonModule, FormsModule, TranslateModule],
+  templateUrl: './quotes.component.html',
+  styleUrls: ['./quotes.component.scss']
+})
+export class QuotesComponent implements OnInit {
+  private firestoreService = inject(FirestoreService);
+  private authService = inject(AuthService);
+  private loadingService = inject(LoadingService);
+
+  client: ClientData = { name: '', company: '', email: '', phone: '' };
+  items: QuoteItem[] = [{ description: '', quantity: 1, price: 0 }];
+  quotes: any[] = [];
+  currentUser: any = null;
+
+  async ngOnInit() {
+    this.currentUser = await firstValueFrom(this.authService.user$);
+    if (this.currentUser) {
+      this.loadQuotes();
+    }
+  }
+
+  addItem() {
+    this.items.push({ description: '', quantity: 1, price: 0 });
+  }
+
+  removeItem(index: number) {
+    if (this.items.length > 1) {
+      this.items.splice(index, 1);
+    }
+  }
+
+  getTotal(): number {
+    return this.items.reduce((acc, item) => acc + (item.quantity * item.price), 0);
+  }
+
+  async saveQuote() {
+    if (!this.client.name || this.items.some(i => !i.description)) {
+      alert('Per favore compila tutti i campi obbligatori');
+      return;
+    }
+
+    this.loadingService.show();
+    try {
+      const quote = {
+        userId: this.currentUser.uid,
+        client: { ...this.client },
+        items: [...this.items],
+        total: this.getTotal(),
+        date: new Date().toISOString()
+      };
+      await this.firestoreService.saveQuote(quote);
+      this.loadQuotes();
+      this.resetForm();
+    } catch (error) {
+      console.error('Errore nel salvataggio:', error);
+    } finally {
+      this.loadingService.hide();
+    }
+  }
+
+  loadQuotes() {
+    this.firestoreService.getQuotesByUser(this.currentUser.uid).subscribe(data => {
+      // Nota: in FirestoreService ho già aggiunto il filtraggio utente nel piano futuro,
+      // ma al momento filtriamo lato client per sicurezza dato che il servizio è generico.
+      this.quotes = data.filter(q => q.userId === this.currentUser.uid)
+                       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    });
+  }
+
+  resetForm() {
+    this.client = { name: '', company: '', email: '', phone: '' };
+    this.items = [{ description: '', quantity: 1, price: 0 }];
+  }
+
+  downloadPDF(quote?: any) {
+    const data = quote || { client: this.client, items: this.items, total: this.getTotal() };
+    const doc = new jsPDF();
+
+    // Header
+    doc.setFontSize(22);
+    doc.setTextColor(0, 210, 255);
+    doc.text('Hi-Tech Solutions', 20, 20);
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text('Preventivo', 20, 30);
+
+    // Dati Cliente
+    doc.setFontSize(14);
+    doc.setTextColor(0);
+    doc.text('Cliente:', 20, 50);
+    doc.setFontSize(11);
+    doc.text(`Nome: ${data.client.name}`, 20, 60);
+    if (data.client.company) doc.text(`Azienda: ${data.client.company}`, 20, 67);
+    doc.text(`Email: ${data.client.email}`, 20, 74);
+
+    // Tabella Articoli
+    const tableRows = data.items.map((item: any) => [
+      item.description,
+      item.quantity,
+      `€ ${item.price.toFixed(2)}`,
+      `€ ${(item.quantity * item.price).toFixed(2)}`
+    ]);
+
+    autoTable(doc, {
+      startY: 90,
+      head: [['Descrizione', 'Quantità', 'Prezzo Unitario', 'Totale']],
+      body: tableRows,
+      theme: 'grid',
+      headStyles: { fillColor: [0, 210, 255] }
+    });
+
+    const finalY = (doc as any).lastAutoTable.finalY || 90;
+    doc.setFontSize(14);
+    doc.text(`TOTALE: € ${data.total.toFixed(2)}`, 140, finalY + 20);
+
+    doc.save(`preventivo_${data.client.name.replace(/\s+/g, '_')}.pdf`);
+  }
+}

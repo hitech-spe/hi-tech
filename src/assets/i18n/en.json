@@ -4,6 +4,7 @@
     "ABOUT": "About Us",
     "SERVICES": "Services",
     "QUOTE_AI": "AI Quote",
+    "QUOTES": "My Quotes",
     "CONTACT": "Contact"
   },
   "SERVICES": {
@@ -142,5 +143,41 @@
     "SENDING": "Sending...",
     "SUCCESS": "Details sent! We will contact you soon.",
     "ERROR": "Error while sending. Please try again later."
+  },
+  "QUOTES": {
+    "TITLE": "Management",
+    "SUBTITLE": "Client Quotes",
+    "NEW_QUOTE": "New Quote",
+    "CLIENT_NAME": "Client Name",
+    "CLIENT_NAME_PLACEHOLDER": "Enter client name",
+    "COMPANY": "Company",
+    "COMPANY_PLACEHOLDER": "Company name (optional)",
+    "EMAIL": "Client Email",
+    "PHONE": "Client Phone",
+    "ITEMS": "Quote Items",
+    "ADD_ITEM": "Add Item",
+    "ITEM_DESC": "Service description",
+    "TOTAL": "Total",
+    "SAVE": "Save Quote",
+    "DOWNLOAD_PDF": "Download PDF",
+    "HISTORY": "Quote History",
+    "NO_HISTORY": "No quotes saved.",
+    "SUCCESS_SAVE": "Quote saved successfully!"
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Welcome Back",
+    "REGISTER_TITLE": "Create Account",
+    "LOGIN_SUBTITLE": "Login to your account",
+    "REGISTER_SUBTITLE": "Join Hi-Tech",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "LOGIN_BTN": "Login",
+    "REGISTER_BTN": "Register",
+    "GO_TO_REGISTER": "Don't have an account? Register",
+    "GO_TO_LOGIN": "Already have an account? Login",
+    "ERROR_MATCH": "Passwords do not match",
+    "ERROR_GENERIC": "An error occurred. Please try again.",
+    "SUCCESS_REGISTER": "Account created successfully! You can now login."
   }
 }

@@ -1,0 +1,102 @@
+.auth-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  padding: 2rem;
+}
+.auth-section .auth-container {
+  width: 100%;
+  max-width: 450px;
+}
+.auth-section .auth-card {
+  padding: 2.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.auth-section .auth-card h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.auth-section .auth-card .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+}
+.auth-section .auth-form {
+  text-align: left;
+}
+.auth-section .auth-form .form-group {
+  margin-bottom: 1.5rem;
+}
+.auth-section .auth-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+.auth-section .auth-form .form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  transition: all 0.3s ease;
+}
+.auth-section .auth-form .form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color, #646cff);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+.auth-section .auth-form .form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.auth-section .status-message {
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.auth-section .status-message.error {
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  color: #ff5252;
+}
+.auth-section .status-message.success {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: #4caf50;
+}
+.auth-section .auth-footer {
+  margin-top: 1.5rem;
+}
+.auth-section .auth-footer .btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-color, #646cff);
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  transition: opacity 0.3s;
+}
+.auth-section .auth-footer .btn-link:hover {
+  opacity: 0.8;
+}
+.auth-section .spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=login.component.css.map */

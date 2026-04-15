@@ -1,0 +1,102 @@
+<section class="quotes-section fade-in">
+  <div class="container">
+    <div class="header-content">
+      <h2 class="text-gradient">{{ 'QUOTES.TITLE' | translate }}</h2>
+      <p class="subtitle">{{ 'QUOTES.SUBTITLE' | translate }}</p>
+    </div>
+
+    <div class="quotes-grid">
+      <!-- Form Creazione Preventivo -->
+      <div class="glass-card quote-form-container">
+        <h3>{{ 'QUOTES.NEW_QUOTE' | translate }}</h3>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label>{{ 'QUOTES.CLIENT_NAME' | translate }} *</label>
+            <input type="text" [(ngModel)]="client.name" [placeholder]="'QUOTES.CLIENT_NAME_PLACEHOLDER' | translate">
+          </div>
+          <div class="form-group">
+            <label>{{ 'QUOTES.COMPANY' | translate }}</label>
+            <input type="text" [(ngModel)]="client.company" [placeholder]="'QUOTES.COMPANY_PLACEHOLDER' | translate">
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label>{{ 'QUOTES.EMAIL' | translate }}</label>
+            <input type="email" [(ngModel)]="client.email" placeholder="email@esempio.com">
+          </div>
+          <div class="form-group">
+            <label>{{ 'QUOTES.PHONE' | translate }}</label>
+            <input type="text" [(ngModel)]="client.phone" placeholder="+39 ...">
+          </div>
+        </div>
+
+        <div class="items-header">
+          <h4>{{ 'QUOTES.ITEMS' | translate }}</h4>
+          <button class="btn-add" (click)="addItem()">+ {{ 'QUOTES.ADD_ITEM' | translate }}</button>
+        </div>
+
+        <div class="items-list">
+          @for (item of items; track $index) {
+            <div class="item-row">
+              <div class="col-desc">
+                <input type="text" [(ngModel)]="item.description" [placeholder]="'QUOTES.ITEM_DESC' | translate">
+              </div>
+              <div class="col-qty">
+                <input type="number" [(ngModel)]="item.quantity" min="1">
+              </div>
+              <div class="col-price">
+                <input type="number" [(ngModel)]="item.price" min="0" step="0.01">
+              </div>
+              <div class="col-total">
+                € {{ (item.quantity * item.price).toFixed(2) }}
+              </div>
+              <div class="col-actions">
+                <button (click)="removeItem($index)" class="btn-remove" [disabled]="items.length === 1">×</button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="quote-footer">
+          <div class="total-display">
+            <span>{{ 'QUOTES.TOTAL' | translate }}:</span>
+            <span class="total-amount">€ {{ getTotal().toFixed(2) }}</span>
+          </div>
+          <div class="actions">
+            <button class="btn btn-secondary" (click)="downloadPDF()">
+              {{ 'QUOTES.DOWNLOAD_PDF' | translate }}
+            </button>
+            <button class="btn btn-primary" (click)="saveQuote()">
+              {{ 'QUOTES.SAVE' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista Preventivi Salvati -->
+      <div class="glass-card quotes-history">
+        <h3>{{ 'QUOTES.HISTORY' | translate }}</h3>
+        <div class="history-list">
+          @for (q of quotes; track q.id) {
+            <div class="history-item">
+              <div class="history-info">
+                <p class="client-name">{{ q.client.name }}</p>
+                <p class="date">{{ q.date | date:'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+              <div class="history-amount">€ {{ q.total.toFixed(2) }}</div>
+              <div class="history-actions">
+                <button class="btn-icon" (click)="downloadPDF(q)" [title]="'QUOTES.DOWNLOAD_PDF' | translate">
+                  <i>PDF</i>
+                </button>
+              </div>
+            </div>
+          } @empty {
+            <p class="empty-msg">{{ 'QUOTES.NO_HISTORY' | translate }}</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

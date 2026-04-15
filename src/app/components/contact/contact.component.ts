@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
+import {TranslateModule} from "@ngx-translate/core";
+import {FormsModule} from "@angular/forms";
+import {NgClass} from "@angular/common";
 
 @Component({
-    selector: 'app-contact',
-    templateUrl: './contact.component.html',
-    styleUrls: ['./contact.component.scss'],
-    standalone: false
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss'],
+  imports: [
+    TranslateModule,
+    FormsModule,
+    NgClass
+  ],
+  standalone: true
 })
 export class ContactComponent {
   formData = {

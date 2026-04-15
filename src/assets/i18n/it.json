@@ -4,7 +4,9 @@
     "ABOUT": "Chi Siamo",
     "SERVICES": "Servizi",
     "QUOTE_AI": "Preventivo AI",
-    "CONTACT": "Contatti"
+    "QUOTES": "I miei Preventivi",
+    "CONTACT": "Contatti",
+    "LOGIN": "Accedi"
   },
   "SERVICES": {
     "TITLE": "I nostri",
@@ -142,5 +144,47 @@
     "SENDING": "Invio...",
     "SUCCESS": "Dettagli inviati! Ti contatteremo presto.",
     "ERROR": "Errore nell'invio. Riprova più tardi."
+  },
+  "QUOTES": {
+    "TITLE": "Gestione",
+    "SUBTITLE": "Preventivi Clienti",
+    "NEW_QUOTE": "Nuovo Preventivo",
+    "CLIENT_NAME": "Nome Cliente",
+    "CLIENT_NAME_PLACEHOLDER": "Inserisci il nome del cliente",
+    "COMPANY": "Azienda",
+    "COMPANY_PLACEHOLDER": "Nome azienda (opzionale)",
+    "EMAIL": "Email Cliente",
+    "PHONE": "Telefono Cliente",
+    "ITEMS": "Voci Preventivo",
+    "ADD_ITEM": "Aggiungi Voce",
+    "ITEM_DESC": "Descrizione servizio",
+    "TOTAL": "Totale",
+    "SAVE": "Salva Preventivo",
+    "DOWNLOAD_PDF": "Scarica PDF",
+    "HISTORY": "Storico Preventivi",
+    "NO_HISTORY": "Nessun preventivo salvato.",
+    "SUCCESS_SAVE": "Preventivo salvato correttamente!"
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Bentornato",
+    "REGISTER_TITLE": "Crea Account",
+    "LOGIN_SUBTITLE": "Accedi al tuo account",
+    "REGISTER_SUBTITLE": "Unisciti a Hi-Tech",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Conferma Password",
+    "FIRST_NAME": "Nome",
+    "LAST_NAME": "Cognome",
+    "FIRST_NAME_PLACEHOLDER": "Inserisci il tuo nome",
+    "LAST_NAME_PLACEHOLDER": "Inserisci il tuo cognome",
+    "LOGIN_BTN": "Accedi",
+    "REGISTER_BTN": "Registrati",
+    "LOGOUT": "Esci",
+    "GO_TO_REGISTER": "Non hai un account? Registrati",
+    "GO_TO_LOGIN": "Hai già un account? Accedi",
+    "ERROR_MATCH": "Le password non corrispondono",
+    "ERROR_REQUIRED_FIELDS": "Nome e cognome sono obbligatori",
+    "ERROR_GENERIC": "Si è verificato un errore. Riprova.",
+    "SUCCESS_REGISTER": "Account creato con successo! Ora puoi accedere."
   }
 }

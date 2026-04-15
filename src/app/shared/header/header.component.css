@@ -49,6 +49,7 @@
   transition: all 0.3s;
   font-weight: 500;
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 .header .nav ul li a:hover {
   color: white;
@@ -59,11 +60,180 @@
   color: white;
   box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
 }
+.header .nav ul .user-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 2.5rem;
+}
+.header .nav ul .user-menu-container .user-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.header .nav ul .user-menu-container .user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 210, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.header .nav ul .user-menu-container .user-dropdown {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  width: 240px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+.header .nav ul .user-menu-container .user-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 15px;
+  width: 12px;
+  height: 12px;
+  background: rgba(15, 23, 42, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+}
+.header .nav ul .user-menu-container .user-dropdown .user-details {
+  padding-bottom: 0.8rem;
+}
+.header .nav ul .user-menu-container .user-dropdown .user-details .full-name {
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  font-size: 1rem;
+}
+.header .nav ul .user-menu-container .user-dropdown .user-details .user-email {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0.2rem 0 0;
+  word-break: break-all;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem -1rem;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  background: none;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-item.logout {
+  color: #ff4d4d;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-item.logout:hover {
+  background: rgba(255, 77, 77, 0.1);
+}
+.header .nav ul .user-menu-container {
+  margin-left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.header .nav ul .user-menu-container .user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.header .nav ul .user-menu-container .user-dropdown {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 220px;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.8rem;
+  z-index: 1100;
+}
+.header .nav ul .user-menu-container .user-dropdown::before {
+  display: none;
+}
+.header .nav ul .user-menu-container .user-dropdown .user-details {
+  padding-bottom: 0.5rem;
+}
+.header .nav ul .user-menu-container .user-dropdown .user-details .full-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+}
+.header .nav ul .user-menu-container .user-dropdown .user-details .user-email {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem -0.8rem;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-item {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.header .nav ul .user-menu-container .user-dropdown .dropdown-item:hover {
+  background: rgba(255, 77, 77, 0.1);
+}
 .header .nav ul .lang-selector {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
   color: #94a3b8;
   font-size: 0.8rem;
 }
