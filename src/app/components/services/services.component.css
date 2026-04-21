@@ -87,10 +87,10 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s;
-}
-.services .services-grid .service-card .more-link::after {
-  content: "→";
-  transition: transform 0.3s;
+  /*&::after {
+    content: '→';
+    transition: transform 0.3s;
+  }*/
 }
 .services .services-grid .service-card:hover {
   transform: translateY(-10px) scale(1.02);

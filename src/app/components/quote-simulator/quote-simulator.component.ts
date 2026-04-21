@@ -26,7 +26,7 @@ export class QuoteSimulatorComponent implements OnInit {
   userEmail: string = '';
   userName: string = '';
 
-  private loadingService = inject(LoadingService);
+  //private loadingService = inject(LoadingService);
 
   constructor(
     private aiService: AiService,
@@ -39,7 +39,7 @@ export class QuoteSimulatorComponent implements OnInit {
     if (!this.userInput.trim() || this.isLoading) return;
 
     this.isLoading = true;
-    this.loadingService.show();
+    //this.loadingService.show();
     this.aiResponse = null;
     this.submitStatus = null;
 
@@ -50,7 +50,7 @@ export class QuoteSimulatorComponent implements OnInit {
       this.submitStatus = 'error';
     } finally {
       this.isLoading = false;
-      this.loadingService.hide();
+      //this.loadingService.hide();
     }
   }
 
@@ -58,7 +58,7 @@ export class QuoteSimulatorComponent implements OnInit {
     if (!this.userEmail || this.isSending || !this.aiResponse) return;
 
     this.isSending = true;
-    this.loadingService.show();
+   // this.loadingService.show();
 
     // Formattiamo le funzionalità identificate in una lista testuale leggibile
     const featuresList = this.aiResponse.features
@@ -98,7 +98,7 @@ ${this.aiResponse.suggestion}
       this.submitStatus = 'error';
     } finally {
       this.isSending = false;
-      this.loadingService.hide();
+      //this.loadingService.hide();
     }
   }
 }
