@@ -293,8 +293,8 @@
     align-items: center;
   }
   .header .logo img {
-    height: 50px;
-    width: auto;
+    height: auto;
+    width: 21rem;
   }
   .header .mobile-menu-toggle {
     display: flex;
