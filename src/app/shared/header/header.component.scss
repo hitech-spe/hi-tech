@@ -20,8 +20,8 @@
       text-decoration: none;
 
       img {
-        height: 120px;
-        width: auto;
+        height: auto;
+        width: 22rem;
         filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         object-fit: contain;
