@@ -1,46 +1,76 @@
 @if (service) {
-  <section class="service-detail fade-in">
-    <div class="back-nav">
-      <a routerLink="/services" class="back-link">
-        <span class="icon">←</span> {{ 'SERVICE_DETAIL.BACK' | translate }}
-      </a>
-    </div>
-    <div class="detail-header">
-      <div class="icon-wrapper">
-        <span class="service-icon">{{service.icon}}</span>
+  <section class="service-detail-dashboard">
+
+    <div class="animated-panel delay-1">
+      <div class="back-nav">
+        <a [routerLink]="['/home']" fragment="services" class="back-link btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          {{ 'SERVICE_DETAIL.BACK' | translate }}
+        </a>
       </div>
-      <h1 class="text-gradient">{{service.title}}</h1>
-      <p class="lead-text">{{service.description}}</p>
+
+      <div class="detail-header">
+        <div class="icon-wrapper glass-icon">
+          @if(service.id === 'web') {
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          }
+          @if(service.id === 'mobile') {
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          }
+          @if(service.id === 'cloud') {
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+          }
+          @if(service.id === 'social') {
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          }
+          @if(service.id === 'graphic') {
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 0-4-4 1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1V5a3 3 0 0 0-3-3z"></path><circle cx="7.5" cy="10.5" r=".5"></circle><circle cx="10.5" cy="7.5" r=".5"></circle><circle cx="14.5" cy="7.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle></svg>
+          }
+        </div>
+        <h1 class="text-gradient">{{service.title}}</h1>
+        <p class="lead-text">{{service.description}}</p>
+      </div>
     </div>
-    <div class="detail-content">
-      <div class="glass-card main-info">
+
+    <div class="detail-content animated-panel delay-2">
+      <div class="tech-panel main-info">
         <h3>{{ 'SERVICE_DETAIL.SOLUTION_DETAIL' | translate }}</h3>
         <p>{{service.fullContent}}</p>
       </div>
-      <div class="glass-card features-list">
+
+      <div class="tech-panel features-list">
         <h3>{{ 'SERVICE_DETAIL.OFFERING' | translate }}</h3>
         <ul>
           @for (feature of service.features; track feature) {
             <li>
-              <span class="check-icon">✓</span> {{feature}}
+              <div class="check-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <span>{{feature}}</span>
             </li>
           }
         </ul>
       </div>
     </div>
-    <div class="cta-section">
-      <div class="glass-card cta-card">
-        <h3>{{ 'SERVICE_DETAIL.INTERESTED' | translate }}</h3>
-        <p>{{ 'SERVICE_DETAIL.CTA_DESC' | translate }}</p>
-        <a routerLink="/contact" class="btn btn-primary">{{ 'SERVICE_DETAIL.GET_QUOTE' | translate }}</a>
+
+    <div class="cta-section animated-panel delay-3">
+      <div class="tech-panel cta-panel">
+        <div class="cta-glow"></div>
+        <div class="cta-content">
+          <h3>{{ 'SERVICE_DETAIL.INTERESTED' | translate }}</h3>
+          <p>{{ 'SERVICE_DETAIL.CTA_DESC' | translate }}</p>
+          <a routerLink="/contact" class="btn btn-primary">{{ 'SERVICE_DETAIL.GET_QUOTE' | translate }}</a>
+        </div>
       </div>
     </div>
   </section>
 } @else {
-  <div class="not-found">
+  <div class="not-found animated-panel">
+    <div class="icon-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+    </div>
     <h2 class="text-gradient">{{ 'SERVICE_DETAIL.NOT_FOUND' | translate }}</h2>
     <p>{{ 'SERVICE_DETAIL.NOT_FOUND_DESC' | translate }}</p>
     <a routerLink="/services" class="btn btn-outline">{{ 'SERVICE_DETAIL.BACK_TO_LIST' | translate }}</a>
   </div>
 }
-

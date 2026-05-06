@@ -13,11 +13,11 @@
 
   <nav class="nav" [class.open]="isMenuOpen">
     <ul>
-      <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
-      <li><a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
-      <li><a routerLink="/services" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="home" (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="about"  (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="services" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
       <li><a routerLink="/quote-ai" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="contact"  (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
 
       @if (userData$ | async; as user) {
         <li><a routerLink="/quotes" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTES' | translate }}</a></li>

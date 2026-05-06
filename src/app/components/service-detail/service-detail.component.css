@@ -1,89 +1,160 @@
-.service-detail {
-  padding: 4rem 0;
-  max-width: 1000px;
+.service-detail-dashboard {
+  padding: 4rem 1rem;
+  max-width: 1200px;
   margin: 0 auto;
+  /* --- HEADER & BACK NAV --- */
 }
-.service-detail .back-nav {
-  margin-bottom: 2rem;
+.service-detail-dashboard .back-nav {
+  margin-bottom: 3rem;
 }
-.service-detail .back-nav .back-link {
-  color: var(--text-muted);
-  text-decoration: none;
-  display: flex;
+.service-detail-dashboard .back-nav .back-link {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: color 0.3s;
-  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
 }
-.service-detail .back-nav .back-link:hover {
-  color: var(--primary);
-}
-.service-detail .detail-header {
+.service-detail-dashboard .detail-header {
   text-align: center;
   margin-bottom: 4rem;
 }
-.service-detail .detail-header .icon-wrapper {
-  margin-bottom: 1.5rem;
+.service-detail-dashboard .detail-header .icon-wrapper.glass-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 2rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 210, 255, 0.1);
 }
-.service-detail .detail-header .icon-wrapper .service-icon {
-  font-size: 5rem;
+.service-detail-dashboard .detail-header .icon-wrapper.glass-icon .tech-icon {
+  color: var(--primary);
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.4));
 }
-.service-detail .detail-header h1 {
-  font-size: clamp(2.5rem, 8vw, 4rem);
+.service-detail-dashboard .detail-header .badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 210, 255, 0.08);
+  color: var(--primary);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.service-detail-dashboard .detail-header h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
   margin-bottom: 1rem;
 }
-.service-detail .detail-header .lead-text {
-  font-size: 1.4rem;
+.service-detail-dashboard .detail-header .lead-text {
+  font-size: 1.25rem;
   color: var(--text-muted);
   max-width: 700px;
   margin: 0 auto;
+  line-height: 1.6;
 }
-.service-detail .detail-content {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 2rem;
-  margin-bottom: 4rem;
+.service-detail-dashboard {
+  /* --- PANNELLI COMUNI --- */
 }
-.service-detail .detail-content h3 {
+.service-detail-dashboard .tech-panel {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.service-detail-dashboard .tech-panel:hover {
+  border-color: rgba(0, 210, 255, 0.2);
+}
+.service-detail-dashboard .tech-panel h3 {
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
-}
-.service-detail .detail-content .main-info p {
-  font-size: 1.1rem;
-  line-height: 1.8;
   color: var(--text-light);
 }
-.service-detail .detail-content .features-list ul {
-  list-style: none;
-  padding: 0;
+.service-detail-dashboard {
+  /* --- CONTENUTO (Griglia Asimmetrica) --- */
 }
-.service-detail .detail-content .features-list ul li {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
+.service-detail-dashboard .detail-content {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.service-detail-dashboard .detail-content .main-info p {
   font-size: 1.1rem;
-}
-.service-detail .detail-content .features-list ul li .check-icon {
-  color: var(--primary);
-  font-weight: bold;
-}
-.service-detail .cta-section .cta-card {
-  text-align: center;
-  background: linear-gradient(135deg, rgba(0, 210, 255, 0.05), rgba(58, 123, 213, 0.05));
-  border: 1px solid rgba(0, 210, 255, 0.2);
-}
-.service-detail .cta-section .cta-card h3 {
-  margin-bottom: 1rem;
-}
-.service-detail .cta-section .cta-card p {
-  margin-bottom: 2rem;
+  line-height: 1.8;
   color: var(--text-muted);
 }
+.service-detail-dashboard .detail-content .features-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.service-detail-dashboard .detail-content .features-list ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+  color: var(--text-light);
+}
+.service-detail-dashboard .detail-content .features-list ul li .check-wrapper {
+  background: rgba(0, 210, 255, 0.1);
+  color: var(--primary);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.service-detail-dashboard {
+  /* --- CTA SECTION --- */
+}
+.service-detail-dashboard .cta-section .cta-panel {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  padding: 4rem 2rem;
+}
+.service-detail-dashboard .cta-section .cta-panel .cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 100px;
+  background: var(--primary);
+  filter: blur(100px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.service-detail-dashboard .cta-section .cta-panel .cta-content {
+  position: relative;
+  z-index: 2;
+}
+.service-detail-dashboard .cta-section .cta-panel .cta-content p {
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
 
+/* --- ERROR PAGE 404 --- */
 .not-found {
   text-align: center;
-  padding: 10rem 0;
+  padding: 10rem 1rem;
+}
+.not-found .icon-wrapper {
+  margin-bottom: 2rem;
 }
 .not-found h2 {
   font-size: 3rem;
@@ -92,10 +163,42 @@
 .not-found p {
   margin-bottom: 2.5rem;
   color: var(--text-muted);
+  font-size: 1.2rem;
 }
 
-@media (max-width: 850px) {
-  .service-detail .detail-content {
+/* =========================================
+   ANIMAZIONI DI INGRESSO (On Load)
+========================================= */
+.animated-panel {
+  opacity: 0;
+  animation: fadeInUpDetail 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.delay-2 {
+  animation-delay: 0.3s;
+}
+
+.delay-3 {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUpDetail {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+  .service-detail-dashboard .detail-content {
     grid-template-columns: 1fr;
   }
 }

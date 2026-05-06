@@ -1,40 +1,70 @@
-<section class="services fade-in">
-  <h2 class="section-title">{{ 'SERVICES.TITLE' | translate }} <span class="text-gradient">{{ 'SERVICES.SUBTITLE' | translate }}</span></h2>
+<div class="services-dashboard-container">
+
+  <div class="section-header animated-header">
+    <h2 class="section-title">{{ 'SERVICES.TITLE' | translate }} <span class="text-gradient">{{ 'SERVICES.SUBTITLE' | translate }}</span></h2>
+  </div>
+
   <div class="services-grid">
-    <div class="glass-card service-card" routerLink="/services/web">
+
+    <div class="glass-card service-card animated-card delay-1" routerLink="/services/web">
       <div class="card-bg"></div>
-      <div class="icon">🚀</div>
+      <div class="icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      </div>
       <h3>{{ 'SERVICES.WEB.TITLE' | translate }}</h3>
       <p>{{ 'SERVICES.WEB.DESC' | translate }}</p>
-      <a class="more-link">{{ 'SERVICES.WEB.MORE' | translate }}</a>
+      <div class="card-footer">
+        <a class="more-link">{{ 'SERVICES.WEB.MORE' | translate }} </a>
+      </div>
     </div>
-    <div class="glass-card service-card" routerLink="/services/mobile">
+
+    <div class="glass-card service-card animated-card delay-2" routerLink="/services/mobile">
       <div class="card-bg"></div>
-      <div class="icon">📱</div>
+      <div class="icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+      </div>
       <h3>{{ 'SERVICES.MOBILE.TITLE' | translate }}</h3>
       <p>{{ 'SERVICES.MOBILE.DESC' | translate }}</p>
-      <a class="more-link">{{ 'SERVICES.MOBILE.MORE' | translate }}</a>
+      <div class="card-footer">
+        <a class="more-link">{{ 'SERVICES.MOBILE.MORE' | translate }} </a>
+      </div>
     </div>
-    <div class="glass-card service-card" routerLink="/services/cloud">
+
+    <div class="glass-card service-card animated-card delay-3" routerLink="/services/cloud">
       <div class="card-bg"></div>
-      <div class="icon">☁️</div>
+      <div class="icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+      </div>
       <h3>{{ 'SERVICES.CLOUD.TITLE' | translate }}</h3>
       <p>{{ 'SERVICES.CLOUD.DESC' | translate }}</p>
-      <a class="more-link">{{ 'SERVICES.CLOUD.MORE' | translate }}</a>
+      <div class="card-footer">
+        <a class="more-link">{{ 'SERVICES.CLOUD.MORE' | translate }} </a>
+      </div>
     </div>
-    <div class="glass-card service-card" routerLink="/services/social">
+
+    <div class="glass-card service-card animated-card delay-4" routerLink="/services/social">
       <div class="card-bg"></div>
-      <div class="icon">📱</div>
+      <div class="icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+      </div>
       <h3>{{ 'SERVICES.SOCIAL.TITLE' | translate }}</h3>
       <p>{{ 'SERVICES.SOCIAL.DESC' | translate }}</p>
-      <a class="more-link">{{ 'SERVICES.SOCIAL.MORE' | translate }}</a>
+      <div class="card-footer">
+        <a class="more-link">{{ 'SERVICES.SOCIAL.MORE' | translate }} </a>
+      </div>
     </div>
-    <div class="glass-card service-card" routerLink="/services/graphic">
+
+    <div class="glass-card service-card animated-card delay-5" routerLink="/services/graphic">
       <div class="card-bg"></div>
-      <div class="icon">🎨</div>
+      <div class="icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 0-4-4 1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1V5a3 3 0 0 0-3-3z"></path><circle cx="7.5" cy="10.5" r=".5"></circle><circle cx="10.5" cy="7.5" r=".5"></circle><circle cx="14.5" cy="7.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle></svg>
+      </div>
       <h3>{{ 'SERVICES.GRAPHIC.TITLE' | translate }}</h3>
       <p>{{ 'SERVICES.GRAPHIC.DESC' | translate }}</p>
-      <a class="more-link">{{ 'SERVICES.GRAPHIC.MORE' | translate }}</a>
+      <div class="card-footer">
+        <a class="more-link">{{ 'SERVICES.GRAPHIC.MORE' | translate }} </a>
+      </div>
     </div>
+
   </div>
-</section>
+</div>

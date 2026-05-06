@@ -1,48 +1,197 @@
-.about {
-  padding: 4rem 0;
-  text-align: center;
+.about-dashboard-container {
+  position: relative;
+  width: 100%;
 
-  .section-title {
-    font-size: clamp(2.5rem, 6vw, 3.5rem);
-    margin-bottom: 3rem;
-  }
+  /* --- HEADER SEZIONE --- */
+  .section-header {
+    margin-bottom: 2.5rem;
 
-  .about-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    text-align: left;
-
-    .about-card p {
-      margin-bottom: 1.5rem;
-      font-size: 1.2rem;
-      color: var(--text-light);
-      line-height: 1.8;
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0, 210, 255, 0.08);
+      color: var(--primary, #00d2ff); /* Fallback aggiunto */
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(0, 210, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
 
-    .mission-card {
-      background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(58, 123, 213, 0.1));
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin: 0;
+      line-height: 1.2;
+    }
+  }
+
+  /* --- GRIGLIA --- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr; /* Proporzione asimmetrica moderna */
+    gap: 2rem;
+
+    /* Base per i pannelli interni */
+    .tech-panel {
+      position: relative;
+      background: rgba(15, 23, 42, 0.5); /* Sfondo scuro che si stacca dalla glass-card madre */
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2.5rem;
+      overflow: hidden;
+      transition: all 0.4s ease;
+
+      &:hover {
+        border-color: rgba(0, 210, 255, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -10px rgba(0, 210, 255, 0.15);
+      }
+    }
+
+    /* --- PANNELLO TESTO --- */
+    .text-panel {
+      .highlight-text {
+        font-size: 1.2rem;
+        color: var(--text-light, #f8fafc);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+      }
+
+      .muted-text {
+        font-size: 1.05rem;
+        color: var(--text-muted, #94a3b8);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      /* Bagliore di fondo sfocato */
+      .panel-glow {
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 200px;
+        height: 200px;
+        background: var(--primary, #00d2ff);
+        filter: blur(100px);
+        opacity: 0.1;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+    }
+
+    /* --- PANNELLO MISSION --- */
+    .mission-panel {
+      text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
+      justify-content: center;
+      /* Gradiente verticale per la mission */
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(0, 210, 255, 0.05) 100%);
+      border: 1px solid rgba(0, 210, 255, 0.15);
 
-      .icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+      .icon-wrapper {
+        width: 70px;
+        height: 70px;
+        background: rgba(0, 210, 255, 0.1);
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 1.5rem;
+        box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.2);
+
+        svg {
+          width: 35px;
+          height: 35px;
+        }
       }
 
       h3 {
+        font-size: 1.3rem;
+        color: var(--text-light, #f8fafc);
         margin-bottom: 1rem;
-        color: var(--primary);
+      }
+
+      p {
+        color: var(--text-muted, #94a3b8);
+        line-height: 1.6;
+        font-size: 0.95rem;
+        margin: 0;
       }
     }
   }
 }
 
+/* Animazione di entrata dal basso (già definita globalmente, ma coperta qui per sicurezza) */
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUpAbout 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUpAbout {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 992px) {
-  .about .about-grid {
-    grid-template-columns: 1fr;
+  .about-dashboard-container {
+    .section-header { text-align: center; }
+    .about-grid { grid-template-columns: 1fr; }
+  }
+}
+
+/* =========================================
+   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+========================================= */
+
+/* 1. Nascondiamo gli elementi di default */
+.animated-header,
+.animated-left,
+.animated-right {
+  opacity: 0;
+}
+
+/* 2. Quando il genitore riceve la classe .is-visible dallo scroll, partono in sequenza! */
+:host-context(.is-visible) {
+  .animated-header {
+    animation: aboutRevealLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+  }
+
+  .animated-left {
+    /* Il testo di sinistra entra quasi subito (0.3s) */
+    animation: aboutRevealLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+  }
+
+  .animated-right {
+    /* Il pannello di destra aspetta che quello di sinistra sia quasi fermo (0.8s) per entrare */
+    animation: aboutRevealRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+  }
+}
+
+/* Keyframes per Desktop */
+@keyframes aboutRevealLeft {
+  0% { opacity: 0; transform: translateX(-50px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes aboutRevealRight {
+  0% { opacity: 0; transform: translateX(80px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+/* Fallback per Mobile (entrata verticale a cascata per evitare sbavature laterali) */
+@media (max-width: 992px) {
+  @keyframes aboutRevealLeft {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes aboutRevealRight {
+    0% { opacity: 0; transform: translateY(40px); filter: blur(5px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
   }
 }

@@ -1,81 +1,50 @@
-<section class="hero">
-  <div class="hero-content">
-    <h1 class="fade-in">{{ 'HOME.HERO.TITLE' | translate }} <span class="text-gradient">{{ 'HOME.HERO.SUBTITLE' | translate }}</span></h1>
-    <p class="fade-in-delayed">{{ 'HOME.HERO.DESC' | translate }}</p>
-    <div class="cta fade-in-delayed">
-      <a routerLink="/services" class="btn btn-primary">{{ 'HOME.HERO.CTA_SERVICES' | translate }}</a>
-      <a routerLink="/contact" class="btn btn-outline">{{ 'HOME.HERO.CTA_CONTACT' | translate }}</a>
-    </div>
-  </div>
-  <div class="hero-bg-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-  </div>
-</section>
+<div class="dashboard-layout">
 
-<section class="features">
-  <div class="glass-card">
-    <h3>{{ 'HOME.FEATURES.FAST.TITLE' | translate }}</h3>
-    <p>{{ 'HOME.FEATURES.FAST.DESC' | translate }}</p>
-  </div>
-  <div class="glass-card">
-    <h3>{{ 'HOME.FEATURES.CUTTING.TITLE' | translate }}</h3>
-    <p>{{ 'HOME.FEATURES.CUTTING.DESC' | translate }}</p>
-  </div>
-  <div class="glass-card">
-    <h3>{{ 'HOME.FEATURES.SECURE.TITLE' | translate }}</h3>
-    <p>{{ 'HOME.FEATURES.SECURE.DESC' | translate }}</p>
-  </div>
-</section>
+  <main class="main-view">
 
-<!--section class="stats fade-in">
-  <div class="stat-item">
-    <span class="stat-number text-gradient">50+</span>
-    <span class="stat-label">{{ 'HOME.STATS.PROJECTS' | translate }}</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number text-gradient">30+</span>
-    <span class="stat-label">{{ 'HOME.STATS.CLIENTS' | translate }}</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number text-gradient">10+</span>
-    <span class="stat-label">{{ 'HOME.STATS.EXPERIENCE' | translate }}</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number text-gradient">15+</span>
-    <span class="stat-label">{{ 'HOME.STATS.TEAM' | translate }}</span>
-  </div>
-</section>
+    <section id="home" class="hero dashboard-hero-split">
+      <div class="hero-content-split">
 
-<section class="testimonials fade-in">
-  <h2 class="section-title text-center">
-    {{ 'HOME.TESTIMONIALS.TITLE' | translate }}
-    <span class="text-gradient">{{ 'HOME.TESTIMONIALS.SUBTITLE' | translate }}</span>
-  </h2>
-  <div class="testimonials-grid">
-    <div class="glass-card testimonial-card">
-      <div class="quote-icon">“</div>
-      <p class="testimonial-text">{{ 'HOME.TESTIMONIALS.1.TEXT' | translate }}</p>
-      <div class="testimonial-author">
-        <strong>{{ 'HOME.TESTIMONIALS.1.NAME' | translate }}</strong>
-        <span>{{ 'HOME.TESTIMONIALS.1.ROLE' | translate }}</span>
+        <div class="hero-text-side cinematic-text-slide">
+          <h1 class="fade-in">
+            {{ 'HOME.HERO.TITLE' | translate }}
+            <span class="text-gradient">{{ 'HOME.HERO.SUBTITLE' | translate }}</span>
+          </h1>
+          <p class="fade-in-delayed">{{ 'HOME.HERO.DESC' | translate }}</p>
+          <div class="cta fade-in-delayed">
+            <a routerLink="/services" class="btn btn-primary">{{ 'HOME.HERO.CTA_SERVICES' | translate }}</a>
+            <a routerLink="/contact" class="btn btn-outline">{{ 'HOME.HERO.CTA_CONTACT' | translate }}</a>
+          </div>
+        </div>
+
+        <div class="hero-image-side cinematic-image-reveal">
+          <img src="assets/images/dashboard.jpeg" alt="Hi-Tech Core Processing Unit" class="dashboard-core-img">
+        </div>
+
       </div>
-    </div>
-    <div class="glass-card testimonial-card">
-      <div class="quote-icon">“</div>
-      <p class="testimonial-text">{{ 'HOME.TESTIMONIALS.2.TEXT' | translate }}</p>
-      <div class="testimonial-author">
-        <strong>{{ 'HOME.TESTIMONIALS.2.NAME' | translate }}</strong>
-        <span>{{ 'HOME.TESTIMONIALS.2.ROLE' | translate }}</span>
+
+      <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
       </div>
+    </section>
+
+    <div class="content-sections">
+
+      <section id="about" #animatedSection class="glass-card section-wrapper scroll-animate">
+        <app-about></app-about>
+      </section>
+
+      <section id="services" #animatedSection class="glass-card section-wrapper scroll-animate delay-1">
+        <app-services></app-services>
+      </section>
+
+      <section id="contact" #animatedSection class="glass-card section-wrapper scroll-animate delay-2">
+        <app-contact></app-contact>
+      </section>
+
     </div>
-    <div class="glass-card testimonial-card">
-      <div class="quote-icon">“</div>
-      <p class="testimonial-text">{{ 'HOME.TESTIMONIALS.3.TEXT' | translate }}</p>
-      <div class="testimonial-author">
-        <strong>{{ 'HOME.TESTIMONIALS.3.NAME' | translate }}</strong>
-        <span>{{ 'HOME.TESTIMONIALS.3.ROLE' | translate }}</span>
-      </div>
-    </div>
-  </div>
-</section-->
+
+  </main>
+</div>
