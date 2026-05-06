@@ -26,8 +26,7 @@ interface Service {
   styleUrls: ['./service-detail.component.scss'],
   imports: [
     RouterLink,
-    TranslateModule,
-    UpperCasePipe
+    TranslateModule
   ],
   standalone: true
 })
