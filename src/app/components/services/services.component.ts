@@ -1,6 +1,6 @@
-import { Component, HostListener, ElementRef } from '@angular/core';
-import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
+import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { TranslateModule } from "@ngx-translate/core";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-services',
@@ -12,19 +12,42 @@ import {RouterLink} from "@angular/router";
   ],
   standalone: true
 })
-export class ServicesComponent {
+export class ServicesComponent implements AfterViewInit, OnDestroy {
+  private observer: IntersectionObserver | null = null;
+
   constructor(private el: ElementRef) {}
 
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(e: MouseEvent) {
-    const cards = this.el.nativeElement.querySelectorAll('.service-card');
-    for (const card of cards) {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+  ngAfterViewInit() {
+    // Configuriamo l'osservatore per far scattare l'animazione quando la riga è visibile al 20%
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
 
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Aggiunge la classe che fa partire le animazioni interne
+          entry.target.classList.add('is-visible');
+
+          // Se vuoi che l'animazione si ripeta scendendo e salendo, commenta la riga sotto.
+          // Se vuoi che avvenga solo la prima volta, lasciala decommentata:
+          this.observer?.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    // Diciamo all'Observer di guardare tutti gli elementi con la classe 'scroll-reveal'
+    const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
+    elements.forEach((el: Element) => {
+      this.observer?.observe(el);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
     }
   }
 }
