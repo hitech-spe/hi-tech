@@ -1,17 +1,332 @@
-/* Error: Expected digit.
- *     ,
- * 334 |   100% { filter: brightness(0.) blur(2px); }
- *     |                               ^
- *     '
- *   services.component.scss 334:31  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Expected digit.\a     \2577 \a 334 \2502    100% { filter: brightness(0.) blur(2px); }\a     \2502                                ^\a     \2575 \a   services.component.scss 334:31  root stylesheet";
+@charset "UTF-8";
+.services-showcase-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* --- HEADER SEZIONE --- */
 }
+.services-showcase-container .section-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.services-showcase-container .section-header .badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 210, 255, 0.08);
+  color: var(--primary, #00d2ff);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.services-showcase-container .section-header .section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin: 0;
+  line-height: 1.2;
+}
+.services-showcase-container {
+  /* --- LISTA SERVIZI --- */
+}
+.services-showcase-container .services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem; /* Molto spazio tra una riga e l'altra */
+}
+.services-showcase-container {
+  /* --- SINGOLA RIGA --- */
+}
+.services-showcase-container .service-row {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  cursor: pointer;
+  /* Quando la classe reverse è attiva, il testo va a sinistra e l'immagine a destra */
+}
+.services-showcase-container .service-row.reverse {
+  flex-direction: row-reverse;
+}
+.services-showcase-container .service-row:hover .service-image img {
+  transform: scale(1.05);
+}
+.services-showcase-container .service-row:hover .service-image .image-overlay {
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.6) 0%, rgba(0, 210, 255, 0.2) 100%);
+}
+.services-showcase-container .service-row:hover .explore-btn {
+  color: var(--primary);
+}
+.services-showcase-container .service-row:hover .explore-btn .arrow {
+  transform: translateX(5px);
+}
+.services-showcase-container {
+  /* LATO IMMAGINE */
+}
+.services-showcase-container .service-image {
+  flex: 1;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.services-showcase-container .service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.services-showcase-container .service-image .image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.1) 100%);
+  transition: background 0.5s ease;
+}
+.services-showcase-container {
+  /* Assicuriamo che il gradiente dell'overlay sia corretto per le righe reverse */
+}
+.services-showcase-container .service-row.reverse .image-overlay {
+  background: linear-gradient(270deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.1) 100%);
+}
+.services-showcase-container {
+  /* LATO TESTO */
+}
+.services-showcase-container .service-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+.services-showcase-container .service-content .tech-icon-small {
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 210, 255, 0.1);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+.services-showcase-container .service-content h3 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+.services-showcase-container .service-content p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+.services-showcase-container .service-content .explore-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+.services-showcase-container .service-content .explore-btn .arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.3s;
+}
+
+/* =========================================
+   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+========================================= */
+/* Nascosti di default finché non sono visibili (scroll-reveal) */
+.scroll-reveal .animated-header,
+.scroll-reveal .animated-img,
+.scroll-reveal .animated-text {
+  opacity: 0;
+}
+
+/* 1. HEADER (Appare dal basso) */
+.scroll-reveal.is-visible .animated-header {
+  animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* 2. RIGA NORMALE (Immagine a SINISTRA, Testo a DESTRA) */
+.service-row.scroll-reveal.is-visible:not(.reverse) .animated-img {
+  /* L'immagine appare subito da Sinistra */
+  animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.service-row.scroll-reveal.is-visible:not(.reverse) .animated-text {
+  /* Il testo appare da Destra con 0.3s di ritardo! */
+  animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+/* 3. RIGA REVERSE (Immagine a DESTRA, Testo a SINISTRA) */
+.service-row.scroll-reveal.is-visible.reverse .animated-img {
+  /* L'immagine appare subito da Destra */
+  animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.service-row.scroll-reveal.is-visible.reverse .animated-text {
+  /* Il testo appare da Sinistra con 0.3s di ritardo! */
+  animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+/* --- KEYFRAMES --- */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+/* --- RESPONSIVE MOBILE (OVERLAP IMMAGINE E TESTO) --- */
+@media (max-width: 992px) {
+  .services-showcase-container .services-list {
+    gap: 3rem;
+  }
+  .services-showcase-container .service-row, .services-showcase-container .service-row.reverse {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    /* Background di sicurezza mentre carica la foto da internet */
+    background: rgba(15, 23, 42, 0.8);
+  }
+  .services-showcase-container {
+    /* 1. IMMAGINE */
+  }
+  .services-showcase-container .service-image {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: 380px;
+    z-index: 1;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    /* IL TRUCCO È QUI: Spegniamo il gradiente scuro del desktop! */
+  }
+  .services-showcase-container .service-image .image-overlay {
+    display: none !important;
+  }
+  .services-showcase-container .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1) blur(0px);
+    will-change: filter, transform;
+  }
+  .services-showcase-container {
+    /* 2. TESTO */
+  }
+  .services-showcase-container .service-content {
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 2;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+  .services-showcase-container .service-content .tech-icon-small {
+    margin: 0 auto 1.5rem;
+  }
+  .services-showcase-container .service-content h3 {
+    font-size: 1.8rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+  }
+  .services-showcase-container .service-content p {
+    color: #f8fafc;
+    font-size: 1rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    margin-bottom: 2rem;
+  }
+  .services-showcase-container {
+    /* --- COREOGRAFIA ANIMAZIONI MOBILE VELOCIZZATA --- */
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible:not(.reverse) .animated-img,
+  .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-img {
+    /* Il contenitore compare subito in 0.6 secondi */
+    animation: mobileWrapperReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s both !important;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible:not(.reverse) .animated-img img,
+  .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-img img {
+    /* L'offuscamento inizia molto prima */
+    animation: mobileImgBlur 1s ease-in-out 0s both !important;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible:not(.reverse) .animated-text,
+  .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-text {
+    /* Il testo scatta molto prima: dopo solo 0.5 secondi! */
+    animation: mobileTextUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both !important;
+  }
+}
+/* --- KEYFRAMES SPECIFICI PER MOBILE --- */
+/* Apparizione della card intera */
+@keyframes mobileWrapperReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Gestione Filtro Immagine */
+@keyframes mobileImgBlur {
+  /* Resta nitida solo per la prima frazione di secondo, poi accompagna il testo offuscandosi */
+  0% {
+    filter: brightness(1) blur(0px);
+  }
+  30% {
+    filter: brightness(1) blur(0px);
+  }
+  100% {
+    filter: brightness(0.5) blur(2px);
+  }
+}
+/* Salita del testo */
+@keyframes mobileTextUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*# sourceMappingURL=services.component.css.map */
