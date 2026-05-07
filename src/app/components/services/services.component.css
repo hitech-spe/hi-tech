@@ -207,14 +207,12 @@
     filter: blur(0);
   }
 }
-/* --- RESPONSIVE MOBILE (FAIL-SAFE ASSOLUTO - SEMPRE VISIBILE) --- */
+/* --- RESPONSIVE MOBILE (ANIMAZIONE IN SEQUENZA SICURA iOS) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
-    /* 1. RESET TOTALE: Spegniamo tutte le animazioni desktop */
+    /* 1. RESET TOTALE DESKTOP */
   }
-  .services-showcase-container .animated-header,
-  .services-showcase-container .animated-img,
-  .services-showcase-container .animated-text {
+  .services-showcase-container .animated-header, .services-showcase-container .animated-img, .services-showcase-container .animated-text {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -224,10 +222,9 @@
     gap: 3rem;
   }
   .services-showcase-container {
-    /* 2. LA CARD: SEMPRE VISIBILE DI DEFAULT */
+    /* 2. LA CARD */
   }
-  .services-showcase-container .service-row,
-  .services-showcase-container .service-row.reverse {
+  .services-showcase-container .service-row, .services-showcase-container .service-row.reverse {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -238,18 +235,24 @@
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
     background: #0f172a;
-    /* FIX SALVAVITA: Partiamo da opacity 1 e transform: none.
-       Se il JS fallisce, la card si vede comunque. */
     opacity: 1;
-    transform: none;
-    /* Se la classe .is-visible viene aggiunta, facciamo l'animazione */
+    transform: none; /* Sicurezza base */
+    /* LA REGIA: Quando appare nello schermo, partono le 3 animazioni! */
   }
-  .services-showcase-container .service-row.scroll-reveal.is-visible,
-  .services-showcase-container .service-row.reverse.scroll-reveal.is-visible {
-    animation: safeMobileCardReveal 0.6s ease-out both;
+  .services-showcase-container .service-row.scroll-reveal.is-visible, .services-showcase-container .service-row.reverse.scroll-reveal.is-visible {
+    /* La card intera compare subito */
+    animation: seqCardReveal 0.6s ease-out both;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible .image-overlay, .services-showcase-container .service-row.reverse.scroll-reveal.is-visible .image-overlay {
+    /* L'ombra aspetta 1 secondo prima di scurire l'immagine */
+    animation: seqOverlayFade 0.6s ease-out 1s both;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible .service-content, .services-showcase-container .service-row.reverse.scroll-reveal.is-visible .service-content {
+    /* Il testo aspetta 1 secondo ed entra INSIEME all'ombra */
+    animation: seqTextReveal 0.6s ease-out 1s both;
   }
   .services-showcase-container {
-    /* 3. IMMAGINE: Niente filtri per evitare crash GPU su iOS */
+    /* 3. IMMAGINE (Rigorosamente senza Blur!) */
   }
   .services-showcase-container .service-image {
     grid-column: 1;
@@ -268,15 +271,16 @@
     filter: none !important;
   }
   .services-showcase-container .service-image {
-    /* Pellicola scura solida per far leggere il testo */
+    /* La pellicola scura che animeremo al posto del blur */
   }
   .services-showcase-container .service-image .image-overlay {
     display: block !important;
-    background: rgba(15, 23, 42, 0.7) !important;
+    background: rgba(15, 23, 42, 0.8) !important;
+    opacity: 0; /* Inizia trasparente, così vedi la foto pulita */
     transition: none !important;
   }
   .services-showcase-container {
-    /* 4. TESTO: Sopra l'immagine, sempre visibile */
+    /* 4. TESTO */
   }
   .services-showcase-container .service-content {
     grid-column: 1;
@@ -285,7 +289,7 @@
     padding: 2rem 1.5rem;
     text-align: center;
     width: 100%;
-    opacity: 1 !important;
+    opacity: 1;
   }
   .services-showcase-container .service-content .tech-icon-small {
     margin: 0 auto 1.5rem;
@@ -300,6 +304,37 @@
     font-size: 1rem;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
     margin-bottom: 2rem;
+  }
+}
+/* --- KEYFRAMES DELLA SEQUENZA --- */
+@keyframes seqCardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes seqOverlayFade {
+  /* L'uso di "both" su assegna l'opacity a 0 dal secondo 0 al secondo 1 */
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes seqTextReveal {
+  /* Il testo resta invisibile in basso, poi sale scoccato il ritardo */
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 /* --- KEYFRAME SICURO (UNICO) --- */
