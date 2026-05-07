@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
 import { RouterLink } from "@angular/router";
 import { ServicesComponent } from "../services/services.component";
@@ -18,37 +18,47 @@ import { ContactComponent } from "../contact/contact.component";
   ],
   standalone: true
 })
-export class HomeComponent implements AfterViewInit {
-  // Selezioniamo tutti gli elementi che hanno la classe 'scroll-animate'
-  @ViewChildren('animatedSection') animatedSections!: QueryList<ElementRef>;
+export class HomeComponent implements AfterViewInit, OnDestroy {
+  private observer: IntersectionObserver | null = null;
+
+  // Iniettiamo ElementRef per poter scansionare il DOM del componente
+  constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
-    this.setupIntersectionObserver();
+    // Un piccolo ritardo per assicurarci che Angular abbia renderizzato tutto
+    setTimeout(() => {
+      this.setupIntersectionObserver();
+    }, 100);
   }
 
   private setupIntersectionObserver() {
     const options = {
       root: null,
-      /* rootMargin anticipa il caricamento di 50px prima che entri nello schermo,
-         aiutando la fluidità su mobile */
       rootMargin: '50px',
-      threshold: 0.05 /* Abbassato al 5%: scatta subito senza far faticare il telefono */
+      threshold: 0.05
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    this.observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-
-          // FONDAMENTALE PER IL MOBILE: Smetti di osservare l'elemento!
-          // Evita che scatti a ripetizione andando su e giù, salvando tantissima batteria e RAM.
+          // Smettiamo di osservare per salvare batteria su mobile
           observer.unobserve(entry.target);
         }
       });
     }, options);
 
-    this.animatedSections.forEach(section => {
-      observer.observe(section.nativeElement);
+    // CERCHIAMO ENTRAMBE LE CLASSI (scroll-reveal per la hero, scroll-animate per le altre)
+    const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal, .scroll-animate');
+
+    elements.forEach((section: Element) => {
+      this.observer?.observe(section);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 }
