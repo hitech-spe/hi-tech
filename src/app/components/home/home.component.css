@@ -496,7 +496,7 @@
   }
   /* Regoliamo l'altezza del sormonto per schermi minuscoli */
   .hero-text-side p {
-    margin-top: -240px !important;
+    margin-top: -312px !important;
     color: white !important;
   }
 }
