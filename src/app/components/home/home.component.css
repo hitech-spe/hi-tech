@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* =========================================
    1. LAYOUT PRINCIPALE DASHBOARD
 ========================================= */
@@ -274,15 +275,92 @@
   }
 }
 /* =========================================
+   4. ANIMAZIONI BASE (Ottimizzate per Mobile)
+========================================= */
+@keyframes drift {
+  from {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(60px, 40px) rotate(15deg);
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.fade-in-delayed {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* La classe usata per lo scroll-reveal generico */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px); /* Ridotto da 60 a 40 per renderlo meno "pesante" */
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* RIMOSSO will-change. È controproducente se usato su troppi elementi */
+}
+
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate.delay-1.is-visible {
+  transition-delay: 0.1s;
+}
+
+.scroll-animate.delay-2.is-visible {
+  transition-delay: 0.2s;
+}
+
+/* =========================================
    6. RESPONSIVE DESIGN (Mobile & Tablet)
 ========================================= */
 @media (max-width: 1024px) {
-  /* --- SALVA-PRESTAZIONI MOBILE --- */
-  /* Spegniamo le forme sfocate pesanti che fanno laggare lo scroll su smartphone */
-  .dashboard-hero-split .hero-bg-shapes {
+  /* --- SALVA-PRESTAZIONI MOBILE (IL SEGRETO DELLO SCROLL FLUIDO) --- */
+  /* Disattiviamo COMPLETAMENTE le forme sfocate, non solo 'display: none' */
+  .dashboard-hero-split .hero-bg-shapes,
+  .dashboard-hero-split .hero-bg-shapes * {
     display: none !important;
+    animation: none !important;
   }
-  /* --- Nascondiamo completamente l'immagine --- */
+  /* Spegniamo le animazioni cinematiche desktop per sicurezza */
+  .cinematic-text-slide,
+  .cinematic-image-reveal {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  /* Riduciamo l'impatto dello scroll-animate su mobile */
+  .scroll-animate {
+    transform: translateY(20px); /* Un micro-movimento su mobile è sufficiente */
+    transition-duration: 0.5s; /* Animazione più veloce = meno calcolo */
+  }
+  /* ... [Mantieni il resto del tuo codice Responsive Design esistente per layout, hero-split, text-center ecc.] ... */
   .dashboard-hero-split .hero-image-side {
     display: none;
   }
@@ -292,21 +370,19 @@
   }
   .dashboard-hero-split .hero-content-split {
     flex-direction: column;
-    justify-content: center; /* Centriamo verticalmente */
-    align-items: center; /* Centriamo orizzontalmente */
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
   .dashboard-hero-split .hero-text-side {
     max-width: 100%;
     text-align: center;
-    /* Resettiamo qualsiasi animazione di slittamento orizzontale */
     transform: none !important;
   }
   .dashboard-hero-split .hero-text-side h1 {
     text-align: center;
     font-size: clamp(1.8rem, 8vw, 3.5rem);
     margin-bottom: 1rem;
-    /* Gestione per parole lunghe come "Innovazione" */
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
@@ -319,6 +395,8 @@
   }
   .content-sections {
     padding: 2rem 1rem;
+    /* FIX: Assicuriamo che l'overflow orizzontale non rompa lo scroll verticale */
+    overflow-x: hidden;
   }
   .content-sections .two-col-grid {
     grid-template-columns: 1fr;

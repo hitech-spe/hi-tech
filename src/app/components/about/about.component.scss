@@ -243,15 +243,30 @@
   100% { opacity: 1; }
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- RESPONSIVE MOBILE (STATICO, SICURO E SEMPRE VISIBILE PER iOS) --- */
 @media (max-width: 992px) {
   .about-showcase-container {
 
+    /* 1. RESET ASSOLUTO: Spegniamo tutte le animazioni e forziamo la visibilità */
+    .animated-header,
+    .animated-image,
+    .animated-text,
+    :host-context(.is-visible) .animated-image,
+    :host-context(.is-visible) .animated-text {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+
+    /* 2. LAYOUT: Immagine sopra, testo sotto */
     .about-hero-layout {
-      flex-direction: column-reverse; /* Su mobile: Testo sotto, Immagine sopra */
+      flex-direction: column-reverse;
       gap: 2rem;
     }
 
+    /* 3. LATO TESTO */
     .about-text-side {
       max-width: 100%;
 
@@ -261,33 +276,28 @@
       }
     }
 
+    /* 4. LATO IMMAGINE */
     .about-image-side {
-      height: 240px; /* Abbassiamo leggermente l'altezza per renderla più elegante e a "fascia" */
+      height: 280px; /* Altezza elegante per fare da "copertina" */
+      width: 100%;
 
-      /* IL TRUCCO: Spegniamo completamente l'overlay scuro su mobile! */
+      /* Forziamo il blocco a esistere fisicamente per l'iPhone */
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+
+      /* Spegniamo l'ombra scura, così l'immagine del team è bella luminosa */
       .overlay {
         display: none !important;
       }
 
-      /* Assicuriamoci che l'immagine sia bella luminosa */
       img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        /* Niente filtri strani */
         filter: brightness(1) !important;
-      }
-    }
-
-    /* Override animazioni per mobile: le facciamo salire dal basso semplicemente */
-    :host-context(.is-visible) {
-      .animated-image {
-        animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
-      }
-
-      .animated-text {
-        animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-      }
-
-      .about-image-side .overlay {
-        animation: none;
-        opacity: 1;
       }
     }
   }
