@@ -1,0 +1,91 @@
+/* =========================================
+   SPLASH SCREEN INIZIALE
+========================================= */
+.global-splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 1) 0%, rgba(2, 6, 23, 1) 100%);
+  z-index: 99999; /* Sopra a QUALSIASI cosa, anche l'header */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* La transizione per quando riceve la classe .fade-out */
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  opacity: 1;
+  visibility: visible;
+
+  &.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    img {
+      /* MODIFICA QUESTA RIGA PER LA GRANDEZZA */
+      width: 500px; /* <--- Aumentato qui (prima era 280px) */
+
+      /* Manteniamo questo per sicurezza sui cellulari piccoli */
+      max-width: 85vw;
+      /* Rendiamo il logo bianco e gli diamo un bagliore azzurro Hi-Tech */
+      filter: brightness(0) invert(1) drop-shadow(0 0 15px rgba(0, 210, 255, 0.4));
+      /* Effetto "respiro" */
+      animation: pulseLogo 2s infinite ease-in-out alternate;
+    }
+
+    /* Barra di caricamento minimale */
+
+    .tech-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.05);
+      border-top-color: var(--primary, #00d2ff);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 40%;
+        background: var(--primary, #00d2ff);
+        box-shadow: 0 0 10px #00d2ff;
+        border-radius: 4px;
+        animation: loadingBar 1.5s infinite ease-in-out;
+      }
+    }
+  }
+}
+
+/* KEYFRAMES PER LA SPLASH SCREEN */
+@keyframes pulseLogo {
+  0% {
+    transform: scale(0.95);
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(0, 210, 255, 0.2));
+  }
+  100% {
+    transform: scale(1.05);
+    filter: brightness(0) invert(1) drop-shadow(0 0 25px rgba(0, 210, 255, 0.6));
+  }
+}
+
+@keyframes loadingBar {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}
