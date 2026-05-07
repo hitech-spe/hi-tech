@@ -230,21 +230,23 @@
   }
 }
 
-/* --- RESPONSIVE MOBILE (IL FIX DEFINITIVO PER iOS/WEBKIT) --- */
+/* --- RESPONSIVE MOBILE (FIX DEFINITIVO iOS - ZERO FILTRI) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
 
-    /* 1. SPEGNIAMO I CONFLITTI DESKTOP */
-    /* Diciamo all'iPhone di non calcolare le vecchie animazioni separate */
+    /* 1. RESET TOTALE DESKTOP */
     .animated-header, .animated-img, .animated-text {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
+      filter: none !important;
     }
 
-    .services-list { gap: 3rem; }
+    .services-list {
+      gap: 3rem;
+    }
 
-    /* 2. LA CARD UNICA (Il nostro blocco animato) */
+    /* 2. LA CARD: Diventa l'unico elemento che si anima */
     .service-row, .service-row.reverse {
       display: grid;
       grid-template-columns: 1fr;
@@ -257,45 +259,96 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       background: #0f172a;
 
-      /* La card parte invisibile e spostata in basso */
+      /* Stato iniziale invisibile */
       opacity: 0;
-      transform: translateY(40px);
-    }
+      transform: translateY(30px);
 
-    /* 3. IMMAGINE (Già offuscata in modo fisso per garantire la lettura) */
-    .service-image {
-      grid-column: 1; grid-row: 1;
-      width: 100%; height: 380px; z-index: 1;
-      border-radius: 0; border: none; box-shadow: none;
+      /* PREVIENE I CRASH DI IOS */
+      will-change: transform, opacity;
+      -webkit-transform: translateZ(0);
 
-      .image-overlay { display: none !important; }
-
-      img {
-        width: 100%; height: 100%; object-fit: cover;
-        /* Applichiamo il filtro scuro fisso, senza animarlo */
-        filter: brightness(0.4) blur(2px) !important;
+      /* Quando arriva lo scroll, parte l'animazione */
+      &.scroll-reveal.is-visible {
+        animation: mobileCardUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
     }
 
-    /* 4. TESTO (Già in posizione sopra l'immagine) */
+    /* 3. IMMAGINE: NIENTE FILTRI (Il segreto è qui) */
+    .service-image {
+      grid-column: 1;
+      grid-row: 1;
+      width: 100%;
+      height: 380px;
+      z-index: 1;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Rimosso il blur! È lui che faceva crashare l'iPhone */
+        filter: none !important;
+      }
+
+      /* Invece del blur, usiamo l'overlay come pellicola scura solida. Sicurissimo al 100% */
+      .image-overlay {
+        display: block !important;
+        background: rgba(15, 23, 42, 0.7) !important;
+        transition: none !important;
+      }
+    }
+
+    /* 4. TESTO */
     .service-content {
-      grid-column: 1; grid-row: 1; z-index: 2;
-      padding: 2rem 1.5rem; text-align: center; width: 100%;
+      grid-column: 1;
+      grid-row: 1;
+      z-index: 2;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      width: 100%;
 
-      .tech-icon-small { margin: 0 auto 1.5rem; }
-      h3 { font-size: 1.8rem; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9); color: #fff; }
-      p { color: #f8fafc; font-size: 1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); margin-bottom: 2rem; }
-    }
+      .tech-icon-small {
+        margin: 0 auto 1.5rem;
+      }
 
-    /* 5. L'UNICA ANIMAZIONE: La card sale quando scrolli! */
-    .scroll-reveal.is-visible {
-      animation: mobileCardUp 0.8s ease-out forwards;
+      h3 {
+        font-size: 1.8rem;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+        color: #fff;
+      }
+
+      p {
+        color: #f8fafc;
+        font-size: 1rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        margin-bottom: 2rem;
+      }
     }
+  }
+}
+
+/* --- KEYFRAME UNICO --- */
+@keyframes mobileCardUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 /* --- KEYFRAMES SINGOLO PER MOBILE --- */
 @keyframes mobileCardUp {
-  0%   { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
