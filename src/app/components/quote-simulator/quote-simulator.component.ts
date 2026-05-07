@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, ElementRef} from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import { AiService } from '../../services/ai.service';
-import { LoadingService } from '../../services/loading.service';
+import {AiService} from '../../services/ai.service';
+import {LoadingService} from '../../services/loading.service';
 import emailjs from '@emailjs/browser';
 import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
@@ -28,12 +28,49 @@ export class QuoteSimulatorComponent implements OnInit {
 
   //private loadingService = inject(LoadingService);
 
+  private observer: IntersectionObserver | null = null;
+
   constructor(
     private aiService: AiService,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    private el: ElementRef
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    // Il trucco del setTimeout per dare respiro al browser
+    setTimeout(() => {
+      const options = {
+        root: null,
+        rootMargin: '50px',
+        threshold: 0.05
+      };
+
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            this.observer?.unobserve(entry.target); // Stoppa l'osservazione per salvare RAM
+          }
+        });
+      }, options);
+
+      // Cerca tutti i blocchi che devono essere animati
+      const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
+      elements.forEach((el: Element) => {
+        this.observer?.observe(el);
+      });
+    }, 100);
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
 
   async generateQuote() {
     if (!this.userInput.trim() || this.isLoading) return;
@@ -58,7 +95,7 @@ export class QuoteSimulatorComponent implements OnInit {
     if (!this.userEmail || this.isSending || !this.aiResponse) return;
 
     this.isSending = true;
-   // this.loadingService.show();
+    // this.loadingService.show();
 
     // Formattiamo le funzionalità identificate in una lista testuale leggibile
     const featuresList = this.aiResponse.features

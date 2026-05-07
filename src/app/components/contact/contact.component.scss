@@ -85,7 +85,7 @@
 
       li {
         display: flex;
-        align-items: center;
+        align-items: flex-start; /* Cambiato da center a flex-start: se il testo va su due righe, l'icona resta bella in alto */
         gap: 1.2rem;
 
         .icon-box {
@@ -97,7 +97,7 @@
           display: grid;
           place-items: center;
           color: var(--primary);
-          flex-shrink: 0;
+          flex-shrink: 0; /* Impedisce all'icona di schiacciarsi */
           transition: all 0.3s;
         }
 
@@ -109,6 +109,8 @@
         .info-text {
           display: flex;
           flex-direction: column;
+          flex: 1; /* Dice al testo di occupare tutto lo spazio rimanente, ma non di più */
+          min-width: 0; /* TRUCCO FONDAMENTALE: permette al contenitore di restringersi sotto la larghezza del testo */
 
           .label {
             font-size: 0.85rem;
@@ -117,10 +119,29 @@
             letter-spacing: 1px;
             margin-bottom: 0.2rem;
           }
+
           .value {
             font-size: 1.05rem;
             color: var(--text-light);
             font-weight: 500;
+
+            /* I COMANDI MAGICI PER SPEZZARE I TESTI LUNGHI (come le mail): */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+
+            /* Stile per il link Instagram */
+            .social-link {
+              color: var(--text-light);
+              text-decoration: none;
+              transition: all 0.3s ease;
+              display: inline-block;
+
+              &:hover {
+                color: var(--primary, #00d2ff);
+                transform: translateX(3px);
+              }
+            }
           }
         }
       }
@@ -294,6 +315,7 @@
 
 /* --- RESPONSIVE MOBILE (STATICO E SICURO PER iOS) --- */
 @media (max-width: 992px) {
+
   .contact-showcase-container {
     padding: 2rem 1rem;
 
@@ -324,6 +346,31 @@
     .glass-panel {
       padding: 2rem 1.5rem;
     }
+
+    .info-list {
+      li {
+        align-items: flex-start !important;
+
+        .icon-box {
+          flex-shrink: 0 !important; /* Vieta all'icona di rimpicciolirsi */
+        }
+
+        .info-text {
+          /* Costringe il blocco testo a non espandersi oltre lo schermo */
+          width: 100%;
+          max-width: calc(100vw - 140px); /* Larghezza schermo meno i margini e l'icona */
+
+          .value {
+            font-size: 0.95rem !important; /* Rimpiccioliamo leggermente su mobile */
+            white-space: normal !important;
+            /* I tre comandi che forzano il taglio della parola */
+            word-break: break-all !important;
+            overflow-wrap: anywhere !important;
+          }
+        }
+      }
+    }
+
   }
 }
 

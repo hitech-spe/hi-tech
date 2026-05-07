@@ -84,7 +84,7 @@
 }
 .contact-showcase-container .contact-info .info-list li {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Cambiato da center a flex-start: se il testo va su due righe, l'icona resta bella in alto */
   gap: 1.2rem;
 }
 .contact-showcase-container .contact-info .info-list li .icon-box {
@@ -96,7 +96,7 @@
   display: grid;
   place-items: center;
   color: var(--primary);
-  flex-shrink: 0;
+  flex-shrink: 0; /* Impedisce all'icona di schiacciarsi */
   transition: all 0.3s;
 }
 .contact-showcase-container .contact-info .info-list li:hover .icon-box {
@@ -106,6 +106,8 @@
 .contact-showcase-container .contact-info .info-list li .info-text {
   display: flex;
   flex-direction: column;
+  flex: 1; /* Dice al testo di occupare tutto lo spazio rimanente, ma non di più */
+  min-width: 0; /* TRUCCO FONDAMENTALE: permette al contenitore di restringersi sotto la larghezza del testo */
 }
 .contact-showcase-container .contact-info .info-list li .info-text .label {
   font-size: 0.85rem;
@@ -118,6 +120,21 @@
   font-size: 1.05rem;
   color: var(--text-light);
   font-weight: 500;
+  /* I COMANDI MAGICI PER SPEZZARE I TESTI LUNGHI (come le mail): */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  /* Stile per il link Instagram */
+}
+.contact-showcase-container .contact-info .info-list li .info-text .value .social-link {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.contact-showcase-container .contact-info .info-list li .info-text .value .social-link:hover {
+  color: var(--primary, #00d2ff);
+  transform: translateX(3px);
 }
 .contact-showcase-container {
   /* --- LATO DESTRO (Form) --- */
@@ -315,6 +332,24 @@
   }
   .contact-showcase-container .glass-panel {
     padding: 2rem 1.5rem;
+  }
+  .contact-showcase-container .info-list li {
+    align-items: flex-start !important;
+  }
+  .contact-showcase-container .info-list li .icon-box {
+    flex-shrink: 0 !important; /* Vieta all'icona di rimpicciolirsi */
+  }
+  .contact-showcase-container .info-list li .info-text {
+    /* Costringe il blocco testo a non espandersi oltre lo schermo */
+    width: 100%;
+    max-width: calc(100vw - 140px); /* Larghezza schermo meno i margini e l'icona */
+  }
+  .contact-showcase-container .info-list li .info-text .value {
+    font-size: 0.95rem !important; /* Rimpiccioliamo leggermente su mobile */
+    white-space: normal !important;
+    /* I tre comandi che forzano il taglio della parola */
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
   }
 }
 /* FALLBACK DESKTOP: Assicura che il form sia visibile se l'Observer fallisce su PC */
