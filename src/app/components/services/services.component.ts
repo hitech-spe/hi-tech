@@ -18,31 +18,32 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
-    // Configuriamo l'osservatore per far scattare l'animazione quando la riga è visibile al 20%
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
+    // IL TRUCCO PER iOS: Diamo al browser 100 millisecondi per renderizzare
+    // fisicamente il layout prima di attaccare l'Observer.
+    setTimeout(() => {
+      const options = {
+        root: null,
+        /* rootMargin a 100px fa scattare l'Observer PRIMA che l'utente arrivi
+           fisicamente sull'elemento. Previene i "buchi neri" da caricamento in ritardo. */
+        rootMargin: '100px 0px',
+        /* Abbassiamo la soglia al 5% per renderlo ultra-sensibile */
+        threshold: 0.05
+      };
 
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Aggiunge la classe che fa partire le animazioni interne
-          entry.target.classList.add('is-visible');
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            this.observer?.unobserve(entry.target);
+          }
+        });
+      }, options);
 
-          // Se vuoi che l'animazione si ripeta scendendo e salendo, commenta la riga sotto.
-          // Se vuoi che avvenga solo la prima volta, lasciala decommentata:
-          this.observer?.unobserve(entry.target);
-        }
+      const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
+      elements.forEach((el: Element) => {
+        this.observer?.observe(el);
       });
-    }, options);
-
-    // Diciamo all'Observer di guardare tutti gli elementi con la classe 'scroll-reveal'
-    const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
-    elements.forEach((el: Element) => {
-      this.observer?.observe(el);
-    });
+    }, 100); // 100ms di delay salvavita
   }
 
   ngOnDestroy() {
