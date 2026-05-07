@@ -27,7 +27,7 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
            fisicamente sull'elemento. Previene i "buchi neri" da caricamento in ritardo. */
         rootMargin: '100px 0px',
         /* Abbassiamo la soglia al 5% per renderlo ultra-sensibile */
-        threshold: 0.05
+        threshold: 0.15
       };
 
       this.observer = new IntersectionObserver((entries) => {
