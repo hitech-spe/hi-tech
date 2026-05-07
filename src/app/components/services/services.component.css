@@ -207,36 +207,130 @@
     filter: blur(0);
   }
 }
-/* --- RESPONSIVE MOBILE (OVERLAP IMMAGINE E TESTO) --- */
+/* --- RESPONSIVE MOBILE (iOS BULLETPROOF FIX) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
-    /* --- COREOGRAFIA ANIMAZIONI MOBILE (iOS FIX - TESTI INVISIBILI) --- */
-    /* Quando la riga riceve la classe is-visible dallo scroll */
+    /* 1. RESET: Uccidiamo le classi desktop che bloccavano l'iPhone! */
   }
-  .services-showcase-container .service-row.scroll-reveal.is-visible {
-    /* 1. La card intera fa un piccolo "pop" */
-    animation: mobilePop 0.5s ease-out forwards;
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible .service-image img {
-    /* L'immagine si oscura morbidamente */
-    animation: mobileImgBlur 1s ease-in-out forwards;
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible .service-content {
-    /* FIX DEFINITIVO PER iOS:
-       1. Riduciamo il ritardo a soli 0.1s (quasi istantaneo).
-       2. Usiamo 'both' invece di 'forwards' per bloccare l'opacity a 0 durante quel micro-ritardo.
-       3. Usiamo la classe .service-content direttamente invece di .animated-text se possibile. */
-    animation: mobileTextUp 0.6s ease-out 0.1s both !important;
-    /* Forza il rendering hardware anche sul testo */
-    transform: translateZ(0);
-    will-change: transform, opacity;
+  .services-showcase-container .scroll-reveal .animated-img,
+  .services-showcase-container .scroll-reveal .animated-text {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
   .services-showcase-container {
-    /* Disattiviamo esplicitamente le animazioni desktop per evitare conflitti */
+    /* 2. LAYOUT A CARTA UNICA */
   }
-  .services-showcase-container .service-row.scroll-reveal.is-visible .animated-img,
-  .services-showcase-container .service-row.scroll-reveal.is-visible .animated-text {
-    animation: none !important;
+  .services-showcase-container .services-list {
+    gap: 3rem;
+  }
+  .services-showcase-container .service-row, .services-showcase-container .service-row.reverse {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    background: #0f172a;
+    /* La carta intera parte invisibile su mobile */
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .services-showcase-container {
+    /* 3. IMMAGINE (Sfondo) */
+  }
+  .services-showcase-container .service-image {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: 380px;
+    z-index: 1;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .services-showcase-container .service-image .image-overlay {
+    display: none !important;
+  }
+  .services-showcase-container .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1) blur(0px);
+    transform: translateZ(0); /* Accende l'hardware dell'iPhone */
+  }
+  .services-showcase-container {
+    /* 4. TESTO (Sopra) */
+  }
+  .services-showcase-container .service-content {
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 2;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    width: 100%;
+    /* Il testo parte invisibile per la sua animazione */
+    opacity: 0;
+  }
+  .services-showcase-container .service-content .tech-icon-small {
+    margin: 0 auto 1.5rem;
+  }
+  .services-showcase-container .service-content h3 {
+    font-size: 1.8rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+  }
+  .services-showcase-container .service-content p {
+    color: #f8fafc;
+    font-size: 1rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    margin-bottom: 2rem;
+  }
+  .services-showcase-container {
+    /* 5. MAGIA QUANDO SI SCROLLA (.is-visible) */
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible {
+    /* L'intera carta appare */
+    animation: mobileCardReveal 0.6s ease-out forwards;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible .service-image img {
+    /* L'immagine si scurisce in sottofondo */
+    animation: mobileImgBlur 0.8s ease-in-out 0.2s forwards;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible .service-content {
+    /* Il testo sale morbido */
+    animation: mobileTextReveal 0.6s ease-out 0.4s forwards;
+  }
+}
+/* --- KEYFRAMES PULITI PER MOBILE --- */
+@keyframes mobileCardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes mobileImgBlur {
+  0% {
+    filter: brightness(1) blur(0px);
+  }
+  100% {
+    filter: brightness(0.4) blur(2px);
+  }
+}
+@keyframes mobileTextReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 /* --- KEYFRAMES SPECIFICI PER MOBILE (iOS SAFE) --- */
