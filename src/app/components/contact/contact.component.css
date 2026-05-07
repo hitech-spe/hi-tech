@@ -1,73 +1,229 @@
-.contact {
-  padding: 4rem 0;
+@charset "UTF-8";
+.contact-showcase-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  /* --- HEADER SEZIONE --- */
 }
-.contact .section-title {
+.contact-showcase-container .section-header {
   text-align: center;
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
 }
-.contact .contact-container {
+.contact-showcase-container .section-header .badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 210, 255, 0.08);
+  color: var(--primary, #00d2ff);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.contact-showcase-container .section-header .section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin: 0;
+  line-height: 1.2;
+}
+.contact-showcase-container {
+  /* --- GRIGLIA --- */
+}
+.contact-showcase-container .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: 1fr 1.5fr; /* Il form è leggermente più largo */
   gap: 3rem;
 }
-.contact .contact-container .contact-info h3 {
+.contact-showcase-container {
+  /* --- BASE PANNELLI DI VETRO --- */
+}
+.contact-showcase-container .glass-panel {
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 3rem;
+  overflow: hidden;
+}
+.contact-showcase-container {
+  /* --- LATO SINISTRO (Info) --- */
+}
+.contact-showcase-container .contact-info .panel-glow {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: var(--primary, #00d2ff);
+  filter: blur(100px);
+  opacity: 0.15;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.contact-showcase-container .contact-info h3 {
   font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: var(--primary);
+  margin-bottom: 1rem;
+  color: var(--text-light);
 }
-.contact .contact-container .contact-info p {
+.contact-showcase-container .contact-info .desc {
   color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
 }
-.contact .contact-container .contact-info .info-list {
+.contact-showcase-container .contact-info .info-list {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
 }
-.contact .contact-container .contact-info .info-list li {
-  margin-bottom: 1.2rem;
-  font-size: 1.1rem;
+.contact-showcase-container .contact-info .info-list li {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 }
-.contact .contact-container .contact-info .info-list li .icon {
-  font-size: 1.4rem;
+.contact-showcase-container .contact-info .info-list li .icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(0, 210, 255, 0.08);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+  flex-shrink: 0;
+  transition: all 0.3s;
 }
-.contact .contact-container .contact-form .form-group {
-  margin-bottom: 1.5rem;
+.contact-showcase-container .contact-info .info-list li:hover .icon-box {
+  background: rgba(0, 210, 255, 0.15);
+  box-shadow: inset 0 0 15px rgba(0, 210, 255, 0.2);
 }
-.contact .contact-container .contact-form .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
+.contact-showcase-container .contact-info .info-list li .info-text {
+  display: flex;
+  flex-direction: column;
+}
+.contact-showcase-container .contact-info .info-list li .info-text .label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.2rem;
+}
+.contact-showcase-container .contact-info .info-list li .info-text .value {
+  font-size: 1.05rem;
   color: var(--text-light);
   font-weight: 500;
 }
-.contact .contact-container .contact-form .form-group input, .contact .contact-container .contact-form .form-group textarea {
+.contact-showcase-container {
+  /* --- LATO DESTRO (Form) --- */
+}
+.contact-showcase-container .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.contact-showcase-container .contact-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.contact-showcase-container .contact-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+.contact-showcase-container .contact-form .form-group label {
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.contact-showcase-container .contact-form .form-group input, .contact-showcase-container .contact-form .form-group textarea {
   width: 100%;
-  padding: 0.9rem 1.2rem;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.2rem;
+  background: rgba(15, 23, 42, 0.8); /* Molto scuro */
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  color: white;
+  color: #f8fafc;
   font-family: inherit;
-  transition: all 0.3s;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
-.contact .contact-container .contact-form .form-group input:focus, .contact .contact-container .contact-form .form-group textarea:focus {
+.contact-showcase-container .contact-form .form-group input::placeholder, .contact-showcase-container .contact-form .form-group textarea::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+.contact-showcase-container .contact-form .form-group input:focus, .contact-showcase-container .contact-form .form-group textarea:focus {
   outline: none;
-  border-color: var(--primary);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary, #00d2ff);
+  background: rgba(0, 210, 255, 0.03);
   box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
 }
-.contact .contact-container .contact-form .status-message {
-  animation: slideDown 0.3s ease-out;
+.contact-showcase-container .contact-form .form-group textarea {
+  resize: vertical;
+  min-height: 120px;
 }
-.contact .contact-container .contact-form .w-100:disabled {
+.contact-showcase-container .contact-form {
+  /* Gestione dei messaggi di invio */
+}
+.contact-showcase-container .contact-form .status-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 500;
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.contact-showcase-container .contact-form .status-message.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+.contact-showcase-container .contact-form .status-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.contact-showcase-container .contact-form .submit-btn {
+  margin-top: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.contact-showcase-container .contact-form .submit-btn .arrow {
+  transition: transform 0.3s ease;
+}
+.contact-showcase-container .contact-form .submit-btn:not(:disabled):hover .arrow {
+  transform: translateX(5px);
+}
+.contact-showcase-container .contact-form .submit-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
-  background: #64748b;
-  box-shadow: none;
+}
+
+/* Spinner animato per l'invio */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes slideDown {
   from {
@@ -78,6 +234,89 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+/* =========================================
+   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+========================================= */
+/* 1. Stato iniziale: invisibili */
+.animated-header,
+.animated-left,
+.animated-right {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* 2. TRIGGER CORRETTO: Quando la section ha la classe .is-visible */
+.contact-showcase-container.is-visible .animated-header {
+  animation: contactFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.contact-showcase-container.is-visible .animated-left {
+  animation: contactSlideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+.contact-showcase-container.is-visible .animated-right {
+  animation: contactSlideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+/* Keyframes con nomi univoci per evitare conflitti */
+@keyframes contactFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes contactSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes contactSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 992px) {
+  .contact-showcase-container {
+    padding: 2rem 1rem;
+  }
+  .contact-showcase-container .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .contact-showcase-container .contact-form .form-row {
+    grid-template-columns: 1fr;
+  }
+  .contact-showcase-container .glass-panel {
+    padding: 2rem 1.5rem;
+  }
+  .contact-showcase-container {
+    /* Su mobile facciamo apparire tutto dal basso in sequenza semplice */
+  }
+  .contact-showcase-container.is-visible .animated-left, .contact-showcase-container.is-visible .animated-right {
+    animation: contactFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .contact-showcase-container.is-visible .animated-right {
+    animation-delay: 0.2s;
+  }
+}
+/* FALLBACK: Se per qualche motivo l'IntersectionObserver non dovesse caricare,
+   questo assicura che il form sia visibile dopo 3 secondi comunque */
+.animated-header, .animated-left, .animated-right {
+  transition: opacity 1s ease;
 }
 
 /*# sourceMappingURL=contact.component.css.map */

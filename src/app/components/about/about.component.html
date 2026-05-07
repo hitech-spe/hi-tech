@@ -1,32 +1,43 @@
-<div class="about-dashboard-container">
+<div class="about-showcase-container">
+
   <div class="section-header animated-header">
     <h2 class="section-title text-gradient">{{ 'ABOUT.TITLE' | translate }}</h2>
   </div>
 
-  <div class="about-grid">
-    <div class="tech-panel text-panel animated-left">
-      <div class="panel-glow"></div>
-      <p class="highlight-text">{{ 'ABOUT.P1' | translate }}</p>
-      <p class="muted-text">{{ 'ABOUT.P2' | translate }}</p>
-    </div>
+  <div class="about-hero-layout">
 
-    <div class="tech-panel mission-panel animated-right">
-      <div class="icon-wrapper">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#target-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <defs>
-            <linearGradient id="target-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#00d2ff" />
-              <stop offset="100%" stop-color="#3a7bd5" />
-            </linearGradient>
-          </defs>
-          <circle cx="12" cy="12" r="10"></circle>
-          <circle cx="12" cy="12" r="6"></circle>
-          <circle cx="12" cy="12" r="2"></circle>
-        </svg>
+    <div class="about-text-side animated-text">
+      <div class="glass-panel text-panel">
+        <div class="panel-glow"></div>
+        <p class="highlight-text">{{ 'ABOUT.P1' | translate }}</p>
+        <p class="muted-text">{{ 'ABOUT.P2' | translate }}</p>
       </div>
 
-      <h3>{{ 'ABOUT.MISSION_TITLE' | translate }}</h3>
-      <p>{{ 'ABOUT.MISSION_DESC' | translate }}</p>
+      <div class="glass-panel mission-panel">
+        <div class="icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#target-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="target-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d2ff" />
+                <stop offset="100%" stop-color="#3a7bd5" />
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+        </div>
+        <div class="mission-content">
+          <h3>{{ 'ABOUT.MISSION_TITLE' | translate }}</h3>
+          <p>{{ 'ABOUT.MISSION_DESC' | translate }}</p>
+        </div>
+      </div>
     </div>
+
+    <div class="about-image-side animated-image">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200" alt="Team Development">
+      <div class="overlay"></div>
+    </div>
+
   </div>
 </div>

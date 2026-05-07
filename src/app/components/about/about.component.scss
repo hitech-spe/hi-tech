@@ -1,16 +1,19 @@
-.about-dashboard-container {
+.about-showcase-container {
   position: relative;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 
   /* --- HEADER SEZIONE --- */
   .section-header {
-    margin-bottom: 2.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
 
     .badge {
       display: inline-block;
       padding: 0.3rem 0.8rem;
       background: rgba(0, 210, 255, 0.08);
-      color: var(--primary, #00d2ff); /* Fallback aggiunto */
+      color: var(--primary, #00d2ff);
       border-radius: 50px;
       font-size: 0.75rem;
       font-weight: 700;
@@ -21,22 +24,30 @@
     }
 
     .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
       margin: 0;
       line-height: 1.2;
     }
   }
 
-  /* --- GRIGLIA --- */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr; /* Proporzione asimmetrica moderna */
-    gap: 2rem;
+  /* --- LAYOUT PRINCIPALE (Testo a SX, Immagine a DX) --- */
+  .about-hero-layout {
+    display: flex;
+    gap: 3rem;
+    align-items: stretch;
+  }
 
-    /* Base per i pannelli interni */
-    .tech-panel {
+  /* --- LATO TESTO (SINISTRA) --- */
+  .about-text-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 600px;
+
+    .glass-panel {
       position: relative;
-      background: rgba(15, 23, 42, 0.5); /* Sfondo scuro che si stacca dalla glass-card madre */
+      background: rgba(15, 23, 42, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 20px;
       padding: 2.5rem;
@@ -46,14 +57,15 @@
       &:hover {
         border-color: rgba(0, 210, 255, 0.3);
         transform: translateY(-5px);
-        box-shadow: 0 10px 30px -10px rgba(0, 210, 255, 0.15);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       }
     }
 
-    /* --- PANNELLO TESTO --- */
     .text-panel {
+      flex: 1;
+
       .highlight-text {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         color: var(--text-light, #f8fafc);
         line-height: 1.8;
         margin-bottom: 1.5rem;
@@ -67,7 +79,6 @@
         margin: 0;
       }
 
-      /* Bagliore di fondo sfocato */
       .panel-glow {
         position: absolute;
         top: -50px;
@@ -76,122 +87,208 @@
         height: 200px;
         background: var(--primary, #00d2ff);
         filter: blur(100px);
-        opacity: 0.1;
+        opacity: 0.15;
         border-radius: 50%;
         pointer-events: none;
       }
     }
 
-    /* --- PANNELLO MISSION --- */
     .mission-panel {
-      text-align: center;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      /* Gradiente verticale per la mission */
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(0, 210, 255, 0.05) 100%);
+      gap: 1.5rem;
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.7) 0%, rgba(0, 210, 255, 0.05) 100%);
       border: 1px solid rgba(0, 210, 255, 0.15);
 
       .icon-wrapper {
-        width: 70px;
-        height: 70px;
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
         background: rgba(0, 210, 255, 0.1);
-        border-radius: 18px;
+        border-radius: 16px;
         display: grid;
         place-items: center;
-        margin-bottom: 1.5rem;
         box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.2);
 
         svg {
-          width: 35px;
-          height: 35px;
+          width: 30px;
+          height: 30px;
         }
       }
 
       h3 {
         font-size: 1.3rem;
         color: var(--text-light, #f8fafc);
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       p {
         color: var(--text-muted, #94a3b8);
-        line-height: 1.6;
+        line-height: 1.5;
         font-size: 0.95rem;
         margin: 0;
       }
     }
   }
-}
 
-/* Animazione di entrata dal basso (già definita globalmente, ma coperta qui per sicurezza) */
-.fade-in-up {
-  opacity: 0;
-  animation: fadeInUpAbout 0.8s ease-out forwards;
-}
+  /* --- LATO IMMAGINE (DESTRA) --- */
+  .about-image-side {
+    flex: 1.2;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 
-@keyframes fadeInUpAbout {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 992px) {
-  .about-dashboard-container {
-    .section-header { text-align: center; }
-    .about-grid { grid-template-columns: 1fr; }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(270deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+    }
   }
 }
 
 /* =========================================
-   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL (PERFECT SYNC)
 ========================================= */
 
-/* 1. Nascondiamo gli elementi di default */
-.animated-header,
-.animated-left,
-.animated-right {
+.animated-header, .animated-image, .animated-text {
   opacity: 0;
 }
 
-/* 2. Quando il genitore riceve la classe .is-visible dallo scroll, partono in sequenza! */
+.about-image-side .overlay {
+  opacity: 0;
+}
+
+/* Trigger dell'animazione al momento dello scroll */
 :host-context(.is-visible) {
+
   .animated-header {
-    animation: aboutRevealLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+    animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  .animated-left {
-    /* Il testo di sinistra entra quasi subito (0.3s) */
-    animation: aboutRevealLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+  /* * REGIA SINCRONIZZATA: Immagine, Testo e Overlay usano tutti la stessa
+   * durata (2.4s). La magia di chi entra prima e chi dopo la facciamo dentro i keyframes!
+   */
+  .animated-image {
+    animation: cinematicImage 2.4s linear 0.2s both;
   }
 
-  .animated-right {
-    /* Il pannello di destra aspetta che quello di sinistra sia quasi fermo (0.8s) per entrare */
-    animation: aboutRevealRight 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
+  .animated-text {
+    animation: cinematicText 2.4s linear 0.2s both;
+  }
+
+  .about-image-side .overlay {
+    animation: cinematicOverlay 2.4s linear 0.2s both;
   }
 }
 
-/* Keyframes per Desktop */
-@keyframes aboutRevealLeft {
-  0% { opacity: 0; transform: translateX(-50px); }
+/* --- KEYFRAMES DESKTOP --- */
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cinematicImage {
+  /* FASE 1 (0% - 20%): L'immagine compare dolcemente sulla sinistra, invadendo lo spazio del testo */
+  0% {
+    opacity: 0;
+    transform: translateX(-60%);
+    animation-timing-function: ease-out; /* Curva dolce per la comparsa */
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-60%);
+    /* Qui l'immagine è apparsa. Ora prepariamo la "scivolata" con una curva ultra-morbida */
+    animation-timing-function: cubic-bezier(0.65, 0, 0.05, 1);
+  }
+  /* FASE 2 (20% - 100%): L'immagine scivola al suo posto sulla destra */
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes cinematicText {
+  /* FASE 1 (0% - 20%): Il testo resta completamente invisibile e fermo, aspetta l'immagine */
+  0% { opacity: 0; transform: translateX(-60px); }
+  20% {
+    opacity: 0;
+    transform: translateX(-60px);
+    /* Applica la STESSA curva dell'immagine, così si muovono all'unisono */
+    animation-timing-function: cubic-bezier(0.65, 0, 0.05, 1);
+  }
+  /* FASE 2 (20% - 100%): Mentre l'immagine va a destra, il testo entra da sinistra */
   100% { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes aboutRevealRight {
-  0% { opacity: 0; transform: translateX(80px); filter: blur(8px); }
-  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+@keyframes cinematicOverlay {
+  /* FASE 1: L'overlay scuro è spento perché l'immagine deve vedersi bene */
+  0% { opacity: 0; }
+  20% {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.65, 0, 0.05, 1);
+  }
+  /* FASE 2: Mentre il testo entra, compare lo scuro sull'immagine per fare contrasto */
+  100% { opacity: 1; }
 }
 
-/* Fallback per Mobile (entrata verticale a cascata per evitare sbavature laterali) */
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 992px) {
-  @keyframes aboutRevealLeft {
-    0% { opacity: 0; transform: translateY(40px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
+  .about-showcase-container {
 
-  @keyframes aboutRevealRight {
-    0% { opacity: 0; transform: translateY(40px); filter: blur(5px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .about-hero-layout {
+      flex-direction: column-reverse; /* Su mobile: Testo sotto, Immagine sopra */
+      gap: 2rem;
+    }
+
+    .about-text-side {
+      max-width: 100%;
+
+      .mission-panel {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .about-image-side {
+      height: 240px; /* Abbassiamo leggermente l'altezza per renderla più elegante e a "fascia" */
+
+      /* IL TRUCCO: Spegniamo completamente l'overlay scuro su mobile! */
+      .overlay {
+        display: none !important;
+      }
+
+      /* Assicuriamoci che l'immagine sia bella luminosa */
+      img {
+        filter: brightness(1) !important;
+      }
+    }
+
+    /* Override animazioni per mobile: le facciamo salire dal basso semplicemente */
+    :host-context(.is-visible) {
+      .animated-image {
+        animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+      }
+
+      .animated-text {
+        animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+      }
+
+      .about-image-side .overlay {
+        animation: none;
+        opacity: 1;
+      }
+    }
   }
 }

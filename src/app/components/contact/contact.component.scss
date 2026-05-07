@@ -1,101 +1,329 @@
-.contact {
-  padding: 4rem 0;
+.contact-showcase-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
 
-  .section-title {
+  /* --- HEADER SEZIONE --- */
+  .section-header {
     text-align: center;
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 3.5rem;
+    margin-bottom: 4rem;
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0, 210, 255, 0.08);
+      color: var(--primary, #00d2ff);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(0, 210, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin: 0;
+      line-height: 1.2;
+    }
   }
 
-  .contact-container {
+  /* --- GRIGLIA --- */
+  .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: 1fr 1.5fr; /* Il form è leggermente più largo */
     gap: 3rem;
+  }
 
-    .contact-info {
-      h3 {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        color: var(--primary);
-      }
+  /* --- BASE PANNELLI DI VETRO --- */
+  .glass-panel {
+    position: relative;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 3rem;
+    overflow: hidden;
+  }
 
-      p {
-        color: var(--text-muted);
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-      }
+  /* --- LATO SINISTRO (Info) --- */
+  .contact-info {
 
-      .info-list {
-        list-style: none;
-        padding: 0;
+    .panel-glow {
+      position: absolute;
+      top: -50px; left: -50px;
+      width: 200px; height: 200px;
+      background: var(--primary, #00d2ff);
+      filter: blur(100px);
+      opacity: 0.15;
+      border-radius: 50%;
+      pointer-events: none;
+    }
 
-        li {
-          margin-bottom: 1.2rem;
-          font-size: 1.1rem;
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+
+    .desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+
+        .icon-box {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: rgba(0, 210, 255, 0.08);
+          border: 1px solid rgba(0, 210, 255, 0.2);
+          display: grid;
+          place-items: center;
+          color: var(--primary);
+          flex-shrink: 0;
+          transition: all 0.3s;
+        }
+
+        &:hover .icon-box {
+          background: rgba(0, 210, 255, 0.15);
+          box-shadow: inset 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .info-text {
           display: flex;
-          align-items: center;
-          gap: 1rem;
+          flex-direction: column;
 
-          .icon {
-            font-size: 1.4rem;
+          .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
+          }
+          .value {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            font-weight: 500;
           }
         }
       }
     }
+  }
 
+  /* --- LATO DESTRO (Form) --- */
   .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
     .form-group {
-      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
 
       label {
-        display: block;
         margin-bottom: 0.5rem;
         color: var(--text-light);
         font-weight: 500;
+        font-size: 0.95rem;
       }
 
       input, textarea {
         width: 100%;
-        padding: 0.9rem 1.2rem;
-        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem 1.2rem;
+        background: rgba(15, 23, 42, 0.8); /* Molto scuro */
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
-        color: white;
+        color: #f8fafc;
         font-family: inherit;
-        transition: all 0.3s;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &::placeholder {
+          color: rgba(148, 163, 184, 0.5);
+        }
 
         &:focus {
           outline: none;
-          border-color: var(--primary);
-          background: rgba(255, 255, 255, 0.08);
+          border-color: var(--primary, #00d2ff);
+          background: rgba(0, 210, 255, 0.03);
           box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
         }
       }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
     }
 
+    /* Gestione dei messaggi di invio */
     .status-message {
-      animation: slideDown 0.3s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 500;
+      animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+      &.success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #4ade80;
+        border: 1px solid rgba(34, 197, 94, 0.2);
+      }
+
+      &.error {
+        background: rgba(239, 68, 68, 0.1);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
     }
 
-    .w-100 {
+    .submit-btn {
+      margin-top: 1rem;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+
+      .arrow {
+        transition: transform 0.3s ease;
+      }
+
+      &:not(:disabled):hover .arrow {
+        transform: translateX(5px);
+      }
+
       &:disabled {
         opacity: 0.7;
         cursor: not-allowed;
-        background: #64748b;
-        box-shadow: none;
       }
     }
   }
 }
 
+/* Spinner animato per l'invio */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+========================================= */
+
+/* 1. Stato iniziale: invisibili */
+.animated-header,
+.animated-left,
+.animated-right {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* 2. TRIGGER CORRETTO: Quando la section ha la classe .is-visible */
+.contact-showcase-container.is-visible {
+
+  .animated-header {
+    animation: contactFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .animated-left {
+    animation: contactSlideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+
+  .animated-right {
+    animation: contactSlideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
   }
 }
+
+/* Keyframes con nomi univoci per evitare conflitti */
+@keyframes contactFadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contactSlideInLeft {
+  0% { opacity: 0; transform: translateX(-40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes contactSlideInRight {
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 992px) {
+  .contact-showcase-container {
+    padding: 2rem 1rem;
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .contact-form .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .glass-panel {
+      padding: 2rem 1.5rem;
+    }
+
+    /* Su mobile facciamo apparire tutto dal basso in sequenza semplice */
+    &.is-visible {
+      .animated-left, .animated-right {
+        animation: contactFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animated-right {
+        animation-delay: 0.2s;
+      }
+    }
+  }
+}
+
+/* FALLBACK: Se per qualche motivo l'IntersectionObserver non dovesse caricare,
+   questo assicura che il form sia visibile dopo 3 secondi comunque */
+.animated-header, .animated-left, .animated-right {
+  transition: opacity 1s ease;
 }

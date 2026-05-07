@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
-import {TranslateModule} from "@ngx-translate/core";
-import {FormsModule} from "@angular/forms";
-import {NgClass} from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
+import { FormsModule } from "@angular/forms";
+import { NgClass } from "@angular/common";
 
 @Component({
   selector: 'app-contact',
@@ -15,7 +15,7 @@ import {NgClass} from "@angular/common";
   ],
   standalone: true
 })
-export class ContactComponent {
+export class ContactComponent implements AfterViewInit, OnDestroy {
   formData = {
     name: '',
     email: '',
@@ -24,6 +24,37 @@ export class ContactComponent {
 
   isSending = false;
   submitStatus: 'success' | 'error' | null = null;
+  private observer: IntersectionObserver | null = null;
+
+  constructor(private el: ElementRef) {}
+
+  ngAfterViewInit() {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          this.observer?.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
+    elements.forEach((el: Element) => {
+      this.observer?.observe(el);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
 
   onSubmit() {
     if (this.isSending) return;
@@ -31,7 +62,7 @@ export class ContactComponent {
     this.isSending = true;
     this.submitStatus = null;
 
-    // Sostituisci questi valori con i tuoi di EmailJS
+    // I tuoi valori di EmailJS
     const serviceID = 'service_dvvpn9b';
     const templateID = 'template_yepteb7';
     const publicKey = 'BeTmkZ_BQMgszAUkE';
@@ -47,6 +78,8 @@ export class ContactComponent {
       })
       .finally(() => {
         this.isSending = false;
+        // Nasconde il messaggio di stato dopo 5 secondi
+        setTimeout(() => this.submitStatus = null, 5000);
       });
   }
 
