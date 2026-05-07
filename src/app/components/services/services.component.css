@@ -207,19 +207,22 @@
     filter: blur(0);
   }
 }
-/* --- RESPONSIVE MOBILE (L'APPROCCIO FURBO E DEFINITIVO) --- */
+/* --- RESPONSIVE MOBILE (TRANSIZIONI NATIVE - ZERO KEYFRAMES) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
-    /* 1. RESET ANIMAZIONI DESKTOP */
+    /* 1. PULIZIA: Disattiviamo tutto ciò che arriva dal desktop */
   }
-  .services-showcase-container .animated-header, .services-showcase-container .animated-img, .services-showcase-container .animated-text {
+  .services-showcase-container .scroll-reveal .animated-header,
+  .services-showcase-container .scroll-reveal .animated-img,
+  .services-showcase-container .scroll-reveal .animated-text {
     animation: none !important;
+    transition: none !important;
   }
   .services-showcase-container .services-list {
     gap: 4rem;
   }
   .services-showcase-container {
-    /* 2. CARD: SEMPRE VISIBILE! (Previene il black screen di iOS) */
+    /* 2. CONTENITORE PRINCIPALE: Sempre visibile e solido */
   }
   .services-showcase-container .service-row, .services-showcase-container .service-row.reverse {
     display: grid;
@@ -232,12 +235,12 @@
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
     background: #0f172a;
-    /* Forziamo la visibilità assoluta della base */
-    opacity: 1 !important;
-    transform: none !important;
+    /* La carta in sé è sempre visibile. Niente trucchi qui. */
+    opacity: 1;
+    transform: none;
   }
   .services-showcase-container {
-    /* 3. IMMAGINE: Sempre visibile e chiara all'inizio */
+    /* 3. L'IMMAGINE: Sempre visibile e nitida */
   }
   .services-showcase-container .service-image {
     grid-column: 1;
@@ -248,27 +251,26 @@
     border-radius: 0;
     border: none;
     box-shadow: none;
-    opacity: 1 !important;
-    transform: none !important;
   }
   .services-showcase-container .service-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: none !important;
-    transform: translateZ(0);
   }
   .services-showcase-container .service-image {
-    /* Pellicola scura che inizia totalmente invisibile */
+    /* L'OVERLAY (L'ombra) */
   }
   .services-showcase-container .service-image .image-overlay {
     display: block !important;
     background: rgba(15, 23, 42, 0.8) !important;
-    opacity: 0 !important;
-    transition: none !important;
+    /* STATO INIZIALE: Trasparente */
+    opacity: 0;
+    /* Usiamo TRANSITION invece dei keyframes */
+    transition: opacity 0.8s ease-out;
   }
   .services-showcase-container {
-    /* 4. TESTO: L'unico che parte nascosto! */
+    /* 4. IL TESTO */
   }
   .services-showcase-container .service-content {
     grid-column: 1;
@@ -277,9 +279,11 @@
     padding: 2rem 1.5rem;
     text-align: center;
     width: 100%;
-    /* Nascondiamo il testo e lo spingiamo in giù */
-    opacity: 0 !important;
-    transform: translateY(20px) !important;
+    /* STATO INIZIALE: Nascosto e spostato in giù */
+    opacity: 0;
+    transform: translateY(20px);
+    /* Usiamo TRANSITION invece dei keyframes */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
   .services-showcase-container .service-content .tech-icon-small {
     margin: 0 auto 1.5rem;
@@ -299,131 +303,19 @@
     /* =========================================
        5. LA MAGIA ALLO SCROLL (.is-visible)
        ========================================= */
+    /* Quando il TypeScript rileva lo scroll e aggiunge la classe,
+       le proprietà cambiano e la TRANSITION fa il resto fluidamente! */
   }
-  .services-showcase-container .service-row.scroll-reveal.is-visible {
-    /* A) L'ombra cala morbidamente sulla foto */
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible .image-overlay {
-    animation: mobileFadeIn 0.8s ease-out 0.2s forwards !important;
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible {
-    /* B) Il testo sale insieme all'ombra! */
+  .services-showcase-container .service-row.scroll-reveal.is-visible .service-image .image-overlay {
+    /* L'ombra diventa visibile dopo mezzo secondo */
+    opacity: 1;
+    transition-delay: 0.6s;
   }
   .services-showcase-container .service-row.scroll-reveal.is-visible .service-content {
-    animation: mobileTextUp 0.8s ease-out 0.2s forwards !important;
-  }
-}
-/* --- I 2 KEYFRAMES NECESSARI --- */
-@keyframes mobileFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes mobileTextUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
+    /* Il testo sale e diventa visibile INSIEME all'ombra */
     opacity: 1;
     transform: translateY(0);
-  }
-}
-/* --- I 3 KEYFRAMES DELLA SEQUENZA --- */
-@keyframes mCardReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes mOverlayIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes mTextReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* --- KEYFRAMES DELLA SEQUENZA --- */
-@keyframes seqCardReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes seqOverlayFade {
-  /* L'uso di "both" su assegna l'opacity a 0 dal secondo 0 al secondo 1 */
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes seqTextReveal {
-  /* Il testo resta invisibile in basso, poi sale scoccato il ritardo */
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* --- KEYFRAME SICURO (UNICO) --- */
-@keyframes safeMobileCardReveal {
-  /* Parte da invisibile/spostato, ma se non scatta rimane allo stato base (visibile) */
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* --- KEYFRAME UNICO --- */
-@keyframes mobileCardUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* --- KEYFRAMES SINGOLO PER MOBILE --- */
-@keyframes mobileCardUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+    transition-delay: 0.6s;
   }
 }
 
