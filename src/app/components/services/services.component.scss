@@ -230,18 +230,23 @@
   }
 }
 
-/* --- RESPONSIVE MOBILE (ANIMAZIONE IN SEQUENZA SICURA iOS) --- */
+/* --- RESPONSIVE MOBILE (ANIMAZIONE IN SEQUENZA PERFETTA iOS) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
 
-    /* 1. RESET TOTALE DESKTOP */
-    .animated-header, .animated-img, .animated-text {
-      animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important;
+    /* 1. DISATTIVIAMO LE ANIMAZIONI DESKTOP (Senza usare !important) */
+    .service-row.scroll-reveal.is-visible:not(.reverse) .animated-img,
+    .service-row.scroll-reveal.is-visible.reverse .animated-img,
+    .service-row.scroll-reveal.is-visible:not(.reverse) .animated-text,
+    .service-row.scroll-reveal.is-visible.reverse .animated-text {
+      animation: none;
     }
 
-    .services-list { gap: 3rem; }
+    /* 2. LAYOUT A CARTA UNICA */
+    .services-list {
+      gap: 4rem; /* Un po' più di spazio per favorire lo scroll */
+    }
 
-    /* 2. LA CARD */
     .service-row, .service-row.reverse {
       display: grid;
       grid-template-columns: 1fr;
@@ -254,42 +259,53 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       background: #0f172a;
 
-      opacity: 1; transform: none; /* Sicurezza base */
+      /* STATO INIZIALE: L'intera card è nascosta in attesa dello scroll */
+      opacity: 0;
+      transform: translateY(40px);
 
-      /* LA REGIA: Quando appare nello schermo, partono le 3 animazioni! */
+      /* =======================================
+         LA MAGIA: QUANDO ARRIVA LO SCROLL
+         ======================================= */
       &.scroll-reveal.is-visible {
-        /* La card intera compare subito */
-        animation: seqCardReveal 0.6s ease-out both;
+        /* A) La Card appare subito */
+        animation: mCardReveal 0.6s ease-out forwards;
 
-        .image-overlay {
-          /* L'ombra aspetta 1 secondo prima di scurire l'immagine */
-          animation: seqOverlayFade 0.6s ease-out 1s both;
+        /* B) L'ombra sull'immagine aspetta 0.8 secondi e poi scende */
+        .service-image .image-overlay {
+          animation: mOverlayIn 0.6s ease-out 0.8s forwards;
         }
 
-        .service-content {
-          /* Il testo aspetta 1 secondo ed entra INSIEME all'ombra */
-          animation: seqTextReveal 0.6s ease-out 1s both;
+        /* C) Il testo aspetta 0.8 secondi ed entra insieme all'ombra */
+        .animated-text {
+          animation: mTextReveal 0.6s ease-out 0.8s forwards;
         }
       }
     }
 
-    /* 3. IMMAGINE (Rigorosamente senza Blur!) */
+    /* 3. IMMAGINE (Niente sfocature!) */
     .service-image {
       grid-column: 1; grid-row: 1;
       width: 100%; height: 380px; z-index: 1;
       border-radius: 0; border: none; box-shadow: none;
 
-      img {
-        width: 100%; height: 100%; object-fit: cover;
-        filter: none !important;
+      /* Forziamo l'immagine a farsi vedere subito, senza animazioni desktop */
+      &.animated-img {
+        opacity: 1;
+        transform: none;
       }
 
-      /* La pellicola scura che animeremo al posto del blur */
+      img {
+        width: 100%; height: 100%; object-fit: cover;
+        filter: none; /* iPhone salvo! */
+        transform: translateZ(0);
+      }
+
+      /* La pellicola scura che fa da ombra */
       .image-overlay {
-        display: block !important;
-        background: rgba(15, 23, 42, 0.8) !important;
-        opacity: 0; /* Inizia trasparente, così vedi la foto pulita */
-        transition: none !important;
+        display: block;
+        background: rgba(15, 23, 42, 0.8);
+        opacity: 0; /* Inizialmente trasparente: l'immagine si vede chiara! */
+        transition: none;
       }
     }
 
@@ -297,13 +313,32 @@
     .service-content {
       grid-column: 1; grid-row: 1; z-index: 2;
       padding: 2rem 1.5rem; text-align: center; width: 100%;
-      opacity: 1;
+
+      /* STATO INIZIALE DEL TESTO: Nascosto */
+      opacity: 0;
+      transform: translateY(20px);
 
       .tech-icon-small { margin: 0 auto 1.5rem; }
       h3 { font-size: 1.8rem; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9); color: #fff; }
       p { color: #f8fafc; font-size: 1rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); margin-bottom: 2rem; }
     }
   }
+}
+
+/* --- I 3 KEYFRAMES DELLA SEQUENZA --- */
+@keyframes mCardReveal {
+  0%   { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mOverlayIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes mTextReveal {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* --- KEYFRAMES DELLA SEQUENZA --- */
