@@ -207,22 +207,26 @@
     filter: blur(0);
   }
 }
-/* --- RESPONSIVE MOBILE (TRANSIZIONI NATIVE - ZERO KEYFRAMES) --- */
+/* --- RESPONSIVE MOBILE (STATICO, SICURO E SEMPRE VISIBILE) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
-    /* 1. PULIZIA: Disattiviamo tutto ciò che arriva dal desktop */
+    /* 1. RESET ASSOLUTO: Spegniamo qualsiasi animazione o invisibilità */
   }
-  .services-showcase-container .scroll-reveal .animated-header,
-  .services-showcase-container .scroll-reveal .animated-img,
-  .services-showcase-container .scroll-reveal .animated-text {
+  .services-showcase-container .animated-header,
+  .services-showcase-container .animated-img,
+  .services-showcase-container .animated-text,
+  .services-showcase-container .scroll-reveal {
     animation: none !important;
     transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
   .services-showcase-container .services-list {
-    gap: 4rem;
+    gap: 3rem;
   }
   .services-showcase-container {
-    /* 2. CONTENITORE PRINCIPALE: Sempre visibile e solido */
+    /* 2. CONTENITORE CARD */
   }
   .services-showcase-container .service-row, .services-showcase-container .service-row.reverse {
     display: grid;
@@ -235,39 +239,44 @@
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
     background: #0f172a;
-    /* La carta in sé è sempre visibile. Niente trucchi qui. */
-    opacity: 1;
-    transform: none;
+    /* Card sempre visibile, fissa */
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
   .services-showcase-container {
-    /* 3. L'IMMAGINE: Sempre visibile e nitida */
+    /* 3. L'IMMAGINE DI SFONDO */
   }
   .services-showcase-container .service-image {
     grid-column: 1;
     grid-row: 1;
     width: 100%;
-    height: 380px;
+    height: 420px; /* Un po' più alta per far respirare il testo */
     z-index: 1;
     border-radius: 0;
     border: none;
     box-shadow: none;
+    /* Forza la visibilità dell'immagine */
+    opacity: 1 !important;
   }
   .services-showcase-container .service-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: none !important;
+    display: block;
   }
   .services-showcase-container .service-image {
-    /* L'OVERLAY (L'ombra) */
+    /* Pellicola scura fissa sopra l'immagine per far leggere il testo */
   }
   .services-showcase-container .service-image .image-overlay {
     display: block !important;
-    background: rgba(15, 23, 42, 0.8) !important;
-    /* STATO INIZIALE: Trasparente */
-    opacity: 0;
-    /* Usiamo TRANSITION invece dei keyframes */
-    transition: opacity 0.8s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.75) !important;
+    opacity: 1 !important;
   }
   .services-showcase-container {
     /* 4. IL TESTO */
@@ -279,11 +288,9 @@
     padding: 2rem 1.5rem;
     text-align: center;
     width: 100%;
-    /* STATO INIZIALE: Nascosto e spostato in giù */
-    opacity: 0;
-    transform: translateY(20px);
-    /* Usiamo TRANSITION invece dei keyframes */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    /* Forza la visibilità del testo */
+    opacity: 1 !important;
+    transform: none !important;
   }
   .services-showcase-container .service-content .tech-icon-small {
     margin: 0 auto 1.5rem;
@@ -298,24 +305,6 @@
     font-size: 1rem;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
     margin-bottom: 2rem;
-  }
-  .services-showcase-container {
-    /* =========================================
-       5. LA MAGIA ALLO SCROLL (.is-visible)
-       ========================================= */
-    /* Quando il TypeScript rileva lo scroll e aggiunge la classe,
-       le proprietà cambiano e la TRANSITION fa il resto fluidamente! */
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible .service-image .image-overlay {
-    /* L'ombra diventa visibile dopo mezzo secondo */
-    opacity: 1;
-    transition-delay: 0.6s;
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible .service-content {
-    /* Il testo sale e diventa visibile INSIEME all'ombra */
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.6s;
   }
 }
 
