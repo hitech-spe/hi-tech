@@ -27,30 +27,26 @@ export class HomeComponent implements AfterViewInit {
   }
 
   private setupIntersectionObserver() {
-    // Configurazione dell'osservatore
     const options = {
-      root: null, // Usa il viewport del browser
-      rootMargin: '0px',
-      threshold: 0.15 // L'animazione scatta quando il 15% della sezione è visibile
+      root: null,
+      /* rootMargin anticipa il caricamento di 50px prima che entri nello schermo,
+         aiutando la fluidità su mobile */
+      rootMargin: '50px',
+      threshold: 0.05 /* Abbassato al 5%: scatta subito senza far faticare il telefono */
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
-        // Se la sezione entra nello schermo
         if (entry.isIntersecting) {
-          // Aggiunge la classe che fa partire l'animazione CSS
           entry.target.classList.add('is-visible');
 
-          // Opzionale: smette di osservare se vuoi che l'animazione avvenga solo la prima volta
-          // observer.unobserve(entry.target);
-        } else {
-          // Opzionale: rimuovi la classe se vuoi che l'animazione si ripeta quando l'utente fa scroll su e giù
-          entry.target.classList.remove('is-visible');
+          // FONDAMENTALE PER IL MOBILE: Smetti di osservare l'elemento!
+          // Evita che scatti a ripetizione andando su e giù, salvando tantissima batteria e RAM.
+          observer.unobserve(entry.target);
         }
       });
     }, options);
 
-    // Collega l'osservatore a ogni sezione
     this.animatedSections.forEach(section => {
       observer.observe(section.nativeElement);
     });

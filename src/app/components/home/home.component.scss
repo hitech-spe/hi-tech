@@ -234,6 +234,12 @@
 ========================================= */
 @media (max-width: 1024px) {
 
+  /* --- SALVA-PRESTAZIONI MOBILE --- */
+  /* Spegniamo le forme sfocate pesanti che fanno laggare lo scroll su smartphone */
+  .dashboard-hero-split .hero-bg-shapes {
+    display: none !important;
+  }
+
   /* --- Nascondiamo completamente l'immagine --- */
   .dashboard-hero-split .hero-image-side {
     display: none;
