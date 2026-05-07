@@ -222,8 +222,9 @@
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-    /* Background di sicurezza mentre carica la foto da internet */
-    background: rgba(15, 23, 42, 0.8);
+    background: rgb(15, 23, 42);
+    /* FIX iOS: Forza il rendering hardware per evitare glich visivi */
+    transform: translateZ(0);
   }
   .services-showcase-container {
     /* 1. IMMAGINE */
@@ -237,7 +238,9 @@
     border-radius: 0;
     box-shadow: none;
     border: none;
-    /* IL TRUCCO È QUI: Spegniamo il gradiente scuro del desktop! */
+    /* FIX iOS: L'animazione base non deve bloccare la visibilità */
+    opacity: 1 !important;
+    transform: none !important;
   }
   .services-showcase-container .service-image .image-overlay {
     display: none !important;
@@ -246,8 +249,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Impostiamo il filtro iniziale fisso qui */
     filter: brightness(1) blur(0px);
-    will-change: filter, transform;
   }
   .services-showcase-container {
     /* 2. TESTO */
@@ -259,6 +262,8 @@
     padding: 2rem 1.5rem;
     text-align: center;
     width: 100%;
+    /* Rimuoviamo l'opacità iniziale globale per far gestire tutto ai keyframes mobili */
+    opacity: 0;
   }
   .services-showcase-container .service-content .tech-icon-small {
     margin: 0 auto 1.5rem;
@@ -274,54 +279,52 @@
     margin-bottom: 2rem;
   }
   .services-showcase-container {
-    /* --- COREOGRAFIA ANIMAZIONI MOBILE VELOCIZZATA --- */
+    /* --- COREOGRAFIA ANIMAZIONI MOBILE (iOS OPTIMIZED) --- */
+    /* Quando la riga riceve la classe is-visible dallo scroll */
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible {
+    /* 1. La card intera fa un piccolo "pop" (non usiamo l'opacity qui per sicurezza iOS) */
+    animation: mobilePop 0.5s ease-out forwards;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible .service-image img {
+    /* L'immagine si oscura morbidamente */
+    animation: mobileImgBlur 1s ease-in-out forwards;
+  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible .animated-text {
+    /* Il testo sale dal basso */
+    animation: mobileTextUp 0.6s ease-out 0.4s forwards;
+  }
+  .services-showcase-container {
+    /* Disattiviamo le animazioni desktop che causavano conflitto */
   }
   .services-showcase-container .service-row.scroll-reveal.is-visible:not(.reverse) .animated-img,
-  .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-img {
-    /* Il contenitore compare subito in 0.6 secondi */
-    animation: mobileWrapperReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s both !important;
-  }
-  .services-showcase-container .service-row.scroll-reveal.is-visible:not(.reverse) .animated-img img,
-  .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-img img {
-    /* L'offuscamento inizia molto prima */
-    animation: mobileImgBlur 1s ease-in-out 0s both !important;
-  }
+  .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-img,
   .services-showcase-container .service-row.scroll-reveal.is-visible:not(.reverse) .animated-text,
   .services-showcase-container .service-row.scroll-reveal.is-visible.reverse .animated-text {
-    /* Il testo scatta molto prima: dopo solo 0.5 secondi! */
-    animation: mobileTextUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both !important;
+    animation: none; /* Disattiva desktop */
   }
 }
-/* --- KEYFRAMES SPECIFICI PER MOBILE --- */
-/* Apparizione della card intera */
-@keyframes mobileWrapperReveal {
+/* --- KEYFRAMES SPECIFICI PER MOBILE (iOS SAFE) --- */
+@keyframes mobilePop {
   0% {
-    opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
   100% {
-    opacity: 1;
     transform: scale(1);
   }
 }
-/* Gestione Filtro Immagine */
 @keyframes mobileImgBlur {
-  /* Resta nitida solo per la prima frazione di secondo, poi accompagna il testo offuscandosi */
   0% {
-    filter: brightness(1) blur(0px);
-  }
-  30% {
     filter: brightness(1) blur(0px);
   }
   100% {
-    filter: brightness(0.5) blur(2px);
+    filter: brightness(0.4) blur(2px);
   }
 }
-/* Salita del testo */
 @keyframes mobileTextUp {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
