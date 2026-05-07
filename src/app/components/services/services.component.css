@@ -51,9 +51,6 @@
 .services-showcase-container .service-row:hover .service-image img {
   transform: scale(1.05);
 }
-.services-showcase-container .service-row:hover .service-image .image-overlay {
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.6) 0%, rgba(0, 210, 255, 0.2) 100%);
-}
 .services-showcase-container .service-row:hover .explore-btn {
   color: var(--primary);
 }
@@ -84,14 +81,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.1) 100%);
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.1) 100%);
   transition: background 0.5s ease;
 }
 .services-showcase-container {
   /* Assicuriamo che il gradiente dell'overlay sia corretto per le righe reverse */
 }
 .services-showcase-container .service-row.reverse .image-overlay {
-  background: linear-gradient(270deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.1) 100%);
+  background: linear-gradient(270deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.1) 100%);
 }
 .services-showcase-container {
   /* LATO TESTO */

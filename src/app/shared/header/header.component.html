@@ -1,7 +1,7 @@
 <header class="header">
   <div class="logo">
     <a routerLink="/home">
-      <img ngSrc="../../../assets/images/logo.png" alt="Hi-Tech Logo" height="1080" width="1920" priority>
+      <img ngSrc="../../../assets/images/logo.png" [class.hide-on-mobile-open]="isMenuOpen" alt="Hi-Tech Logo" height="1080" width="1920" priority>
     </a>
   </div>
 

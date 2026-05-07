@@ -148,11 +148,9 @@
 
     .overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(270deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+      top: 0; left: 0; right: 0; bottom: 0;
+      /* Cambiato 0.8 in 0.5 */
+      //background: linear-gradient(270deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.3) 100%);
     }
   }
 }

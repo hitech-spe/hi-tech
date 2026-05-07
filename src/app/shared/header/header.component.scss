@@ -314,131 +314,137 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 0.5rem 1rem;
-    flex-direction: row;
-    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    height: 70px;
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
+    /* --- IL LOGO MOBILE --- */
     .logo {
       padding-left: 0;
-      display: flex;
-      align-items: center;
-      a {
-        img {
-          height: auto;
-          //max-height: 40px;
-          width: 21rem;
-          //max-width: 150px;
-        }
+      z-index: 1002;
+      transition: opacity 0.4s ease;
+
+      /* Nascondiamo il logo in dissolvenza quando il menu si apre */
+      &.hide-on-mobile-open {
+        opacity: 0 !important;
+        pointer-events: none;
+      }
+
+      a img {
+        width: 14rem;
+        /* FIX DEFINITIVO COLORE: Rimuovi il vecchio filtro!
+           brightness(0) invert(1) lo rende BIANCO PURO. */
+        filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) !important;
       }
     }
 
+    /* --- IL PULSANTE MENU --- */
     .mobile-menu-toggle {
       display: flex;
+      padding: 0;
+      width: 30px; height: 30px;
+      justify-content: center;
+      z-index: 1003; /* Sopra tutto per poter chiudere */
+
+      span {
+        width: 100%; height: 2px;
+        background-color: #f8fafc;
+      }
+
+      &.active span {
+        background-color: #00d2ff; /* Azzurro quando aperto */
+      }
     }
 
+    /* --- IL MENU OVERLAY (La Rivoluzione) --- */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100vh;
-      max-height: none;
-      background: rgba(15, 23, 42, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
-      padding: 80px 20px 30px;
-      border-radius: 0;
-      box-shadow: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      z-index: 1000;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: radial-gradient(circle at top right, rgba(15, 23, 42, 0.99), rgba(2, 6, 23, 1));
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 0;
 
-      opacity: 0;
-      visibility: hidden;
-
-      // per evitare scroll del body quando aperto (aggiunto tramite TS o CSS globale ideale, ma mettiamolo qui)
-      overflow-y: auto;
+      /* Animazione d'ingresso circolare */
+      clip-path: circle(0% at calc(100% - 40px) 35px);
+      transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 1; visibility: visible;
 
       &.open {
-        opacity: 1;
-        visibility: visible;
+        clip-path: circle(150% at calc(100% - 40px) 35px);
       }
 
-      &::before {
-        display: none;
-      }
+      /* Spegniamo le pseudo-ombre del desktop */
+      &::before { display: none; }
 
       ul {
         flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        width: 100%;
+        gap: 0.5rem;
+        padding: 0 2rem;
+        border: none;
+        box-shadow: none;
+        background: none;
 
         li {
-          width: 100%;
-          text-align: center;
           opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.3s ease;
+          transform: translateY(40px);
+          width: 100%;
 
           a {
-            font-size: 1.5rem;
-            display: inline-block;
-            padding: 0.8rem 1.2rem;
-            width: auto;
-            border-radius: 12px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
             color: #f8fafc;
+            padding: 1rem;
+            width: 100%;
+            text-transform: uppercase;
+            background: none !important;
 
             &.active {
-              background: none;
               color: #00d2ff;
               box-shadow: none;
-              text-decoration: none;
-              font-weight: 700;
             }
           }
         }
       }
 
+      // Animazione d'ingresso in sequenza
       &.open ul li {
         opacity: 1;
         transform: translateY(0);
-
-        @for $i from 1 through 6 {
-          &:nth-child(#{$i}) {
-            transition-delay: #{0.1 + ($i * 0.05)}s;
-          }
+        @for $i from 1 through 8 {
+          &:nth-child(#{$i}) { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) #{0.2 + ($i * 0.08)}s; }
         }
       }
 
       .lang-selector {
         margin-left: 0;
-        margin-top: 1rem;
+        margin-top: 3rem;
         justify-content: center;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 50px;
+        padding: 1rem;
 
-        button {
-          font-size: 1.1rem;
+        button { font-size: 1rem; color: #f8fafc;
+          &.active { color: #00d2ff; background: rgba(0, 210, 255, 0.1); }
         }
       }
 
       .user-menu-container {
+        margin-top: 2rem;
         align-items: center;
 
-        .user-dropdown {
-          position: static;
-          width: 100%;
-          max-width: 300px;
-          margin-top: 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          box-shadow: none;
+        .user-avatar { width: 60px; height: 60px; font-size: 1.2rem; }
 
-          .dropdown-item {
-            justify-content: center;
+        .user-dropdown {
+          background: none; border: none; text-align: center; position: relative; top: 0;
+          .full-name { font-size: 1.2rem; color: #fff; }
+          .dropdown-divider { display: none; }
+          .dropdown-item { justify-content: center; font-size: 1.1rem; color: #ef4444; background: none;
+            &:hover { background: rgba(239, 68, 68, 0.1); }
           }
         }
       }
