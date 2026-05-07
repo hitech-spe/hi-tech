@@ -288,10 +288,23 @@
     transform: translateX(0);
   }
 }
-/* --- RESPONSIVE MOBILE --- */
+/* --- RESPONSIVE MOBILE (STATICO E SICURO PER iOS) --- */
 @media (max-width: 992px) {
   .contact-showcase-container {
     padding: 2rem 1rem;
+    /* 1. RESET ASSOLUTO: Spegniamo le animazioni a scomparsa per iOS */
+  }
+  .contact-showcase-container .animated-header,
+  .contact-showcase-container .animated-left,
+  .contact-showcase-container .animated-right, .contact-showcase-container.is-visible .animated-header, .contact-showcase-container.is-visible .animated-left, .contact-showcase-container.is-visible .animated-right {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important; /* Libera la memoria RAM del telefono */
+  }
+  .contact-showcase-container {
+    /* 2. LAYOUT A COLONNA UNICA */
   }
   .contact-showcase-container .contact-grid {
     grid-template-columns: 1fr;
@@ -303,18 +316,8 @@
   .contact-showcase-container .glass-panel {
     padding: 2rem 1.5rem;
   }
-  .contact-showcase-container {
-    /* Su mobile facciamo apparire tutto dal basso in sequenza semplice */
-  }
-  .contact-showcase-container.is-visible .animated-left, .contact-showcase-container.is-visible .animated-right {
-    animation: contactFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  .contact-showcase-container.is-visible .animated-right {
-    animation-delay: 0.2s;
-  }
 }
-/* FALLBACK: Se per qualche motivo l'IntersectionObserver non dovesse caricare,
-   questo assicura che il form sia visibile dopo 3 secondi comunque */
+/* FALLBACK DESKTOP: Assicura che il form sia visibile se l'Observer fallisce su PC */
 .animated-header, .animated-left, .animated-right {
   transition: opacity 1s ease;
 }
