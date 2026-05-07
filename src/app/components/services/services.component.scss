@@ -230,25 +230,55 @@
   }
 }
 
-/* --- RESPONSIVE MOBILE (STATICO, SICURO E SEMPRE VISIBILE) --- */
+/* --- RESPONSIVE MOBILE (ANIMAZIONI IN SEQUENZA - SAFE MODE) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
 
-    /* 1. RESET ASSOLUTO: Spegniamo qualsiasi animazione o invisibilità */
-    .animated-header,
-    .animated-img,
-    .animated-text,
-    .scroll-reveal {
+    /* 1. SPEGNIAMO LE ANIMAZIONI DESKTOP (Uccidiamo i keyframe e i filtri) */
+    .service-row.scroll-reveal.is-visible .animated-img,
+    .service-row.scroll-reveal.is-visible.reverse .animated-img,
+    .service-row.scroll-reveal.is-visible .animated-text,
+    .service-row.scroll-reveal.is-visible.reverse .animated-text,
+    .scroll-reveal.is-visible .animated-header {
       animation: none !important;
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-      filter: none !important;
     }
 
+    /* 2. STATO INIZIALE (Gli elementi partono invisibili e un po' più in basso) */
+    .scroll-reveal .animated-header,
+    .scroll-reveal .animated-img,
+    .scroll-reveal .animated-text {
+      opacity: 0;
+      transform: translateY(30px);
+      /* Usiamo transizioni morbide e native. Zero sforzo per il telefono */
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      filter: none !important; /* Assoluto divieto di blur su mobile! */
+    }
+
+    /* 3. LA REGIA: COSA SUCCEDE ALLO SCROLL */
+    .scroll-reveal.is-visible .animated-header {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .service-row.scroll-reveal.is-visible {
+
+      /* A. L'immagine di sfondo (e la sua ombra) compaiono subito */
+      .animated-img {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* B. Il testo aspetta 0.4 secondi, poi sale elegantemente sopra l'immagine */
+      .animated-text {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.4s;
+      }
+    }
+
+    /* 4. LAYOUT DELLA CARD (Griglia sovrapposta, invariata) */
     .services-list { gap: 3rem; }
 
-    /* 2. CONTENITORE CARD */
     .service-row, .service-row.reverse {
       display: grid;
       grid-template-columns: 1fr;
@@ -261,45 +291,37 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       background: #0f172a;
 
-      /* Card sempre visibile, fissa */
-      opacity: 1 !important;
-      transform: none !important;
-      animation: none !important;
+      /* FONDAMENTALE: Il contenitore esterno è sempre visibile e fermo.
+         Sono le cose al suo interno che si animano! */
+      opacity: 1;
+      transform: none;
     }
 
-    /* 3. L'IMMAGINE DI SFONDO */
+    /* LATO IMMAGINE */
     .service-image {
       grid-column: 1; grid-row: 1;
-      width: 100%; height: 420px; /* Un po' più alta per far respirare il testo */
+      width: 100%; height: 420px;
       z-index: 1;
       border-radius: 0; border: none; box-shadow: none;
-
-      /* Forza la visibilità dell'immagine */
-      opacity: 1 !important;
 
       img {
         width: 100%; height: 100%; object-fit: cover;
         display: block;
       }
 
-      /* Pellicola scura fissa sopra l'immagine per far leggere il testo */
+      /* Pellicola scura fissa sopra l'immagine. Compare INSIEME all'immagine */
       .image-overlay {
         display: block !important;
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
         background: rgba(15, 23, 42, 0.75) !important;
-        opacity: 1 !important;
       }
     }
 
-    /* 4. IL TESTO */
+    /* LATO TESTO */
     .service-content {
       grid-column: 1; grid-row: 1; z-index: 2;
       padding: 2rem 1.5rem; text-align: center; width: 100%;
-
-      /* Forza la visibilità del testo */
-      opacity: 1 !important;
-      transform: none !important;
 
       .tech-icon-small { margin: 0 auto 1.5rem; }
       h3 { font-size: 1.8rem; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9); color: #fff; }
