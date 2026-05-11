@@ -41,6 +41,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# CSS generated files
-src/**/*.css
-src/**/*.css.map
+# Ignora i file CSS compilati e le relative mappe
+*.css
+*.css.map
