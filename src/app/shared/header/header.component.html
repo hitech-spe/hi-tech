@@ -1,7 +1,7 @@
 <header class="header">
   <div class="logo">
     <a routerLink="/home">
-      <img ngSrc="../../../assets/images/logo.png" [class.hide-on-mobile-open]="isMenuOpen" alt="Hi-Tech Logo" height="1080" width="1920" priority>
+      <img ngSrc="../../../assets/images/logo-trasp.png" [class.hide-on-mobile-open]="isMenuOpen" alt="Hi-Tech Logo" height="1080" width="1920" priority>
     </a>
   </div>
 
@@ -40,9 +40,6 @@
           }
         </li>
       }
-      <!--} @else {
-        <li><a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.LOGIN' | translate }}</a></li>
-      }-->
 
       <li class="lang-selector">
         <button (click)="changeLang('it')" [class.active]="currentLang === 'it'">IT</button>
