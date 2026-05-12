@@ -11,7 +11,12 @@
     </a>
   </div>
 
-  <button class="mobile-menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+  <button
+    class="mobile-menu-toggle"
+    (click)="toggleMenu()"
+    [class.active]="isMenuOpen"
+    aria-label="Menu di navigazione"
+    [attr.aria-expanded]="isMenuOpen">
     <span></span>
     <span></span>
     <span></span>
@@ -20,13 +25,17 @@
   <nav class="nav" [class.open]="isMenuOpen">
     <ul>
       <li><a [routerLink]="['/home']" fragment="home" (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
-      <li><a [routerLink]="['/home']" fragment="about"  (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
-      <li><a [routerLink]="['/home']" fragment="services" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
-      <li><a routerLink="/quote-ai" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
-      <li><a [routerLink]="['/home']" fragment="contact"  (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="about" (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="services" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a>
+      </li>
+      <li><a routerLink="/quote-ai" routerLinkActive="active"
+             (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="contact" (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a>
+      </li>
 
       @if (userData$ | async; as user) {
-        <li><a routerLink="/quotes" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTES' | translate }}</a></li>
+        <li><a routerLink="/quotes" routerLinkActive="active"
+               (click)="closeMenu()">{{ 'HEADER.QUOTES' | translate }}</a></li>
         <li class="user-menu-container">
           <div class="user-avatar" (click)="toggleUserMenu($event)">
             {{ getInitials(user) }}
