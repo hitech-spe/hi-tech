@@ -2,7 +2,8 @@
 @if (showSplash) {
   <div class="global-splash-screen" [class.fade-out]="fadeSplash">
     <div class="splash-content">
-      <img src="assets/images/logo-trasp.png" alt="Hi-Tech Logo">
+      <img src="assets/images/logo-trasp.png" alt="Hi-Tech Logo" priority fetchpriority="high"
+           loading="eager">
 
       <!--div class="tech-spinner"></div-->
     </div>
