@@ -4,7 +4,7 @@ import { RouterLink } from "@angular/router";
 import { ServicesComponent } from "../services/services.component";
 import { AboutComponent } from "../about/about.component";
 import { ContactComponent } from "../contact/contact.component";
-import { AdastraServicesComponent } from "../adastra-services/adastra-services.component";
+import { PartnershipComponent } from "../partnership/partnership.component";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,7 @@ import { AdastraServicesComponent } from "../adastra-services/adastra-services.c
     ServicesComponent,
     AboutComponent,
     ContactComponent,
-    AdastraServicesComponent
+    PartnershipComponent
   ],
   standalone: true
 })

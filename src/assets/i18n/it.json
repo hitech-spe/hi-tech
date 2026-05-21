@@ -5,7 +5,7 @@
     "SERVICES": "Servizi",
     "QUOTE_AI": "Preventivo AI",
     "QUOTES": "I miei Preventivi",
-    "ADASTRA": "Servizi ADASTRA",
+    "ADASTRA": "Partnership",
     "CONTACT": "Contatti",
     "LOGIN": "Accedi"
   },
@@ -75,6 +75,14 @@
         "DESC": "Progettiamo campagne pubblicitarie digitali per aumentare visibilità, contatti e vendite.",
         "FULL": "Progettiamo e gestiamo campagne pubblicitarie digitali su Google, Meta e LinkedIn, con l’obiettivo di aumentare visibilità, traffico qualificato, contatti, vendite e conversioni. Ogni campagna viene strutturata in base al target, al budget e agli obiettivi del cliente, attraverso la scelta dei canali più adatti, la creazione degli annunci, il monitoraggio dei risultati e l’ottimizzazione continua delle performance. Dalle campagne di ricerca Google alle sponsorizzate Meta, fino alle strategie B2B su LinkedIn, sviluppiamo attività advertising pensate per raggiungere le persone giuste nel momento più efficace."
       }
+    }
+  },
+  "PARTNERSHIP": {
+    "TITLE": "I Nostri",
+    "SUBTITLE": "Partner",
+    "ADASTRA": {
+      "NAME": "ADASTRA",
+      "DESC": "Insieme ad ADASTRA, aiutiamo gli imprenditori a trasformare il marketing da centro di costo a leva concreta di crescita. Supportiamo aziende che vogliono acquisire più clienti, rafforzare il posizionamento e ottenere risultati misurabili. Lavoriamo su strategia, contenuti e performance, integrando digitale e processi commerciali per generare opportunità reali, non solo visibilità. Come Innovation Manager accompagniamo le imprese nell’adozione di modelli, strumenti e tecnologie che semplificano i processi e aumentano la competitività. Dall’analisi all’implementazione, con un approccio pratico e orientato ai risultati. Se cerchi un partner che unisca visione strategica ed esecuzione concreta, siamo il team giusto."
     }
   },
   "CONTACT": {

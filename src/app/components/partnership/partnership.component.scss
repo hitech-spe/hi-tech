@@ -1,0 +1,129 @@
+@use "../services/services.component.scss";
+
+.adastra-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0, 210, 255, 0.08);
+      color: var(--primary, #00d2ff);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(0, 210, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin: 0;
+      line-height: 1.2;
+    }
+  }
+}
+
+.partnership-content {
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.partnership-card {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 3rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 900px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-color: rgba(var(--primary-rgb, 0, 210, 255), 0.3);
+  }
+
+  .partner-logo {
+    flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem; /* 👈 AGGIUNTO: Evita che il logo tocchi i bordi del quadrato */
+    box-sizing: border-box;
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* 👈 MODIFICATO: Mostra l'intera immagine mantenendo le proporzioni */
+      filter: grayscale(1) contrast(1.2);
+      transition: filter 0.3s ease;
+    }
+  }
+
+  &:hover .logo-img {
+    filter: grayscale(0) contrast(1);
+  }
+
+  .partner-info {
+    flex-grow: 1;
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .partner-desc {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .partnership-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem;
+
+    .partner-logo {
+      width: 140px;  /* Aumentato leggermente per il mobile per dare spazio al padding */
+      height: 140px;
+      padding: 1rem; /* 👈 AGGIUNTO: Padding anche per la versione mobile */
+    }
+
+    .partner-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .partner-desc {
+      font-size: 1rem;
+    }
+  }
+}

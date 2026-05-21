@@ -5,7 +5,7 @@
     "SERVICES": "Services",
     "QUOTE_AI": "AI Quote",
     "QUOTES": "My Quotes",
-    "ADASTRA": "ADASTRA Services",
+    "ADASTRA": "Partnership",
     "CONTACT": "Contact"
   },
   "SERVICES": {
@@ -74,6 +74,14 @@
         "DESC": "We design digital advertising campaigns to increase visibility, leads, and sales.",
         "FULL": "We design and manage digital advertising campaigns on Google, Meta, and LinkedIn, with the goal of increasing visibility, qualified traffic, contacts, sales, and conversions. Each campaign is structured based on the target, budget, and customer objectives, through the choice of the most suitable channels, the creation of ads, monitoring of results, and continuous optimization of performance. From Google search campaigns to Meta sponsored ads, to B2B strategies on LinkedIn, we develop advertising activities designed to reach the right people at the most effective time."
       }
+    }
+  },
+  "PARTNERSHIP": {
+    "TITLE": "Our",
+    "SUBTITLE": "Partners",
+    "ADASTRA": {
+      "NAME": "ADASTRA",
+      "DESC": "Together with ADASTRA, we help entrepreneurs transform marketing from a cost center into a tangible driver of growth. We support companies looking to acquire more clients, strengthen their positioning, and achieve measurable results. We focus on strategy, content, and performance, integrating digital solutions and sales processes to generate real opportunities, not just visibility. As Innovation Managers, we guide businesses in adopting models, tools, and technologies that streamline processes and boost competitiveness—from analysis to implementation, with a practical, results-oriented approach. If you are looking for a partner that combines strategic vision with concrete execution, we are the right team."
     }
   },
   "CONTACT": {

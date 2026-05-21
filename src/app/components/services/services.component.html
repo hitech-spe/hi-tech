@@ -9,8 +9,8 @@
 
   <div class="services-list">
 
-    <div class="service-row scroll-reveal" routerLink="/services/web">
-      <div class="service-image left-side animated-img">
+    <div class="service-row scroll-reveal reverse" routerLink="/services/web">
+      <div class="service-image right-side animated-img">
         <img
           src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&fm=webp&q=60&w=800"
           srcset="
@@ -23,18 +23,18 @@
           height="533">
         <div class="image-overlay"></div>
       </div>
-      <div class="service-content right-side animated-text">
+      <div class="service-content left-side animated-text">
         <div class="tech-icon-small">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         </div>
         <h3>{{ 'SERVICES.WEB.TITLE' | translate }}</h3>
         <p>{{ 'SERVICES.WEB.DESC' | translate }}</p>
-        <span class="explore-btn">Scopri il servizio <span class="arrow">→</span></span>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
       </div>
     </div>
 
-    <div class="service-row scroll-reveal reverse" routerLink="/services/mobile">
-      <div class="service-image right-side animated-img">
+    <div class="service-row scroll-reveal" routerLink="/services/mobile">
+      <div class="service-image left-side animated-img">
         <img
           src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&fm=webp&q=75&w=800"
           srcset="
@@ -47,18 +47,18 @@
           height="533">
         <div class="image-overlay"></div>
       </div>
-      <div class="service-content left-side animated-text">
+      <div class="service-content right-side animated-text">
         <div class="tech-icon-small">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
         </div>
         <h3>{{ 'SERVICES.MOBILE.TITLE' | translate }}</h3>
         <p>{{ 'SERVICES.MOBILE.DESC' | translate }}</p>
-        <span class="explore-btn">Scopri il servizio <span class="arrow">→</span></span>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
       </div>
     </div>
 
-    <div class="service-row scroll-reveal" routerLink="/services/cloud">
-      <div class="service-image left-side animated-img">
+    <div class="service-row scroll-reveal reverse" routerLink="/services/cloud">
+      <div class="service-image right-side animated-img">
         <img
           src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&fm=webp&q=60&w=800"
           srcset="
@@ -71,63 +71,103 @@
           height="533">
         <div class="image-overlay"></div>
       </div>
-      <div class="service-content right-side animated-text">
+      <div class="service-content left-side animated-text">
         <div class="tech-icon-small">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
         </div>
         <h3>{{ 'SERVICES.CLOUD.TITLE' | translate }}</h3>
         <p>{{ 'SERVICES.CLOUD.DESC' | translate }}</p>
-        <span class="explore-btn">Scopri il servizio <span class="arrow">→</span></span>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
       </div>
     </div>
 
-    <div class="service-row scroll-reveal reverse" routerLink="/services/social">
-      <div class="service-image right-side animated-img">
-        <img
-          src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&fm=webp&q=75&w=800"
-          srcset="
-            https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&fm=webp&q=60&w=400 400w,
-            https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&fm=webp&q=75&w=800 800w"
-          sizes="(max-width: 600px) 400px, 800px"
-          alt="Social Media Management"
-          loading="lazy"
-          width="800"
-          height="533">
-        <div class="image-overlay"></div>
-      </div>
-      <div class="service-content left-side animated-text">
-        <div class="tech-icon-small">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-        </div>
-        <h3>{{ 'SERVICES.SOCIAL.TITLE' | translate }}</h3>
-        <p>{{ 'SERVICES.SOCIAL.DESC' | translate }}</p>
-        <span class="explore-btn">Scopri il servizio <span class="arrow">→</span></span>
-      </div>
-    </div>
-
-    <div class="service-row scroll-reveal" routerLink="/services/graphic">
+    <div class="service-row scroll-reveal" routerLink="/services/adastra-consulting">
       <div class="service-image left-side animated-img">
-        <img
-          src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&fm=webp&q=75&w=800"
-          srcset="
-            https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&fm=webp&q=60&w=400 400w,
-            https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&fm=webp&q=75&w=800 800w"
-          sizes="(max-width: 600px) 400px, 800px"
-          alt="Design e Grafica"
-          loading="lazy"
-          width="800"
-          height="533">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&fm=webp&q=60&w=800" alt="Consulenza Digitale" loading="lazy">
         <div class="image-overlay"></div>
       </div>
       <div class="service-content right-side animated-text">
         <div class="tech-icon-small">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 0-4-4 1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1V5a3 3 0 0 0-3-3z"></path><circle cx="7.5" cy="10.5" r=".5"></circle><circle cx="10.5" cy="7.5" r=".5"></circle><circle cx="14.5" cy="7.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
         </div>
-        <h3>{{ 'SERVICES.GRAPHIC.TITLE' | translate }}</h3>
-        <p>{{ 'SERVICES.GRAPHIC.DESC' | translate }}</p>
-        <span class="explore-btn">Scopri il servizio <span class="arrow">→</span></span>
+        <h3>{{ 'SERVICES.ADASTRA.CONSULTING.TITLE' | translate }}</h3>
+        <p>{{ 'SERVICES.ADASTRA.CONSULTING.DESC' | translate }}</p>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
       </div>
     </div>
 
-  </div>
+    <div class="service-row scroll-reveal reverse" routerLink="/services/adastra-elearning">
+      <div class="service-image left-side animated-img">
+        <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&fm=webp&q=60&w=800" alt="E-learning" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="service-content right-side animated-text">
+        <div class="tech-icon-small">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+        </div>
+        <h3>{{ 'SERVICES.ADASTRA.ELEARNING.TITLE' | translate }}</h3>
+        <p>{{ 'SERVICES.ADASTRA.ELEARNING.DESC' | translate }}</p>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
+      </div>
+    </div>
+
+    <div class="service-row scroll-reveal" routerLink="/services/adastra-branding">
+      <div class="service-image right-side animated-img">
+        <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&fit=crop&fm=webp&q=60&w=800" alt="Branding" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="service-content left-side animated-text">
+        <div class="tech-icon-small">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+        </div>
+        <h3>{{ 'SERVICES.ADASTRA.BRANDING.TITLE' | translate }}</h3>
+        <p>{{ 'SERVICES.ADASTRA.BRANDING.DESC' | translate }}</p>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
+      </div>
+    </div>
+
+    <div class="service-row scroll-reveal reverse" routerLink="/services/adastra-content">
+      <div class="service-image left-side animated-img">
+        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&fm=webp&q=60&w=800" alt="Content Creation" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="service-content right-side animated-text">
+        <div class="tech-icon-small">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        </div>
+        <h3>{{ 'SERVICES.ADASTRA.CONTENT.TITLE' | translate }}</h3>
+        <p>{{ 'SERVICES.ADASTRA.CONTENT.DESC' | translate }}</p>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
+      </div>
+    </div>
+
+    <div class="service-row scroll-reveal" routerLink="/services/adastra-social">
+      <div class="service-image right-side animated-img">
+        <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&fm=webp&q=60&w=800" alt="Social Media" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="service-content left-side animated-text">
+        <div class="tech-icon-small">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+        </div>
+        <h3>{{ 'SERVICES.ADASTRA.SOCIAL.TITLE' | translate }}</h3>
+        <p>{{ 'SERVICES.ADASTRA.SOCIAL.DESC' | translate }}</p>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }} </span>
+      </div>
+    </div>
+
+    <div class="service-row scroll-reveal reverse" routerLink="/services/adastra-adv">
+      <div class="service-image left-side animated-img">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&fm=webp&q=80&w=800" alt="Advertising" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="service-content right-side animated-text">
+        <div class="tech-icon-small">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        </div>
+        <h3>{{ 'SERVICES.ADASTRA.ADV.TITLE' | translate }}</h3>
+        <p>{{ 'SERVICES.ADASTRA.ADV.DESC' | translate }}</p>
+        <span class="explore-btn">{{ 'SERVICES.WEB.MORE' | translate }}</span>
+      </div>
+    </div>
 </div>

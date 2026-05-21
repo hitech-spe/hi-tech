@@ -126,21 +126,6 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       }
     },
     {
-      id: "adastra-wordpress",
-      title: "Creazione siti web WordPress",
-      description: "Siti web professionali, responsive e personalizzati per raccontare l'identità del brand.",
-      features: ["Design personalizzato", "Ottimizzazione SEO", "Responsive design", "Facile gestione"],
-      fullContent: "Realizziamo siti web WordPress professionali, responsive e personalizzati, pensati per raccontare l’identità del brand e trasformare la presenza online in uno strumento di comunicazione efficace. Ogni sito viene progettato curando struttura, design, esperienza utente, contenuti e ottimizzazione SEO di base, con l’obiettivo di creare una piattaforma chiara, veloce, facilmente aggiornabile.",
-      translations: {
-        en: {
-          title: "WordPress Website Creation",
-          description: "Professional, responsive, and customized websites to tell your brand identity.",
-          features: ["Custom design", "SEO optimization", "Responsive design", "Easy management"],
-          fullContent: "We create professional, responsive, and customized WordPress websites, designed to tell the brand's identity and transform the online presence into an effective communication tool. Each site is designed with care for structure, design, user experience, content, and basic SEO optimization."
-        }
-      }
-    },
-    {
       id: "adastra-elearning",
       title: "Creazione piattaforme e-learning",
       description: "Sviluppo piattaforme personalizzate per vendere o distribuire corsi online.",
