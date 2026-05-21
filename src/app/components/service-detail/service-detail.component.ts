@@ -109,6 +109,111 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           fullContent: "We transform your company values into distinctive visual elements. From logo creation to intuitive user interface design, we take care of every detail to ensure consistent and professional visual communication across all channels."
         }
       }
+    },
+    {
+      id: "adastra-consulting",
+      title: "Consulenza digitale e di innovazione",
+      description: "Definizione di strategie digitali orientate alla crescita, all'efficienza e alla competitività.",
+      features: ["Analisi modello business", "Ottimizzazione processi", "Innovazione canali", "Customer experience"],
+      fullContent: "Supportiamo aziende, professionisti e attività commerciali nella definizione di strategie digitali orientate alla crescita, all’efficienza e alla competitività. Attraverso un’analisi del modello di business, dei processi, dei canali di comunicazione e degli strumenti già in uso, individuiamo nuove opportunità di innovazione e sviluppiamo soluzioni su misura per migliorare presenza online, organizzazione interna, customer experience e performance commerciali.",
+      translations: {
+        en: {
+          title: "Digital Consulting and Innovation",
+          description: "Defining digital strategies oriented towards growth, efficiency, and competitiveness.",
+          features: ["Business model analysis", "Process optimization", "Channel innovation", "Customer experience"],
+          fullContent: "We support companies, professionals, and commercial activities in defining digital strategies oriented towards growth, efficiency, and competitiveness. Through an analysis of the business model, processes, communication channels, and tools already in use, we identify new innovation opportunities and develop tailor-made solutions to improve online presence, internal organization, customer experience, and commercial performance."
+        }
+      }
+    },
+    {
+      id: "adastra-wordpress",
+      title: "Creazione siti web WordPress",
+      description: "Siti web professionali, responsive e personalizzati per raccontare l'identità del brand.",
+      features: ["Design personalizzato", "Ottimizzazione SEO", "Responsive design", "Facile gestione"],
+      fullContent: "Realizziamo siti web WordPress professionali, responsive e personalizzati, pensati per raccontare l’identità del brand e trasformare la presenza online in uno strumento di comunicazione efficace. Ogni sito viene progettato curando struttura, design, esperienza utente, contenuti e ottimizzazione SEO di base, con l’obiettivo di creare una piattaforma chiara, veloce, facilmente aggiornabile.",
+      translations: {
+        en: {
+          title: "WordPress Website Creation",
+          description: "Professional, responsive, and customized websites to tell your brand identity.",
+          features: ["Custom design", "SEO optimization", "Responsive design", "Easy management"],
+          fullContent: "We create professional, responsive, and customized WordPress websites, designed to tell the brand's identity and transform the online presence into an effective communication tool. Each site is designed with care for structure, design, user experience, content, and basic SEO optimization."
+        }
+      }
+    },
+    {
+      id: "adastra-elearning",
+      title: "Creazione piattaforme e-learning",
+      description: "Sviluppo piattaforme personalizzate per vendere o distribuire corsi online.",
+      features: ["Aree riservate", "Moduli didattici", "Sistemi pagamento", "Gestione utenti"],
+      fullContent: "Sviluppiamo piattaforme e-learning personalizzate per aziende, professionisti, scuole, enti di formazione e realtà che desiderano vendere o distribuire corsi online. La piattaforma può includere aree riservate, moduli didattici, video lezioni, materiali scaricabili, quiz, certificati, sistemi di pagamento e gestione degli utenti.",
+      translations: {
+        en: {
+          title: "E-learning Platform Creation",
+          description: "Development of customized platforms to sell or distribute online courses.",
+          features: ["Private areas", "Learning modules", "Payment systems", "User management"],
+          fullContent: "We develop customized e-learning platforms for companies, professionals, schools, training entities, and entities that wish to sell or distribute online courses. The platform can include reserved areas, educational modules, video lessons, downloadable materials, quizzes, certificates, payment systems, and user management."
+        }
+      }
+    },
+    {
+      id: "adastra-branding",
+      title: "Grafica, branding e immagine coordinata",
+      description: "Identità visive riconoscibili, coerenti e memorabili per il tuo brand.",
+      features: ["Logo design", "Palette colori", "Immagine coordinata", "Materiali marketing"],
+      fullContent: "Costruiamo identità visive riconoscibili, coerenti e memorabili, capaci di comunicare il valore del brand in modo professionale. Ci occupiamo di logo design, palette colori, tipografia, materiali grafici, immagine coordinata, presentazioni, brochure, cataloghi e supporti digitali o stampati.",
+      translations: {
+        en: {
+          title: "Graphics, Branding, and Corporate Image",
+          description: "Recognizable, consistent, and memorable visual identities for your brand.",
+          features: ["Logo design", "Color palette", "Corporate image", "Marketing materials"],
+          fullContent: "We build recognizable, consistent, and memorable visual identities capable of communicating the brand's value professionally. We take care of logo design, color palettes, typography, graphic materials, corporate image, presentations, brochures, catalogs, and digital or printed supports."
+        }
+      }
+    },
+    {
+      id: "adastra-content",
+      title: "Content creation: foto e video",
+      description: "Contenuti visivi professionali per valorizzare prodotti, servizi e persone.",
+      features: ["Shooting fotografici", "Produzione video", "Social content", "Post-produzione"],
+      fullContent: "Realizziamo contenuti fotografici e video professionali pensati per valorizzare prodotti, servizi, ambienti, persone e momenti chiave del brand. Dallo shooting alla produzione video, creiamo materiali visivi adatti a siti web, social media, campagne pubblicitarie, presentazioni aziendali e comunicazione digitale.",
+      translations: {
+        en: {
+          title: "Content Creation: Photo and Video",
+          description: "Professional visual content to enhance products, services, and people.",
+          features: ["Photo shoots", "Video production", "Social content", "Post-production"],
+          fullContent: "We create professional photographic and video content designed to enhance products, services, environments, people, and key moments of the brand. From the shooting to video production, we create visual materials suitable for websites, social media, advertising campaigns, and corporate presentations."
+        }
+      }
+    },
+    {
+      id: "adastra-social",
+      title: "Social media marketing e management",
+      description: "Gestione strategica dei canali social per far crescere la tua community.",
+      features: ["Strategia editoriale", "Pianificazione post", "Community management", "Performance monitoring"],
+      fullContent: "Gestiamo la presenza social di aziende, professionisti e brand attraverso strategie editoriali personalizzate, contenuti mirati e una comunicazione coerente con gli obiettivi di business. Ci occupiamo di pianificazione, creazione contenuti, scrittura testi, pubblicazione, gestione dei canali e monitoraggio delle performance.",
+      translations: {
+        en: {
+          title: "Social Media Marketing and Management",
+          description: "Strategic social media management to grow your community.",
+          features: ["Editorial strategy", "Post planning", "Community management", "Performance monitoring"],
+          fullContent: "We manage the social presence of companies, professionals, and brands through customized editorial strategies, targeted content, and communication consistent with business objectives. We take care of planning, content creation, text writing, publishing, channel management, and performance monitoring."
+        }
+      }
+    },
+    {
+      id: "adastra-adv",
+      title: "Advertising Google, Meta e LinkedIn",
+      description: "Campagne pubblicitarie digitali per aumentare visibilità e conversioni.",
+      features: ["Google Ads", "Meta Ads", "LinkedIn Ads", "Ottimizzazione continua"],
+      fullContent: "Progettiamo e gestiamo campagne pubblicitarie digitali su Google, Meta e LinkedIn, con l’obiettivo di aumentare visibilità, traffico qualificato, contatti, vendite e conversioni. Ogni campagna viene strutturata in base al target, al budget e agli obiettivi del cliente.",
+      translations: {
+        en: {
+          title: "Google, Meta, and LinkedIn Advertising",
+          description: "Digital advertising campaigns to increase visibility and conversions.",
+          features: ["Google Ads", "Meta Ads", "LinkedIn Ads", "Continuous optimization"],
+          fullContent: "We design and manage digital advertising campaigns on Google, Meta, and LinkedIn, with the goal of increasing visibility, qualified traffic, contacts, sales, and conversions. Each campaign is structured based on the target, budget, and customer objectives."
+        }
+      }
     }
   ];
 

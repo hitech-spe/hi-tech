@@ -1,0 +1,13 @@
+@use "../services/services.component.scss";
+
+.adastra-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .section-header {
+    margin-bottom: 6rem;
+  }
+}

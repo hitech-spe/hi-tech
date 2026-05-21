@@ -1,0 +1,32 @@
+<div class="services-showcase-container adastra-section">
+  <div class="section-header scroll-reveal" #animatedElement>
+    <div class="animated-header">
+      <div class="badge">{{ 'SERVICES.ADASTRA.TITLE' | translate }}</div>
+      <h2 class="section-title"><span class="text-gradient">{{ 'SERVICES.ADASTRA.SUBTITLE' | translate }}</span></h2>
+    </div>
+  </div>
+
+  <div class="services-list">
+    <div *ngFor="let service of services; let i = index"
+         class="service-row scroll-reveal"
+         #animatedElement
+         [class.reverse]="i % 2 !== 0"
+         [routerLink]="['/services', service.id]">
+
+      <div class="service-image animated-img" [class.left-side]="i % 2 === 0" [class.right-side]="i % 2 !== 0">
+        <img [src]="service.image" alt="{{ service.titleKey | translate }}" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+
+      <div class="service-content animated-text" [class.right-side]="i % 2 === 0" [class.left-side]="i % 2 !== 0">
+        <div class="tech-icon-small" [innerHTML]="getSafeIcon(service.icon)">
+        </div>
+        <h3>{{ service.titleKey | translate }}</h3>
+        <p>{{ service.descKey | translate }}</p>
+        <span class="explore-btn">
+          {{ 'SERVICES.WEB.MORE' | translate }} <span class="arrow">→</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

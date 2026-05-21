@@ -5,6 +5,7 @@
     "SERVICES": "Servizi",
     "QUOTE_AI": "Preventivo AI",
     "QUOTES": "I miei Preventivi",
+    "ADASTRA": "Servizi ADASTRA",
     "CONTACT": "Contatti",
     "LOGIN": "Accedi"
   },
@@ -35,6 +36,45 @@
       "TITLE": "Grafica & Design",
       "DESC": "Creiamo un'identità visiva unica e accattivante per il tuo brand, dal logo ai materiali di marketing.",
       "MORE": "Scopri di più →"
+    },
+    "ADASTRA": {
+      "TITLE": "In Partnership con",
+      "SUBTITLE": "ADASTRA",
+      "CONSULTING": {
+        "TITLE": "Consulenza digitale e di innovazione",
+        "DESC": "Supportiamo aziende e professionisti nella definizione di strategie digitali orientate alla crescita e all'innovazione.",
+        "FULL": "Supportiamo aziende, professionisti e attività commerciali nella definizione di strategie digitali orientate alla crescita, all’efficienza e alla competitività. Attraverso un’analisi del modello di business, dei processi, dei canali di comunicazione e degli strumenti già in uso, individuiamo nuove opportunità di innovazione e sviluppiamo soluzioni su misura per migliorare presenza online, organizzazione interna, customer experience e performance commerciali. L’obiettivo è accompagnare ogni realtà in un percorso di trasformazione digitale concreto, sostenibile e coerente con le proprie esigenze."
+      },
+      "WORDPRESS": {
+        "TITLE": "Creazione siti web WordPress",
+        "DESC": "Realizziamo siti web professionali, responsive e personalizzati per raccontare l'identità del tuo brand.",
+        "FULL": "Realizziamo siti web WordPress professionali, responsive e personalizzati, pensati per raccontare l’identità del brand e trasformare la presenza online in uno strumento di comunicazione efficace. Ogni sito viene progettato curando struttura, design, esperienza utente, contenuti e ottimizzazione SEO di base, con l’obiettivo di creare una piattaforma chiara, veloce, facilmente aggiornabile e adatta a rappresentare al meglio l’azienda, il professionista o il progetto."
+      },
+      "ELEARNING": {
+        "TITLE": "Creazione piattaforme e-learning",
+        "DESC": "Sviluppiamo piattaforme personalizzate per vendere o distribuire corsi online in modo professionale.",
+        "FULL": "Sviluppiamo piattaforme e-learning personalizzate per aziende, professionisti, scuole, enti di formazione e realtà che desiderano vendere o distribuire corsi online. La piattaforma può includere aree riservate, moduli didattici, video lezioni, materiali scaricabili, quiz, certificati, sistemi di pagamento e gestione degli utenti. Ogni progetto viene costruito per rendere l’esperienza formativa semplice, accessibile e professionale, sia per chi eroga i contenuti sia per chi li fruisce."
+      },
+      "BRANDING": {
+        "TITLE": "Grafica, branding e immagine coordinata",
+        "DESC": "Costruiamo identità visive riconoscibili e coerenti per comunicare il valore del tuo brand.",
+        "FULL": "Costruiamo identità visive riconoscibili, coerenti e memorabili, capaci di comunicare il valore del brand in modo professionale. Ci occupiamo di logo design, palette colori, tipografia, materiali grafici, immagine coordinata, presentazioni, brochure, cataloghi e supporti digitali o stampati. Ogni elemento viene studiato per creare una comunicazione visiva armonica, distinguibile e in linea con il posizionamento dell’attività."
+      },
+      "CONTENT": {
+        "TITLE": "Content creation: foto e video",
+        "DESC": "Realizziamo contenuti visivi professionali per valorizzare prodotti, servizi e persone.",
+        "FULL": "Realizziamo contenuti fotografici e video professionali pensati per valorizzare prodotti, servizi, ambienti, persone e momenti chiave del brand. Dallo shooting alla produzione video, creiamo materiali visivi adatti a siti web, social media, campagne pubblicitarie, presentazioni aziendali e comunicazione digitale. L’obiettivo è trasformare l’identità del brand in immagini autentiche, curate e capaci di catturare l’attenzione."
+      },
+      "SOCIAL": {
+        "TITLE": "Social media marketing e management",
+        "DESC": "Gestiamo la tua presenza social con strategie mirate e contenuti di qualità per far crescere la tua community.",
+        "FULL": "Gestiamo la presenza social di aziende, professionisti e brand attraverso strategie editoriali personalizzate, contenuti mirati e una comunicazione coerente con gli obiettivi di business. Ci occupiamo di pianificazione, creazione contenuti, scrittura testi, pubblicazione, gestione dei canali e monitoraggio delle performance. Il nostro approccio unisce creatività, strategia e analisi, per costruire una presenza digitale riconoscibile, coinvolgente e orientata alla crescita della community e delle opportunità commerciali."
+      },
+      "ADV": {
+        "TITLE": "Advertising Google, Meta e LinkedIn",
+        "DESC": "Progettiamo campagne pubblicitarie digitali per aumentare visibilità, contatti e vendite.",
+        "FULL": "Progettiamo e gestiamo campagne pubblicitarie digitali su Google, Meta e LinkedIn, con l’obiettivo di aumentare visibilità, traffico qualificato, contatti, vendite e conversioni. Ogni campagna viene strutturata in base al target, al budget e agli obiettivi del cliente, attraverso la scelta dei canali più adatti, la creazione degli annunci, il monitoraggio dei risultati e l’ottimizzazione continua delle performance. Dalle campagne di ricerca Google alle sponsorizzate Meta, fino alle strategie B2B su LinkedIn, sviluppiamo attività advertising pensate per raggiungere le persone giuste nel momento più efficace."
+      }
     }
   },
   "CONTACT": {
