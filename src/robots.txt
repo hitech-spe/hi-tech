@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hitechnology.netlify.app/sitemap.xml
+Sitemap: https://hitechsrls.com/sitemap.xml
