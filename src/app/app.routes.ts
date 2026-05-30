@@ -3,6 +3,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ServicesComponent } from './components/services/services.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { QuoteSimulatorComponent } from './components/quote-simulator/quote-simulator.component';
 import { LoginComponent } from "./components/login/login.component";
@@ -16,6 +18,8 @@ export const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'services/:id', component: ServiceDetailComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
   { path: 'quote-ai', component: QuoteSimulatorComponent },
   { path: 'quotes', component: QuotesComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },

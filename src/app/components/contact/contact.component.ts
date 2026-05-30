@@ -3,6 +3,7 @@ import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-contact',
@@ -11,7 +12,8 @@ import { NgClass } from "@angular/common";
   imports: [
     TranslateModule,
     FormsModule,
-    NgClass
+    NgClass,
+    RouterLink
   ],
   standalone: true
 })
@@ -24,6 +26,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   isSending = false;
   submitStatus: 'success' | 'error' | null = null;
+  privacyAccepted = false;
   private observer: IntersectionObserver | null = null;
 
   constructor(private el: ElementRef) {}
@@ -57,7 +60,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.isSending) return;
+    if (this.isSending || !this.privacyAccepted) return; // Blocco sicurezza
 
     this.isSending = true;
     this.submitStatus = null;
@@ -84,10 +87,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   }
 
   private resetForm() {
-    this.formData = {
-      name: '',
-      email: '',
-      message: ''
-    };
+    this.formData = { name: '', email: '', message: '' };
+    this.privacyAccepted = false;
   }
 }

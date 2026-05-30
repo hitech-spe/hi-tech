@@ -1,0 +1,125 @@
+.privacy-container {
+  padding: 120px 20px 60px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: radial-gradient(circle at top right, rgba(0, 210, 255, 0.05), transparent),
+              radial-gradient(circle at bottom left, rgba(58, 71, 213, 0.05), transparent);
+}
+
+.privacy-content {
+  max-width: 900px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff 0%, var(--primary, #00d2ff) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .last-update {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+  }
+
+  .privacy-sections {
+    section {
+      margin-bottom: 30px;
+
+      h2 {
+        color: var(--primary, #00d2ff);
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+      }
+
+      p, li {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        font-size: 1.05rem;
+      }
+
+      ul {
+        padding-left: 20px;
+        margin-top: 10px;
+        
+        li {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}
+
+.back-link {
+  margin-bottom: 30px;
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+
+    svg {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      opacity: 1;
+      color: var(--primary, #00d2ff);
+
+      svg {
+        transform: translateX(-5px);
+      }
+    }
+  }
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.panel-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+              rgba(0, 210, 255, 0.05) 0%, 
+              transparent 50%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .privacy-container {
+    padding: 100px 15px 40px;
+  }
+
+  .privacy-content {
+    padding: 25px;
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+}

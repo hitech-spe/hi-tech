@@ -1,0 +1,59 @@
+# ==========================================
+# Dipendenze Node.js
+# ==========================================
+/node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+
+# (Nota: se usi npm mantieni package-lock.json nel repository, 
+# se invece causa conflitti rimuovi il commento dalla riga sopra per ignorarlo)
+
+# ==========================================
+# Output di compilazione e cache di Angular
+# ==========================================
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/.angular
+
+# ==========================================
+# Testing
+# ==========================================
+/coverage
+testem.log
+
+# ==========================================
+# IDE e Editor di testo
+# ==========================================
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/
+
+# Configurazione VS Code (ignoriamo i file locali, ma manteniamo i settings condivisi)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ==========================================
+# File di Sistema e OS
+# ==========================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================================
+# Variabili d'ambiente (sicurezza)
+# ==========================================
+.env
+.env.local
