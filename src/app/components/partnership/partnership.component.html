@@ -6,13 +6,13 @@
   </div>
 
   <div class="partnership-content scroll-reveal" #animatedElement>
-    <div class="partnership-card glass-card">
+    <div *ngFor="let partner of partners" class="partnership-card glass-card">
       <div class="partner-logo">
-        <img ngSrc="assets/images/adastraLogo.png" alt="ADASTRA Logo" class="logo-img" height="131" width="370">
+        <img [ngSrc]="partner.logo" [alt]="partner.name | translate" class="logo-img" [height]="partner.height" [width]="partner.width">
       </div>
       <div class="partner-info">
-        <h3>{{ 'PARTNERSHIP.ADASTRA.NAME' | translate }}</h3>
-        <p class="partner-desc">{{ 'PARTNERSHIP.ADASTRA.DESC' | translate }}</p>
+        <h3>{{ partner.name | translate }}</h3>
+        <p class="partner-desc">{{ partner.description | translate }}</p>
       </div>
     </div>
   </div>

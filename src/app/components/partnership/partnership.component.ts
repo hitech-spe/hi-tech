@@ -3,6 +3,14 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
+interface Partner {
+  name: string;
+  description: string;
+  logo: string;
+  width: number;
+  height: number;
+}
+
 @Component({
   selector: 'app-partnership',
   standalone: true,
@@ -12,6 +20,23 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PartnershipComponent implements AfterViewInit {
   @ViewChildren('animatedElement') animatedElements!: QueryList<ElementRef>;
+
+  partners: Partner[] = [
+    {
+      name: 'PARTNERSHIP.ADASTRA.NAME',
+      description: 'PARTNERSHIP.ADASTRA.DESC',
+      logo: 'assets/images/adastraLogo.png',
+      width: 370,
+      height: 131
+    },
+    {
+      name: 'PARTNERSHIP.MERQORN.NAME',
+      description: 'PARTNERSHIP.MERQORN.DESC',
+      logo: 'assets/images/Merqorn.webp',
+      width: 370,
+      height: 131
+    }
+  ];
 
   constructor(private sanitizer: DomSanitizer) {}
 
