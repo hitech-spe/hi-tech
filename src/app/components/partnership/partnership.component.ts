@@ -35,6 +35,13 @@ export class PartnershipComponent implements AfterViewInit {
       logo: 'assets/images/Merqorn.webp',
       width: 370,
       height: 131
+    },
+    {
+      name: 'PARTNERSHIP.TAMBORRINO.NAME',
+      description: 'PARTNERSHIP.TAMBORRINO.DESC',
+      logo: 'assets/images/tamborrinoLogo.png',
+      width: 370,
+      height: 131
     }
   ];
 

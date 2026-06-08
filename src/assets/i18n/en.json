@@ -86,6 +86,10 @@
     "MERQORN": {
       "NAME": "MERQORN",
       "DESC": "Together with MERQORN, we design and develop custom software that focuses on the people who use it every day. Through UX design, process analysis, and operational simplicity, we create intuitive, easy-to-adopt tools designed to reduce errors, optimize day-to-day management, and help companies make strategic decisions based on clear, always-accessible data."
+    },
+    "TAMBORRINO": {
+      "NAME": "Alessandro Tamborrino",
+      "DESC": "Alessandro Tamburrino is a Graphic & Motion Designer with experience in visual communication and the creation of digital and offline content. Throughout his career, he has collaborated with SMEs, structured companies, and multinational corporations, handling the development of visual identities, social media content, motion graphics, animated videos, and print materials. His approach is oriented towards clarity, creativity, and brand enhancement, with the goal of transforming ideas and strategies into effective and engaging communications."
     }
   },
   "CONTACT": {
@@ -174,7 +178,8 @@
     "GET_QUOTE": "Request a Quote",
     "NOT_FOUND": "Service not found",
     "NOT_FOUND_DESC": "Sorry, the requested service is not available.",
-    "BACK_TO_LIST": "Back to list"
+    "BACK_TO_LIST": "Back to list",
+    "BOOK_CONSULTATION": "Book a Consultation"
   },
   "QUOTE": {
     "TITLE": "AI Quote",

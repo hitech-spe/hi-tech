@@ -87,6 +87,10 @@
     "MERQORN": {
       "NAME": "MERQORN",
       "DESC": "Insieme ad MERQORN, progettiamo e sviluppiamo software su misura mettendo al centro le persone che li utilizzano ogni giorno. Attraverso UX Design, analisi dei processi e semplicità operativa, realizza strumenti intuitivi, facili da adottare e pensati per ridurre errori, ottimizzare la gestione quotidiana e aiutare le aziende a prendere decisioni strategiche basate su dati chiari e sempre accessibili."
+    },
+    "TAMBORRINO": {
+      "NAME": "Alessandro Tamborrino",
+      "DESC": "Alessandro Tamburrino è un Graphic & Motion Designer con esperienza nella comunicazione visiva e nella creazione di contenuti digitali e offline. Nel corso della sua carriera ha collaborato con PMI, aziende strutturate e realtà multinazionali, occupandosi dello sviluppo di identità visive, contenuti per i social media, motion graphics, video animati e materiali destinati alla stampa. Il suo approccio è orientato alla chiarezza, alla creatività e alla valorizzazione del brand, con l'obiettivo di trasformare idee e strategie in comunicazioni efficaci e coinvolgenti."
     }
   },
   "CONTACT": {
@@ -175,7 +179,8 @@
     "GET_QUOTE": "Richiedi Preventivo",
     "NOT_FOUND": "Servizio non trovato",
     "NOT_FOUND_DESC": "Spiacenti, il servizio richiesto non è disponibile.",
-    "BACK_TO_LIST": "Torna alla lista"
+    "BACK_TO_LIST": "Torna alla lista",
+    "BOOK_CONSULTATION": "Prenota Consulenza"
   },
   "QUOTE": {
     "TITLE": "Simulatore",
