@@ -7,14 +7,12 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at center, rgba(15, 23, 42, 1) 0%, rgba(2, 6, 23, 1) 100%);
-  z-index: 99999; /* Sopra a QUALSIASI cosa, anche l'header */
+  background: #020617; // Slate 950 - Molto enterprise e profondo
+  z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* La transizione per quando riceve la classe .fade-out */
-  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
   opacity: 1;
   visibility: visible;
 
@@ -27,65 +25,67 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    width: 100%;
+    max-width: 300px;
+    gap: 3rem;
 
-    img {
-      /* MODIFICA QUESTA RIGA PER LA GRANDEZZA */
-      width: 280px; /* <--- Aumentato qui (prima era 280px) */
+    .logo-container {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 1s ease-out forwards;
 
-      /* Manteniamo questo per sicurezza sui cellulari piccoli */
-      max-width: 85vw;
-      /* Rendiamo il logo bianco e gli diamo un bagliore azzurro Hi-Tech */
-      filter: brightness(0) invert(1) drop-shadow(0 0 15px rgba(0, 210, 255, 0.4));
-      /* Effetto "respiro" */
-      animation: pulseLogo 2s infinite ease-in-out alternate;
+      img {
+        width: 240px;
+        max-width: 80vw;
+        filter: brightness(0) invert(1); // Logo puramente bianco
+      }
     }
 
-    /* Barra di caricamento minimale */
+    .loading-container {
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 0.8s forwards;
 
-    .tech-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255, 255, 255, 0.05);
-      border-top-color: var(--primary, #00d2ff);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
-
-
-      &::after {
-        content: '';
+      .loading-bar {
         position: absolute;
-        top: 0;
-        left: 0;
         height: 100%;
-        width: 40%;
-        background: var(--primary, #00d2ff);
-        box-shadow: 0 0 10px #00d2ff;
-        border-radius: 4px;
-        animation: loadingBar 1.5s infinite ease-in-out;
+        width: 100%;
+        background: #00d2ff;
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: progressFill 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.8s forwards;
       }
     }
   }
 }
 
-/* KEYFRAMES PER LA SPLASH SCREEN */
-@keyframes pulseLogo {
-  0% {
-    transform: scale(0.95);
-    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(0, 210, 255, 0.2));
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  100% {
-    transform: scale(1.05);
-    filter: brightness(0) invert(1) drop-shadow(0 0 25px rgba(0, 210, 255, 0.6));
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes loadingBar {
-  0% {
-    left: -40%;
-  }
-  100% {
-    left: 100%;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes progressFill {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes progressMove {
+  0% { left: -40%; }
+  100% { left: 110%; }
 }

@@ -6,17 +6,18 @@
   justify-content: space-between;
   align-items: center;
   /* TRUCCO GLASSMORPHISM: Sfondo scuro semi-trasparente */
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  //border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Bordo molto sottile */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   padding: 0.75rem 0;
   transition: all 0.3s ease;
+  animation: headerEntry 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
 
   .logo {
     padding-left: 2rem;
@@ -65,10 +66,10 @@
         color: #e2e8f0;
         text-decoration: none;
         padding: 0.5rem 0;
-        font-weight: 500;
-        font-size: 0.85rem;
+        font-weight: 600;
+        font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.15em;
         position: relative;
         transition: color 0.3s ease;
 
@@ -343,5 +344,16 @@
         }
       }
     }
+  }
+}
+
+@keyframes headerEntry {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

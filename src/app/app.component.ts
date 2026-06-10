@@ -64,7 +64,7 @@ export class AppComponent {
         this.showSplash = false;
       }, 500);
 
-    }, 2000);
+    }, 1800);
   }
 
 }
