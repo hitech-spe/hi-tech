@@ -5,8 +5,9 @@
     "SERVICES": "Services",
     "QUOTE_AI": "AI Quote",
     "QUOTES": "My Quotes",
-    "ADASTRA": "Partnership",
-    "CONTACT": "Contact"
+    "Partnership": "Partnership",
+    "CONTACT": "Contact",
+    "INSIGHTS": "Insight & Innovation"
   },
   "INSIGHTS": {
     "BADGE": "Insight & Innovation",

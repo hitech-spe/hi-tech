@@ -4,8 +4,8 @@
       <img ngSrc="../../../assets/images/logo-trasp.png"
            [class.hide-on-mobile-open]="isMenuOpen"
            alt="Hi-Tech Logo"
-           height="1080"
-           width="1920"
+           height="86"
+           width="255"
            priority
            fetchpriority="high">
     </a>
@@ -28,9 +28,9 @@
       <li><a [routerLink]="['/home']" fragment="about" (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
       <li><a [routerLink]="['/home']" fragment="services" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a>
       </li>
-      <li><a [routerLink]="['/home']" fragment="partnership" (click)="closeMenu()">{{ 'HEADER.ADASTRA' | translate }}</a>
+      <li><a [routerLink]="['/home']" fragment="partnership" (click)="closeMenu()">{{ 'HEADER.Partnership' | translate }}</a>
       </li>
-      <li><a [routerLink]="['/home']" fragment="news" (click)="closeMenu()">{{ 'HEADER.INSIGHTS.BADGE' | translate }}</a>
+      <li><a [routerLink]="['/home']" fragment="news" (click)="closeMenu()">{{ 'HEADER.INSIGHTS' | translate }}</a>
       </li>
       <li><a routerLink="/quote-ai" routerLinkActive="active"
              (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
