@@ -36,6 +36,51 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
 
   private services: Service[] = [
     {
+      id: 'sviluppo-piattaforme-web-b2b',
+      title: 'Sviluppo Piattaforme Web B2B',
+      description: 'Applicazioni web moderne, scalabili e ottimizzate per processi aziendali complessi.',
+      features: ['Angular/React Frameworks', 'Microservizi Java/Spring', 'Infrastruttura Cloud Native', 'SEO & Performance Opt.'],
+      fullContent: 'Progettiamo e sviluppiamo piattaforme web B2B su misura che trasformano i processi operativi in vantaggi competitivi. Le nostre soluzioni sono scalabili, sicure e progettate per integrarsi perfettamente con i vostri sistemi esistenti, garantendo un\'esperienza utente fluida e professionale.',
+      translations: {
+        en: {
+          title: 'B2B Web Platform Development',
+          description: 'Modern, scalable web applications optimized for complex business processes.',
+          features: ['Angular/React Frameworks', 'Java/Spring Microservices', 'Cloud Native Infrastructure', 'SEO & Performance Opt.'],
+          fullContent: 'We design and develop custom B2B web platforms that transform operational processes into competitive advantages. Our solutions are scalable, secure, and designed to integrate perfectly with your existing systems, ensuring a smooth and professional user experience.'
+        }
+      }
+    },
+    {
+      id: 'sviluppo-app-mobile-native',
+      title: 'Sviluppo App Mobile Native',
+      description: 'Esperienze mobile ad alte prestazioni per iOS e Android.',
+      features: ['Flutter & Dart', 'Integrazione IoT/Industria 4.0', 'UX/UI Design Avanzato', 'Pubblicazione Store'],
+      fullContent: 'Creiamo applicazioni mobile native e cross-platform che mettono la potenza del vostro business nelle mani dei vostri utenti. Specializzati in soluzioni per l\'Industria 4.0, integriamo sensori, monitoraggio in tempo reale e interfacce intuitive per massimizzare la produttività mobile.',
+      translations: {
+        en: {
+          title: 'Native Mobile App Development',
+          description: 'High-performance mobile experiences for iOS and Android.',
+          features: ['Flutter & Dart', 'IoT/Industry 4.0 Integration', 'Advanced UX/UI Design', 'Store Publishing'],
+          fullContent: 'We create native and cross-platform mobile applications that put the power of your business in the hands of your users. Specialized in Industry 4.0 solutions, we integrate sensors, real-time monitoring, and intuitive interfaces to maximize mobile productivity.'
+        }
+      }
+    },
+    {
+      id: 'consulenza-cloud-aziendale',
+      title: 'Consulenza Cloud Aziendale',
+      description: 'Migrazione, gestione e ottimizzazione di infrastrutture cloud sicure.',
+      features: ['Cloud Migration (AWS/Azure)', 'Kubernetes & Docker', 'DevOps & CI/CD', 'Security & Compliance'],
+      fullContent: 'Accompagniamo le aziende nella transizione verso il Cloud, garantendo scalabilità e riduzione dei costi operativi. Dalla migrazione alla gestione di cluster Kubernetes, implementiamo architetture resilienti e sicure che supportano la crescita del vostro business senza interruzioni.',
+      translations: {
+        en: {
+          title: 'Enterprise Cloud Consulting',
+          description: 'Migration, management, and optimization of secure cloud infrastructures.',
+          features: ['Cloud Migration (AWS/Azure)', 'Kubernetes & Docker', 'DevOps & CI/CD', 'Security & Compliance'],
+          fullContent: 'We accompany companies in the transition to the Cloud, ensuring scalability and reduction of operational costs. From migration to managing Kubernetes clusters, we implement resilient and secure architectures that support the growth of your business without interruptions.'
+        }
+      }
+    },
+    {
       id: 'web',
       title: 'Sviluppo Web',
       description: 'Applicazioni web moderne, scalabili e ad alte prestazioni.',
@@ -126,6 +171,21 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       }
     },
     {
+      id: "adastra-wordpress",
+      title: "Creazione siti web WordPress",
+      description: "Realizziamo siti web professionali, responsive e personalizzati per raccontare l'identità del tuo brand.",
+      features: ["Design Responsive", "Ottimizzazione SEO", "Esperienza Utente", "Facilmente Aggiornabile"],
+      fullContent: "Realizziamo siti web WordPress professionali, responsive e personalizzati, pensati per raccontare l’identità del brand e trasformare la presenza online in uno strumento di comunicazione efficace. Ogni sito viene progettato curando struttura, design, esperienza utente, contenuti e ottimizzazione SEO di base, con l’obiettivo di creare una piattaforma chiara, veloce, facilmente aggiornabile e adatta a rappresentare al meglio l’azienda, il professionista o il progetto.",
+      translations: {
+        en: {
+          title: "WordPress Website Creation",
+          description: "We create professional, responsive, and personalized websites to tell your brand's identity.",
+          features: ["Responsive Design", "SEO Optimization", "User Experience", "Easily Updatable"],
+          fullContent: "We create professional, responsive, and customized WordPress websites, designed to tell the identity of the brand and transform the online presence into an effective communication tool. Each site is designed by taking care of the structure, design, user experience, content, and basic SEO optimization, with the goal of creating a clear, fast, easily updatable platform suitable for best representing the company, professional, or project."
+        }
+      }
+    },
+    {
       id: "adastra-elearning",
       title: "Creazione piattaforme e-learning",
       description: "Sviluppo piattaforme personalizzate per vendere o distribuire corsi online.",
@@ -212,12 +272,12 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     window.scrollTo(0, 0);
 
     this.route.params.subscribe(params => {
-      const id = params['id'];
+      const id = params['id'] || this.route.snapshot.data['id'];
       this.updateService(id);
     });
 
     this.langChangeSub = this.translate.onLangChange.subscribe(() => {
-      const id = this.route.snapshot.params['id'];
+      const id = this.route.snapshot.params['id'] || this.route.snapshot.data['id'];
       this.updateService(id);
     });
   }

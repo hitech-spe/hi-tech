@@ -8,22 +8,42 @@
     "ADASTRA": "Partnership",
     "CONTACT": "Contact"
   },
+  "INSIGHTS": {
+    "BADGE": "Insight & Innovation",
+    "SUBTITLE": "Stay updated on the latest technological news, market trends, and innovations in the world of software development.",
+    "READ_MORE": "Read more",
+    "NEWS1": {
+      "TITLE": "The Impact of AI in B2B Software Development",
+      "EXCERPT": "Artificial intelligence is no longer just a promise, but a concrete tool that optimizes business processes and reduces development time.",
+      "CATEGORY": "AI & Software"
+    },
+    "NEWS2": {
+      "TITLE": "Transition 5.0: Opportunities for Italian SMEs",
+      "EXCERPT": "The new Transition 5.0 plan offers significant incentives for companies investing in digitalization and energy efficiency.",
+      "CATEGORY": "Business"
+    },
+    "NEWS3": {
+      "TITLE": "Cloud Security in 2024: What Managers Need to Know",
+      "EXCERPT": "Data protection in the cloud has become the top priority for modern businesses. Here are the best practices to mitigate risks.",
+      "CATEGORY": "Cloud Security"
+    }
+  },
   "SERVICES": {
     "TITLE": "Our",
     "SUBTITLE": "Services",
     "WEB": {
-      "TITLE": "Web Development",
-      "DESC": "We create modern and responsive web applications using the latest technologies on the market.",
+      "TITLE": "B2B Web Platform Development",
+      "DESC": "We build scalable and secure web applications, optimized to improve the efficiency of your business processes.",
       "MORE": "Discover more →"
     },
     "MOBILE": {
-      "TITLE": "Mobile App Development",
-      "DESC": "We develop native and cross-platform apps for iOS and Android with exceptional performance.",
+      "TITLE": "Native Mobile App Development",
+      "DESC": "We create mobile solutions for iOS and Android that empower your business and improve interaction with your customers.",
       "MORE": "Discover more →"
     },
     "CLOUD": {
-      "TITLE": "Cloud Consulting",
-      "DESC": "We help you migrate and manage your cloud infrastructure securely and scalably.",
+      "TITLE": "Enterprise Cloud Consulting",
+      "DESC": "We optimize your IT infrastructure with secure cloud solutions, reducing operational costs and increasing flexibility.",
       "MORE": "Discover more →"
     },
     "SOCIAL": {
@@ -80,8 +100,8 @@
     "TITLE": "Our",
     "SUBTITLE": "Partners",
     "ADASTRA": {
-      "NAME": "ADASTRA",
-      "DESC": "Together with ADASTRA, we help entrepreneurs transform marketing from a cost center into a tangible driver of growth. We support companies looking to acquire more clients, strengthen their positioning, and achieve measurable results. We focus on strategy, content, and performance, integrating digital solutions and sales processes to generate real opportunities, not just visibility. As Innovation Managers, we guide businesses in adopting models, tools, and technologies that streamline processes and boost competitiveness—from analysis to implementation, with a practical, results-oriented approach. If you are looking for a partner that combines strategic vision with concrete execution, we are the right team."
+      "NAME": "ADASTRA Consulting",
+      "DESC": "Together with ADASTRA, we help entrepreneurs transform marketing from a cost center into a tangible driver of growth. As Innovation Managers, we guide businesses through the 4.0 and 5.0 digital transition, integrating performance strategies and sales processes to generate real opportunities."
     },
     "MERQORN": {
       "NAME": "MERQORN",
@@ -110,11 +130,11 @@
   },
   "HOME": {
     "HERO": {
-      "TITLE": "Innovation without",
-      "SUBTITLE": "Limits",
-      "DESC": "We create custom software solutions to transform your ideas into digital reality. Cutting-edge technology for a Hi-Tech future.",
-      "CTA_SERVICES": "Explore Services",
-      "CTA_CONTACT": "Contact Us"
+      "TITLE": "Software, App and",
+      "SUBTITLE": "Cloud Solutions",
+      "DESC": "We guide your company towards digital innovation with custom software solutions designed to generate concrete and scalable results.",
+      "CTA_SERVICES": "Explore Solutions",
+      "CTA_CONTACT": "Request Consultation"
     },
     "FEATURES": {
       "FAST": {
@@ -157,11 +177,11 @@
     }
   },
   "ABOUT": {
-    "TITLE": "Our History",
-    "P1": "Hi-Tech was born with the aim of guiding companies on the path of digital transformation through technical excellence and creative innovation.",
-    "P2": "Our team is made up of passionate technology experts who constantly work to offer the best software solutions on the market.",
+    "TITLE": "Innovation at the Service of Your Business",
+    "P1": "At Hi-Tech, we don't just write code. We analyze your business processes to identify the best digital growth opportunities, transforming technology into a real competitive advantage.",
+    "P2": "Our team of experts works closely with your company to develop tools that simplify daily work and open new paths for your brand's success.",
     "MISSION_TITLE": "Our Mission",
-    "MISSION_DESC": "Simplifying complexity through code, bringing innovation and value to every project we realize."
+    "MISSION_DESC": "Eliminate inefficiencies through cutting-edge technological solutions, bringing concrete and measurable value to every project."
   },
   "FOOTER": {
     "RIGHTS": "All rights reserved.",

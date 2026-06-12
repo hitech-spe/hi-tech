@@ -9,22 +9,42 @@
     "CONTACT": "Contatti",
     "LOGIN": "Accedi"
   },
+  "INSIGHTS": {
+    "BADGE": "Insight & Innovazione",
+    "SUBTITLE": "Resta aggiornato sulle ultime novità tecnologiche, tendenze di mercato e innovazioni nel mondo dello sviluppo software.",
+    "READ_MORE": "Leggi di più",
+    "NEWS1": {
+      "TITLE": "L'impatto dell'AI nello Sviluppo Software B2B",
+      "EXCERPT": "L'intelligenza artificiale non è più solo una promessa, ma uno strumento concreto che ottimizza i processi aziendali e riduce i tempi di sviluppo.",
+      "CATEGORY": "AI & Software"
+    },
+    "NEWS2": {
+      "TITLE": "Transizione 5.0: Le opportunità per le PMI italiane",
+      "EXCERPT": "Il nuovo piano Transizione 5.0 offre incentivi significativi per le aziende che investono in digitalizzazione ed efficienza energetica.",
+      "CATEGORY": "Business"
+    },
+    "NEWS3": {
+      "TITLE": "Sicurezza Cloud nel 2024: Cosa devono sapere i manager",
+      "EXCERPT": "La protezione dei dati nel cloud è diventata la priorità assoluta per le aziende moderne. Ecco le migliori pratiche per mitigare i rischi.",
+      "CATEGORY": "Cloud Security"
+    }
+  },
   "SERVICES": {
     "TITLE": "I nostri",
     "SUBTITLE": "Servizi",
     "WEB": {
-      "TITLE": "Sviluppo Web",
-      "DESC": "Creiamo applicazioni web moderne e responsive utilizzando le ultime tecnologie del mercato.",
+      "TITLE": "Sviluppo Piattaforme Web B2B",
+      "DESC": "Realizziamo applicazioni web scalabili e sicure, ottimizzate per migliorare l'efficienza dei tuoi processi aziendali.",
       "MORE": "Scopri di più →"
     },
     "MOBILE": {
-      "TITLE": "Sviluppo App Mobile",
-      "DESC": "Sviluppiamo app native e cross-platform per iOS e Android con performance eccezionali.",
+      "TITLE": "Sviluppo App Mobile Native",
+      "DESC": "Creiamo soluzioni mobile per iOS e Android che potenziano il tuo business e migliorano l'interazione con i tuoi clienti.",
       "MORE": "Scopri di più →"
     },
     "CLOUD": {
-      "TITLE": "Consulenza Cloud",
-      "DESC": "Ti aiutiamo a migrare e gestire le tue infrastrutture sul cloud in modo sicuro e scalabile.",
+      "TITLE": "Consulenza Cloud Aziendale",
+      "DESC": "Ottimizziamo la tua infrastruttura IT con soluzioni cloud sicure, riducendo i costi operativi e aumentando la flessibilità.",
       "MORE": "Scopri di più →"
     },
     "SOCIAL": {
@@ -81,8 +101,8 @@
     "TITLE": "I Nostri",
     "SUBTITLE": "Partner",
     "ADASTRA": {
-      "NAME": "ADASTRA",
-      "DESC": "Insieme ad ADASTRA, aiutiamo gli imprenditori a trasformare il marketing da centro di costo a leva concreta di crescita. Supportiamo aziende che vogliono acquisire più clienti, rafforzare il posizionamento e ottenere risultati misurabili. Lavoriamo su strategia, contenuti e performance, integrando digitale e processi commerciali per generare opportunità reali, non solo visibilità. Come Innovation Manager accompagniamo le imprese nell’adozione di modelli, strumenti e tecnologie che semplificano i processi e aumentano la competitività. Dall’analisi all’implementazione, con un approccio pratico e orientato ai risultati. Se cerchi un partner che unisca visione strategica ed esecuzione concreta, siamo il team giusto."
+      "NAME": "ADASTRA Consulting",
+      "DESC": "Insieme ad ADASTRA, aiutiamo gli imprenditori a trasformare il marketing da centro di costo a leva concreta di crescita. Come Innovation Manager, accompagniamo le imprese nella transizione digitale 4.0 e 5.0, integrando strategie di performance e processi commerciali per generare opportunità reali."
     },
     "MERQORN": {
       "NAME": "MERQORN",
@@ -111,11 +131,11 @@
   },
   "HOME": {
     "HERO": {
-      "TITLE": "Innovazione senza",
-      "SUBTITLE": "Limiti",
-      "DESC": "Creiamo soluzioni software su misura per trasformare le tue idee in realtà digitale. Tecnologia all'avanguardia per un futuro Hi-Tech.",
-      "CTA_SERVICES": "Esplora Servizi",
-      "CTA_CONTACT": "Contattaci"
+      "TITLE": "Sviluppo Software, App e",
+      "SUBTITLE": "Soluzioni Cloud",
+      "DESC": "Accompagniamo la tua azienda verso l'innovazione digitale con soluzioni software su misura progettate per generare risultati concreti e scalabili.",
+      "CTA_SERVICES": "Esplora Soluzioni",
+      "CTA_CONTACT": "Richiedi Consulenza"
     },
     "FEATURES": {
       "FAST": {
@@ -158,11 +178,11 @@
     }
   },
   "ABOUT": {
-    "TITLE": "La Nostra Storia",
-    "P1": "Hi-Tech nasce con l'obiettivo di guidare le aziende nel percorso di trasformazione digitale attraverso l'eccellenza tecnica e l'innovazione creativa.",
-    "P2": "Il nostro team è composto da esperti appassionati di tecnologia che lavorano costantemente per offrire le migliori soluzioni software sul mercato.",
+    "TITLE": "Innovazione al Servizio del Tuo Business",
+    "P1": "In Hi-Tech non ci limitiamo a scrivere codice. Analizziamo i tuoi processi aziendali per identificare le migliori opportunità di crescita digitale, trasformando la tecnologia in un vantaggio competitivo reale.",
+    "P2": "Il nostro team di esperti lavora a stretto contatto con la tua realtà per sviluppare strumenti che semplificano il lavoro quotidiano e aprono nuove strade per il successo del tuo brand.",
     "MISSION_TITLE": "La nostra Mission",
-    "MISSION_DESC": "Semplificare la complessità attraverso il codice, portando innovazione e valore in ogni progetto che realizziamo."
+    "MISSION_DESC": "Eliminare le inefficienze attraverso soluzioni tecnologiche all'avanguardia, portando valore concreto e misurabile in ogni progetto."
   },
   "FOOTER": {
     "RIGHTS": "Tutti i diritti riservati.",

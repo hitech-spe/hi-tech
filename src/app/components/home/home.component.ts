@@ -1,10 +1,11 @@
 import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { RouterLink } from "@angular/router";
 import { ServicesComponent } from "../services/services.component";
 import { AboutComponent } from "../about/about.component";
 import { ContactComponent } from "../contact/contact.component";
 import { PartnershipComponent } from "../partnership/partnership.component";
+import { InsightsComponent } from "../insights/insights.component";
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,23 @@ import { PartnershipComponent } from "../partnership/partnership.component";
     ServicesComponent,
     AboutComponent,
     ContactComponent,
-    PartnershipComponent
+    PartnershipComponent,
+    InsightsComponent
   ],
   standalone: true
 })
 export class HomeComponent implements AfterViewInit {
   // Selezioniamo tutti gli elementi che hanno la classe 'scroll-animate'
   @ViewChildren('animatedSection') animatedSections!: QueryList<ElementRef>;
+
+  currentLang: string;
+
+  constructor(private translate: TranslateService) {
+    this.currentLang = this.translate.currentLang || 'it';
+    this.translate.onLangChange.subscribe(event => {
+      this.currentLang = event.lang;
+    });
+  }
 
   ngAfterViewInit() {
     this.setupIntersectionObserver();

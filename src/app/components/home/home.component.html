@@ -24,10 +24,12 @@
             https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=webp&q=50&w=400 400w,
             https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=webp&q=60&w=700 700w"
             sizes="(max-width: 600px) 100vw, 700px"
-            alt="Hi-Tech Core Processing Unit"
+            alt="Sviluppo Software e Dashboard Dashboard B2B Hi-Tech"
             class="dashboard-core-img"
             width="700"
-            height="499">
+            height="499"
+            loading="eager"
+            fetchpriority="high">
         </div>
 
       </div>
@@ -49,8 +51,36 @@
         <app-services></app-services>
       </section>
 
+      <!--section id="cases" #animatedSection class="glass-card section-wrapper scroll-animate">
+        <div class="section-header">
+          <div class="animated-header">
+            <div class="badge">Success Stories</div>
+            <h2 class="section-title">{{ (currentLang === 'it' ? 'Casi di' : 'Success') }} <span class="text-gradient">{{ (currentLang === 'it' ? 'Successo' : 'Stories') }}</span></h2>
+          </div>
+        </div>
+        <div class="cases-grid">
+          <div class="case-card glass-card">
+            <h3>{{ (currentLang === 'it' ? 'Automazione Processi B2B' : 'B2B Process Automation') }}</h3>
+            <p>{{ (currentLang === 'it' ? "Abbiamo ridotto i costi operativi del 30% per un'azienda logistica attraverso una piattaforma web personalizzata che automatizza la gestione degli ordini." : "We reduced operational costs by 30% for a logistics company through a custom web platform that automates order management.") }}</p>
+          </div>
+          <div class="case-card glass-card">
+            <h3>{{ (currentLang === 'it' ? 'App Nativa per l\'Industria 4.0' : 'Native App for Industry 4.0') }}</h3>
+            <p>{{ (currentLang === 'it' ? "Sviluppo di un'app mobile per il monitoraggio in tempo reale dei macchinari, migliorando la manutenzione preventiva e riducendo i tempi di fermo." : "Development of a mobile app for real-time machinery monitoring, improving preventive maintenance and reducing downtime.") }}</p>
+          </div>
+          <div class="case-card glass-card">
+            <h3>{{ (currentLang === 'it' ? 'Infrastruttura Cloud Scalabile' : 'Scalable Cloud Infrastructure') }}</h3>
+            <p>{{ (currentLang === 'it' ? "Migrazione al cloud di un intero ecosistema aziendale, garantendo sicurezza dei dati e una scalabilità fluida durante i picchi di traffico." : "Cloud migration of an entire business ecosystem, ensuring data security and smooth scalability during traffic peaks.") }}</p>
+          </div>
+        </div>
+      </section-->
+
       <section id="partnership" class="glass-card section-wrapper">
         <app-partnership></app-partnership>
+      </section>
+
+      <!-- Sezione Blog/News per SEO -->
+      <section #animatedSection class="scroll-animate">
+        <app-insights></app-insights>
       </section>
 
       <section id="contact" #animatedSection class="glass-card section-wrapper scroll-animate delay-2">
