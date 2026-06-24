@@ -18,6 +18,7 @@
 html {
   scroll-padding-top:250px; /* Regola questo valore in base all'altezza del tuo header */
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -26,6 +27,14 @@ body {
   color: var(--text-light);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto; /* Migliora la reattività dello scroll su mobile */
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -51,6 +60,12 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   border: none;
+  touch-action: manipulation;
+
+  &:active {
+    transform: scale(0.95);
+    transition: all 0.1s;
+  }
 
   &-primary {
     background: var(--gradient);

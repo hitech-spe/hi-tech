@@ -23,9 +23,11 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
     overflow: hidden;
     padding: 0; // Overriding default glass-card padding if needed
+    will-change: transform;
+    touch-action: manipulation;
 
     &:hover {
       transform: translateY(-10px);
@@ -119,5 +121,16 @@
 @media (max-width: 768px) {
   .news-grid {
     grid-template-columns: 1fr;
+  }
+
+  .news-card {
+    &:hover {
+      transform: none !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+
+      .news-image img {
+        transform: none !important;
+      }
+    }
   }
 }

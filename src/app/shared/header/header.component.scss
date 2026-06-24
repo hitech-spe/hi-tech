@@ -6,17 +6,18 @@
   justify-content: space-between;
   align-items: center;
   /* TRUCCO GLASSMORPHISM: Sfondo scuro semi-trasparente */
-  background: rgba(2, 6, 23, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 0.75rem 0;
-  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, background-color;
   animation: headerEntry 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
 
   .logo {
@@ -72,6 +73,7 @@
         letter-spacing: 0.15em;
         position: relative;
         transition: color 0.3s ease;
+        touch-action: manipulation;
 
         &::after {
           content: '';
@@ -272,14 +274,16 @@
       position: fixed;
       top: 0;
       right: -100%; /* Menu nascosto fuori dallo schermo */
-      width: 280px;
+      width: 85%; /* Più largo per un feel moderno */
+      max-width: 320px;
       height: 100vh; /* Menu a tutta altezza */
       max-height: 100vh;
       /* Sfondo scuro glassmorphism anche per il menu aperto */
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: right;
       padding: 90px 20px 30px; /* Spazio in alto per il pulsante chiudi */
       border-radius: 0; /* Rimosso border-radius per menu a scorrimento laterale classico */
       box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
