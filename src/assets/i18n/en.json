@@ -1,4 +1,34 @@
 {
+  "SEO": {
+    "HOME": {
+      "TITLE": "Software Development and Cloud Solutions for Business Innovation | Hi-Tech",
+      "DESCRIPTION": "Hi-Tech: Software House specialized in App development, B2B Web platforms, and Cloud consulting. We transform your business processes with tailored innovative solutions."
+    },
+    "ABOUT": {
+      "TITLE": "About Us | Hi-Tech - IT Consulting and Software House",
+      "DESCRIPTION": "Discover our story, mission, and values. We are technology partners for business digitalization and process optimization."
+    },
+    "SERVICES": {
+      "TITLE": "Software Development & Cloud Consulting Services | Hi-Tech",
+      "DESCRIPTION": "Native mobile app development, advanced B2B web platforms, WordPress website creation, and professional cloud consulting for innovative companies."
+    },
+    "CONTACT": {
+      "TITLE": "Contact Us for a Consultation or Quote | Hi-Tech",
+      "DESCRIPTION": "Have a project in mind? Contact Hi-Tech for software development, mobile apps, or cloud consulting. Request a free consultation today."
+    },
+    "QUOTE_AI": {
+      "TITLE": "AI-Powered Software Quote Simulator | Hi-Tech",
+      "DESCRIPTION": "Use our AI-driven simulator to estimate the costs and development time of your software project in seconds."
+    },
+    "LOGIN": {
+      "TITLE": "Log In to Your Quote Dashboard | Hi-Tech",
+      "DESCRIPTION": "Log in or register to manage your custom quotes and track software development requests."
+    },
+    "QUOTES": {
+      "TITLE": "Customer Quote Management - Reserved Area | Hi-Tech",
+      "DESCRIPTION": "Reserved area for agents and administrators to manage clients, quotes, and generate personalized PDFs."
+    }
+  },
   "HEADER": {
     "HOME": "Home",
     "ABOUT": "About Us",

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { LoadingService } from '../../services/loading.service';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { firstValueFrom } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 interface QuoteItem {
   description: string;
@@ -31,7 +31,7 @@ interface ClientData {
   templateUrl: './quotes.component.html',
   styleUrls: ['./quotes.component.scss']
 })
-export class QuotesComponent implements OnInit {
+export class QuotesComponent implements OnInit, OnDestroy {
   private firestoreService = inject(FirestoreService);
   private authService = inject(AuthService);
   private loadingService = inject(LoadingService);
@@ -41,12 +41,24 @@ export class QuotesComponent implements OnInit {
   quotes: any[] = [];
   clients: ClientData[] = [];
   currentUser: any = null;
+  private authSub?: Subscription;
 
-  async ngOnInit() {
-    this.currentUser = await firstValueFrom(this.authService.user$);
-    if (this.currentUser) {
-      this.loadQuotes();
-      this.loadClients();
+  ngOnInit() {
+    this.authSub = this.authService.user$.subscribe(user => {
+      this.currentUser = user;
+      if (user) {
+        this.loadQuotes();
+        this.loadClients();
+      } else {
+        this.quotes = [];
+        this.clients = [];
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.authSub) {
+      this.authSub.unsubscribe();
     }
   }
 

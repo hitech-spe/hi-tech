@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { Title, Meta } from '@angular/platform-browser';
 import {UpperCasePipe} from "@angular/common";
 
 interface Service {
@@ -264,7 +265,9 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private titleService: Title,
+    private metaService: Meta
   ) { }
 
   ngOnInit(): void {
@@ -292,6 +295,29 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     const rawService = this.services.find(s => s.id === id);
     if (rawService) {
       this.service = this.localizeService(rawService);
+      if (this.service) {
+        const pageTitle = `${this.service.title} | Hi-Tech`;
+        this.titleService.setTitle(pageTitle);
+        this.metaService.updateTag({ name: 'description', content: this.service.description });
+
+        // Aggiorna tag Open Graph e Twitter per condivisione social
+        this.metaService.updateTag({ property: 'og:title', content: pageTitle });
+        this.metaService.updateTag({ property: 'og:description', content: this.service.description });
+        this.metaService.updateTag({ property: 'twitter:title', content: pageTitle });
+        this.metaService.updateTag({ property: 'twitter:description', content: this.service.description });
+
+        // Aggiorna URL canonico per il dettaglio del servizio
+        const baseUrl = 'https://hitechsrls.com';
+        const canonicalUrl = `${baseUrl}/services/${id}`;
+        this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
+        this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
+
+        // Aggiorna anche l'elemento link canonical nel DOM
+        let canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (canonicalLink) {
+          canonicalLink.setAttribute('href', canonicalUrl);
+        }
+      }
     } else {
       this.service = undefined; // Triggera l'errore 404 nel template
     }

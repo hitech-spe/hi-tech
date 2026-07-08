@@ -24,6 +24,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+  { path: 'quote-simulator', redirectTo: '/quote-ai', pathMatch: 'full' },
   { path: 'quote-ai', component: QuoteSimulatorComponent },
   { path: 'quotes', component: QuotesComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },

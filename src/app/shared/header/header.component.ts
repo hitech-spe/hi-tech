@@ -5,6 +5,7 @@ import {AsyncPipe, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../../services/auth.service";
 import {FirestoreService} from "../../services/firestore.service";
 import {map, Observable, of, switchMap} from "rxjs";
+import {doc, docData, Firestore} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-header',
@@ -25,12 +26,20 @@ export class HeaderComponent {
 
   private authService = inject(AuthService);
   private firestoreService = inject(FirestoreService);
+  private firestore = inject(Firestore);
 
   user$ = this.authService.user$;
   userData$: Observable<any> = this.user$.pipe(
     switchMap(user => {
       if (user) {
-        return this.firestoreService.getUser(user.uid).then(doc => doc.data());
+        return this.firestoreService.getUserDocData(user.uid).pipe(
+          map(data => data ? { ...data, uid: user.uid } : { 
+            firstName: user.displayName?.split(' ')[0] || '', 
+            lastName: user.displayName?.split(' ')[1] || '',
+            email: user.email,
+            uid: user.uid 
+          })
+        );
       }
       return of(null);
     })

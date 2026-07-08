@@ -1,4 +1,34 @@
 {
+  "SEO": {
+    "HOME": {
+      "TITLE": "Sviluppo Software e Soluzioni Cloud per l'Innovazione Aziendale | Hi-Tech",
+      "DESCRIPTION": "Hi-Tech: Software House specializzata in sviluppo App, piattaforme Web B2B e consulenza Cloud. Trasformiamo i tuoi processi aziendali con soluzioni innovative su misura."
+    },
+    "ABOUT": {
+      "TITLE": "Chi Siamo | Hi-Tech - Consulenza IT e Software House",
+      "DESCRIPTION": "Scopri la nostra storia, missione e valori. Siamo partner tecnologici per la digitalizzazione aziendale e l'ottimizzazione dei processi di business."
+    },
+    "SERVICES": {
+      "TITLE": "Servizi di Sviluppo Software e Consulenza Cloud | Hi-Tech",
+      "DESCRIPTION": "Sviluppo app mobile native, piattaforme web B2B avanzate, creazione siti WordPress e consulenza cloud professionale per aziende innovative."
+    },
+    "CONTACT": {
+      "TITLE": "Contattaci per una Consulenza o Preventivo | Hi-Tech",
+      "DESCRIPTION": "Hai un progetto in mente? Contatta Hi-Tech per sviluppo software, app mobile o cloud. Richiedi una consulenza gratuita oggi stesso."
+    },
+    "QUOTE_AI": {
+      "TITLE": "Simulatore Preventivo Software con Intelligenza Artificiale | Hi-Tech",
+      "DESCRIPTION": "Utilizza il nostro simulatore basato su IA per stimare costi e tempi di sviluppo del tuo progetto software in pochi secondi."
+    },
+    "LOGIN": {
+      "TITLE": "Accedi alla tua Dashboard Preventivi | Hi-Tech",
+      "DESCRIPTION": "Accedi o registrati per gestire i tuoi preventivi personalizzati e tracciare le richieste di sviluppo software."
+    },
+    "QUOTES": {
+      "TITLE": "Gestione Preventivi Clienti - Area Riservata | Hi-Tech",
+      "DESCRIPTION": "Area riservata per agenti e amministratori per la gestione dei clienti, preventivi e generazione di PDF personalizzati."
+    }
+  },
   "HEADER": {
     "HOME": "Home",
     "ABOUT": "Chi Siamo",
