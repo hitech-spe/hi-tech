@@ -1,0 +1,82 @@
+<div class="matcher-section-wrapper glass-card scroll-reveal">
+  
+  <div class="matcher-header text-center">
+    <h2 class="text-gradient">{{ 'TECH_MATCHER.TITLE' | translate }}</h2>
+    <p class="subtitle">{{ 'TECH_MATCHER.SUBTITLE' | translate }}</p>
+  </div>
+
+  <!-- Progress Bar (Visible during questions) -->
+  @if (currentStep() <= 3) {
+    <div class="progress-bar-container">
+      <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="(currentStep() - 1) * 33.33 + 10"></div>
+      </div>
+      <span class="progress-text">Step {{ currentStep() }} of 3</span>
+    </div>
+  }
+
+  <!-- Active Question Step -->
+  @if (currentStep() <= 3) {
+    @let step = steps[currentStep() - 1];
+    <div class="step-container">
+      <h3 class="step-title">{{ step.titleKey | translate }}</h3>
+      
+      <div class="options-list">
+        @for (opt of step.options; track opt.code) {
+          <button class="option-btn glass-panel" (click)="selectOption(opt.code)">
+            <span class="option-indicator">{{ opt.code }}</span>
+            <span class="option-text">{{ opt.textKey | translate }}</span>
+          </button>
+        }
+      </div>
+
+      <div class="step-navigation">
+        @if (currentStep() > 1) {
+          <button class="btn btn-secondary" (click)="prevStep()">
+            <span>{{ 'TECH_MATCHER.PREV' | translate }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Results Step -->
+  @if (currentStep() === 4 && recommendation()) {
+    <div class="result-container fade-in text-center">
+      <div class="result-icon-badge animate-pulse">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+      </div>
+      
+      <span class="result-label">{{ 'TECH_MATCHER.RESULT_TITLE' | translate }}</span>
+      
+      @switch (recommendation()) {
+        @case ('WP') {
+          <h3 class="result-title text-gradient">{{ 'TECH_MATCHER.RESULT_WP' | translate }}</h3>
+          <p class="result-desc">{{ 'TECH_MATCHER.RESULT_WP_DESC' | translate }}</p>
+        }
+        @case ('B2B') {
+          <h3 class="result-title text-gradient">{{ 'TECH_MATCHER.RESULT_B2B' | translate }}</h3>
+          <p class="result-desc">{{ 'TECH_MATCHER.RESULT_B2B_DESC' | translate }}</p>
+        }
+        @case ('MOBILE') {
+          <h3 class="result-title text-gradient">{{ 'TECH_MATCHER.RESULT_MOBILE' | translate }}</h3>
+          <p class="result-desc">{{ 'TECH_MATCHER.RESULT_MOBILE_DESC' | translate }}</p>
+        }
+        @case ('CLOUD') {
+          <h3 class="result-title text-gradient">{{ 'TECH_MATCHER.RESULT_CLOUD' | translate }}</h3>
+          <p class="result-desc">{{ 'TECH_MATCHER.RESULT_CLOUD_DESC' | translate }}</p>
+        }
+      }
+
+      <div class="result-actions">
+        <a routerLink="/quote-ai" class="btn btn-primary" style="text-decoration: none; justify-content: center; width: 100%; margin-bottom: 1rem;">
+          <span>{{ 'TECH_MATCHER.CTA_MATCH' | translate }}</span>
+        </a>
+        <button class="btn btn-secondary w-100" (click)="resetQuiz()">
+          <span>{{ 'TECH_MATCHER.RESET' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  }
+
+</div>

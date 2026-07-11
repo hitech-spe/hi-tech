@@ -26,21 +26,21 @@ export class PartnershipComponent implements AfterViewInit {
     {
       name: 'PARTNERSHIP.ADASTRA.NAME',
       description: 'PARTNERSHIP.ADASTRA.DESC',
-      logo: 'assets/images/adastraLogo.png',
+      logo: '/assets/images/adastraLogo.png',
       width: 370,
       height: 131
     },
     {
       name: 'PARTNERSHIP.MERQORN.NAME',
       description: 'PARTNERSHIP.MERQORN.DESC',
-      logo: 'assets/images/Merqorn.webp',
+      logo: '/assets/images/Merqorn.webp',
       width: 370,
       height: 131
     },
     {
       name: 'PARTNERSHIP.TAMBORRINO.NAME',
       description: 'PARTNERSHIP.TAMBORRINO.DESC',
-      logo: 'assets/images/tamborrinoLogo.png',
+      logo: '/assets/images/tamborrinoLogo.png',
       width: 370,
       height: 131
     }

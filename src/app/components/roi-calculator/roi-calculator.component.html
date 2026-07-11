@@ -1,0 +1,87 @@
+<div class="roi-section-wrapper glass-card scroll-reveal">
+  <div class="roi-container">
+    
+    <!-- Left Panel: Sliders -->
+    <div class="roi-inputs">
+      <h2 class="text-gradient">{{ 'ROI_CALC.TITLE' | translate }}</h2>
+      <p class="subtitle">{{ 'ROI_CALC.SUBTITLE' | translate }}</p>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <label for="hoursRange">{{ 'ROI_CALC.HOURS_LABEL' | translate }}</label>
+          <span class="slider-value">{{ manualHours() }} h</span>
+        </div>
+        <input 
+          id="hoursRange" 
+          type="range" 
+          min="1" 
+          max="50" 
+          [ngModel]="manualHours()" 
+          (ngModelChange)="manualHours.set($event)"
+          class="range-slider">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <label for="rateRange">{{ 'ROI_CALC.RATE_LABEL' | translate }}</label>
+          <span class="slider-value">€{{ hourlyRate() }}</span>
+        </div>
+        <input 
+          id="rateRange" 
+          type="range" 
+          min="15" 
+          max="100" 
+          [ngModel]="hourlyRate()" 
+          (ngModelChange)="hourlyRate.set($event)"
+          class="range-slider">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <label for="serverRange">{{ 'ROI_CALC.SERVER_LABEL' | translate }}</label>
+          <span class="slider-value">€{{ currentServerCost() }}</span>
+        </div>
+        <input 
+          id="serverRange" 
+          type="range" 
+          min="50" 
+          max="3000" 
+          step="50"
+          [ngModel]="currentServerCost()" 
+          (ngModelChange)="currentServerCost.set($event)"
+          class="range-slider">
+      </div>
+    </div>
+
+    <!-- Right Panel: Big savings display -->
+    <div class="roi-results">
+      <div class="savings-card">
+        <span class="savings-badge">AI ANALYSIS</span>
+        <span class="savings-label">{{ 'ROI_CALC.SAVINGS_ANNUAL' | translate }}</span>
+        <h3 class="savings-amount text-gradient">€{{ annualSavings().toLocaleString() }}</h3>
+        
+        <div class="savings-stats">
+          <div class="stat-item">
+            <span class="stat-value">{{ hoursSaved() }} h</span>
+            <span class="stat-label">{{ 'ROI_CALC.HOURS_SAVED' | translate }}</span>
+          </div>
+          <div class="stat-item border-left">
+            <span class="stat-value">€{{ cloudSaved().toLocaleString() }}</span>
+            <span class="stat-label">{{ 'ROI_CALC.CLOUD_SAVED' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="stat-card-footer">
+          <div class="efficiency-info">
+            <h4>{{ 'ROI_CALC.EFFICIENCY_TITLE' | translate }}</h4>
+            <p>{{ 'ROI_CALC.EFFICIENCY_DESC' | translate }}</p>
+          </div>
+          <a routerLink="/contact" class="btn btn-primary w-100" style="text-decoration: none; justify-content: center;">
+            <span>{{ 'ROI_CALC.CTA_BUTTON' | translate }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

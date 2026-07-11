@@ -124,4 +124,82 @@ export class AiService {
       suggestion: "Questa stima è generata dalla nostra AI avanzata. I costi reali possono variare in base alle integrazioni specifiche richieste."
     };
   }
+
+  async getChatbotResponse(message: string, history: { role: 'user' | 'assistant', content: string }[], currentLang: string): Promise<string> {
+    try {
+      const messages = [
+        {
+          role: "system",
+          content: `Sei l'Assistente Virtuale intelligente di Hi-Tech Solutions.
+L'utente sta navigando sul sito della nostra software house. Rispondi con professionalità, cortesia, in modo conciso (massimo 3-4 frasi) e orientato a convertire l'utente in lead.
+I nostri servizi principali:
+- Sviluppo Piattaforme Web B2B Custom (Angular/Java/Spring/Node)
+- Sviluppo App Mobile Native e Cross-Platform (Flutter/iOS/Android)
+- Consulenza Cloud Aziendale (AWS/Azure, migrazione, disaster recovery)
+- Adastra WordPress (siti istituzionali ed e-commerce veloci e gestibili)
+- Consulenza IT, Audit di sicurezza, DevOps e manutenzione.
+
+Se l'utente chiede informazioni sui prezzi, invitalo calorosamente a visitare la sezione "Preventivo AI" (/quote-ai) o a scriverci tramite il modulo "Contatti" (/contact) per uno studio di fattibilità gratuito.
+Rispondi esclusivamente nella lingua richiesta: ${currentLang === 'en' ? 'Inglese (English)' : 'Italiano (Italian)'}.`
+        },
+        ...history.map(h => ({ role: h.role === 'assistant' ? 'assistant' as const : 'user' as const, content: h.content })),
+        {
+          role: "user",
+          content: message
+        }
+      ];
+
+      const response = await fetch(this.API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.API_KEY}`,
+          'HTTP-Referer': 'https://hi-tech-simulator.it',
+          'X-Title': 'Hi-Tech Chatbot Assistant'
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-001",
+          messages: messages,
+          temperature: 0.7
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('API Error');
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (error) {
+      console.error('Chatbot API Fallback:', error);
+      return this.simulateChatbotResponse(message, currentLang);
+    }
+  }
+
+  private simulateChatbotResponse(message: string, lang: string): string {
+    const msg = message.toLowerCase();
+    if (lang === 'en') {
+      if (msg.includes('app') || msg.includes('mobile')) {
+        return "We build native and cross-platform mobile apps using Flutter. They are fast, responsive, and deployable to both App Store and Google Play Store. Would you like us to schedule a call to talk about your idea?";
+      }
+      if (msg.includes('price') || msg.includes('cost') || msg.includes('estimate')) {
+        return "You can get an instant, AI-powered cost estimation in seconds using our 'AI Quote Simulator' on the /quote-ai page. Or, feel free to contact us directly via our contact form!";
+      }
+      if (msg.includes('cloud') || msg.includes('aws')) {
+        return "Our Cloud consulting covers migration, server scaling, and continuous support on AWS and Azure, reducing traditional hardware costs up to 40%. Let us know what you are migrating!";
+      }
+      return "Hi-Tech Solutions is here to help with your custom web, mobile, and cloud software. Let us know what kind of project you have in mind!";
+    } else {
+      if (msg.includes('app') || msg.includes('mobile')) {
+        return "Sviluppiamo applicazioni mobile native e cross-platform avanzate utilizzando Flutter. Ottieni un'app eccellente su iOS e Android con un unico codice. Vuoi fissare una chiamata per parlarne?";
+      }
+      if (msg.includes('prezz') || msg.includes('cost') || msg.includes('preventiv')) {
+        return "Puoi ottenere una stima istantanea dei costi in pochi secondi nella nostra sezione 'Preventivo AI' (/quote-ai). Oppure, scrivici tramite il modulo di contatto per uno studio di fattibilità gratuito!";
+      }
+      if (msg.includes('cloud') || msg.includes('aws')) {
+        return "La nostra consulenza Cloud copre migrazione, scalabilità automatica dei server e disaster recovery su AWS/Azure, abbattendo i costi fino al 40%. Di cosa ha bisogno la tua infrastruttura?";
+      }
+      return "Hi-Tech Solutions è a tua disposizione per sviluppo software web su misura, mobile ed integrazioni cloud. Parlami del tuo progetto!";
+    }
+  }
 }

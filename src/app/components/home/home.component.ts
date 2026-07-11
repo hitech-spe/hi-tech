@@ -6,6 +6,9 @@ import { AboutComponent } from "../about/about.component";
 import { ContactComponent } from "../contact/contact.component";
 import { PartnershipComponent } from "../partnership/partnership.component";
 import { InsightsComponent } from "../insights/insights.component";
+import { RoiCalculatorComponent } from "../roi-calculator/roi-calculator.component";
+import { FaqComponent } from "../faq/faq.component";
+import { TechMatcherComponent } from "../tech-matcher/tech-matcher.component";
 
 @Component({
   selector: 'app-home',
@@ -18,7 +21,10 @@ import { InsightsComponent } from "../insights/insights.component";
     AboutComponent,
     ContactComponent,
     PartnershipComponent,
-    InsightsComponent
+    InsightsComponent,
+    RoiCalculatorComponent,
+    FaqComponent,
+    TechMatcherComponent
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true

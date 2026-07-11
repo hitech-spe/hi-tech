@@ -9,7 +9,7 @@ import {getAuth, provideAuth} from "@angular/fire/auth";
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 const firebaseConfig = {

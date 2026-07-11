@@ -1,0 +1,225 @@
+.roi-section-wrapper {
+  margin: 4rem auto;
+  padding: 3rem;
+  max-width: 1200px;
+  border-radius: 1.5rem;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+}
+
+.roi-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.roi-inputs {
+  h2 {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.slider-group {
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+
+  label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    line-height: 1.4;
+  }
+
+  .slider-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: 'Outfit', sans-serif;
+    min-width: 70px;
+    text-align: right;
+  }
+}
+
+/* Custom styling for standard range input */
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    transition: transform 0.1s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    transition: transform 0.1s ease;
+    border: none;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.roi-results {
+  width: 100%;
+}
+
+.savings-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
+}
+
+.savings-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.savings-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.savings-amount {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
+}
+
+.savings-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  background: rgba(15, 23, 42, 0.3);
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+  }
+
+  &.border-left {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+.stat-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.efficiency-info {
+  border-left: 3px solid var(--secondary);
+  padding-left: 1rem;
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.4rem;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0;
+  }
+}

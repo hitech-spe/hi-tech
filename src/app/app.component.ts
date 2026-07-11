@@ -6,6 +6,7 @@ import {Title, Meta} from '@angular/platform-browser';
 import {HeaderComponent} from "./shared/header/header.component";
 import {SpinnerComponent} from "./shared/spinner/spinner.component";
 import {FooterComponent} from "./shared/footer/footer.component";
+import {ChatbotComponent} from "./shared/chatbot/chatbot.component";
 import {filter} from 'rxjs/operators';
 
 @Component({
@@ -16,7 +17,8 @@ import {filter} from 'rxjs/operators';
     RouterOutlet,
     HeaderComponent,
     FooterComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ChatbotComponent
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
