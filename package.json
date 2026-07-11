@@ -9,6 +9,14 @@
     "test": "ng test"
   },
   "private": true,
+  "overrides": {
+    "@angular/fire": {
+      "@angular/core": "^22.0.6",
+      "@angular/common": "^22.0.6",
+      "@angular/platform-browser": "^22.0.6",
+      "@angular/platform-browser-dynamic": "^22.0.6"
+    }
+  },
   "dependencies": {
     "@angular/animations": "^22.0.6",
     "@angular/common": "^22.0.6",
