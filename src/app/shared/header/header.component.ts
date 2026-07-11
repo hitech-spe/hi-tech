@@ -1,4 +1,4 @@
-import { Component, inject, HostListener } from '@angular/core';
+import { Component, inject, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {AsyncPipe, NgOptimizedImage} from "@angular/common";
@@ -18,6 +18,7 @@ import {doc, docData, Firestore} from "@angular/fire/firestore";
     NgOptimizedImage,
     AsyncPipe
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class HeaderComponent {

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
@@ -15,6 +15,7 @@ import { RouterLink } from "@angular/router";
     NgClass,
     RouterLink
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class ContactComponent implements AfterViewInit, OnDestroy {

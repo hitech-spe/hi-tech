@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -16,6 +16,7 @@ interface Partner {
   standalone: true,
   imports: [CommonModule, TranslateModule, NgOptimizedImage],
   templateUrl: './partnership.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./partnership.component.scss']
 })
 export class PartnershipComponent implements AfterViewInit {

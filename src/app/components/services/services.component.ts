@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
 import { RouterLink } from "@angular/router";
 
@@ -10,6 +10,7 @@ import { RouterLink } from "@angular/router";
     TranslateModule,
     RouterLink
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class ServicesComponent implements AfterViewInit, OnDestroy {

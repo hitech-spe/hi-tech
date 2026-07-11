@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './terms-and-conditions.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./terms-and-conditions.component.scss']
 })
 export class TermsAndConditionsComponent {

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { RouterLink } from "@angular/router";
 import { ServicesComponent } from "../services/services.component";
@@ -20,6 +20,7 @@ import { InsightsComponent } from "../insights/insights.component";
     PartnershipComponent,
     InsightsComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class HomeComponent implements AfterViewInit {

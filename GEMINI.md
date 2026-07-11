@@ -9,7 +9,7 @@ Benvenuto nella codebase frontend di Hi-Tech Solutions! Questo documento funge d
 **Hi-Tech Solutions** è una single-page application (SPA) moderna e ad alte prestazioni che offre servizi di consulenza IT aziendale, sviluppo software e mobile, consulenza cloud e integrazioni CMS/WordPress personalizzate. Presenta un design premium con tema scuro responsive, supporto multi-lingua e un avanzato simulatore di preventivi guidato dall'intelligenza artificiale.
 
 ### Tecnologie Principali
-- **Framework:** Angular 21 (v21.2.8)
+- **Framework:** Angular 22 (v22.0.6)
 - **Architettura:** Architettura a Componenti Standalone (senza dichiarazioni NgModule)
 - **Database e Auth:** Integrazione Firebase & Firestore tramite `@angular/fire` (v21.0.0-rc.0) e Firebase JS SDK (v12.12.0)
 - **Internazionalizzazione (i18n):** `@ngx-translate/core` con caricatore di asset HTTP
@@ -64,7 +64,7 @@ Assicurati di avere installato Node.js e l'interfaccia a riga di comando di Angu
 | **Avvia Server di Sviluppo** | `npm start` | Avvia un server di sviluppo con ricaricamento in tempo reale (live-reload) all'indirizzo `http://localhost:4200/`. |
 | **Compilazione di Produzione**| `npm run build` | Compila un bundle ottimizzato pronto per la produzione nella directory `dist/`. |
 | **Monitoraggio Sviluppo**    | `npm run watch` | Compila e monitora continuamente le modifiche di sviluppo. |
-| **Esegui Test Unitari**      | `npm test` | Avvia i test unitari Jasmine tramite il test runner Karma. |
+| **Esegui Test Unitari**      | `npm test` | Avvia i test unitari in modalità ultra-rapida tramite il test runner Vitest. |
 
 ---
 
@@ -114,10 +114,16 @@ L'applicazione segue le migliori pratiche SEO moderne per garantire un'eccellent
 ### C. Routing SPA e Redirects per il Deploy (`_redirects`)
 * Poiché si tratta di un'applicazione Angular Single Page App (SPA), per garantire che i motori di ricerca non riscontrino errori 404 durante l'indicizzazione dei percorsi profondi (deep routing come `/services` o `/about`), è configurato un file `_redirects` (`/* /index.html 200`). Questo istruisce la CDN (es. Netlify) a servire sempre `index.html` con codice di stato 200 per qualsiasi rotta, lasciando la gestione del routing interno interamente ad Angular.
 
-### D. Prestazioni e Core Web Vitals
-Le performance di caricamento costituiscono un fattore cruciale per il posizionamento algoritmico moderno. All'interno di `index.html` sono stati implementati:
-* **Pre-caricamento Critico (preload):** Applicato all'immagine del logo principale, ai file delle traduzioni essenziali (`it.json`) e ai fogli di stile tipografici per eliminare i ritardi nel rendering visivo primario (LCP - Largest Contentful Paint).
-* **Connessioni Preventive (preconnect):** Utilizzate verso i server dei font di Google per azzerare la latenza DNS durante il recupero dei font `Inter` e `Outfit`.
+### D. Prestazioni, Core Web Vitals e Funzionalità Mobile/PWA
+Le performance di caricamento e la stabilità visiva costituiscono fattori cruciali per l'esperienza utente mobile/web e per il posizionamento SEO algoritmico moderno. Abbiamo implementato:
+* **Route Lazy Loading con Precaricamento in Background:** Tutte le rotte in `app.routes.ts` sono caricate pigramente (`loadComponent`), il che riduce drasticamente la dimensione del bundle JS iniziale caricato all'avvio. Per garantire transizioni di pagina istantanee e impercettibili, abbiamo integrato la strategia `PreloadAllModules` in `app.config.ts`, che scarica i chunk delle altre rotte in background non appena l'app diventa inattiva (idle).
+* **Integrazione PWA (Progressive Web App):** Configurato un Web App Manifest completo (`src/assets/manifest.json`) e registrato un Service Worker personalizzato (`src/assets/sw.js`) per supportare il caching della "shell" dell'applicazione, offrendo caricamento ultra-rapido su visite ripetute e un'esperienza offline resiliente.
+* **Ottimizzazione CLS (Cumulative Layout Shift):** Tutte le immagini illustrative principali delle righe dei servizi nel componente `ServicesComponent` dispongono di attributi espliciti di `width` e `height` (rapporto 3:2), eliminando i fastidiosi scatti di layout (layout shifts) durante il caricamento della pagina e massimizzando il punteggio Core Web Vitals.
+* **Pre-caricamento Critico (preload) e Preconnessione DNS:**
+  * Applicato il pre-caricamento all'immagine del logo principale, ai file delle traduzioni essenziali (`it.json`) e ai fogli di stile tipografici.
+  * Connessione preventiva (`preconnect`) configurata sia per i server dei font Google che per `https://images.unsplash.com` per ridurre la latenza del handshake di rete durante il caricamento di risorse ed immagini dinamiche.
+* **Velocità Splash Screen Ottimizzata:** Ridotto l'artificio del tempo di attesa della splash screen da 1.8s a 800ms in `AppComponent` per rendere l'interazione iniziale quasi istantanea pur mantenendo l'elegante dissolvenza del brand.
+* **SEO Dinamico per Pagine Legali:** Mappate le pagine `/privacy-policy` e `/terms-and-conditions` all'interno di `updateSeoTags()` per garantire metadati, descrizioni e titoli localizzati e unici per ciascuna pagina legale (risolvendo i problemi di contenuti duplicati).
 
 ---
 

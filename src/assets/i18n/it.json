@@ -27,6 +27,14 @@
     "QUOTES": {
       "TITLE": "Gestione Preventivi Clienti - Area Riservata | Hi-Tech",
       "DESCRIPTION": "Area riservata per agenti e amministratori per la gestione dei clienti, preventivi e generazione di PDF personalizzati."
+    },
+    "PRIVACY_POLICY": {
+      "TITLE": "Informativa sulla Privacy | Hi-Tech - Protezione dei Dati",
+      "DESCRIPTION": "Leggi l'informativa sulla privacy di Hi-Tech Solutions. Scopri come raccogliamo, proteggiamo e trattiamo i tuoi dati personali in conformità al GDPR."
+    },
+    "TERMS_AND_CONDITIONS": {
+      "TITLE": "Termini e Condizioni di Servizio | Hi-Tech",
+      "DESCRIPTION": "Consulta i termini e le condizioni d'uso dei servizi offerti da Hi-Tech Solutions, incluse responsabilità, licenze d'uso e contratti."
     }
   },
   "HEADER": {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { LoadingService } from '../../services/loading.service';
 
@@ -18,6 +18,7 @@ import { LoadingService } from '../../services/loading.service';
       </div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .spinner-overlay {
       position: fixed;

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -29,6 +29,7 @@ interface ClientData {
   standalone: true,
   imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './quotes.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./quotes.component.scss']
 })
 export class QuotesComponent implements OnInit, OnDestroy {

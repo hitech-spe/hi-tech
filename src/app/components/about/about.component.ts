@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
@@ -8,6 +8,7 @@ import {TranslateModule} from "@ngx-translate/core";
   imports: [
     TranslateModule
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class AboutComponent {

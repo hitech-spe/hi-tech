@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {RouterOutlet, Router, NavigationEnd} from "@angular/router";
@@ -18,6 +18,7 @@ import {filter} from 'rxjs/operators';
     FooterComponent,
     SpinnerComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class AppComponent {
@@ -37,6 +38,15 @@ export class AppComponent {
     translate.setDefaultLang('it');
     translate.use('it');
     this.isBrowser = isPlatformBrowser(platformId);
+
+    // Registra il Service Worker per le performance offline e PWA su mobile/web
+    if (this.isBrowser && 'serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/assets/sw.js')
+          .then(reg => console.log('Service Worker registrato con successo (Scope):', reg.scope))
+          .catch(err => console.error('Errore nella registrazione del Service Worker:', err));
+      });
+    }
 
     // Gestione dello scroll manuale per i frammenti ed SEO su navigazione
     this.router.events.pipe(
@@ -65,7 +75,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    // Dopo 2 secondi (2000ms), facciamo sfumare la splash screen
+    // Ridotto il tempo a 800ms per migliorare drasticamente le prestazioni di caricamento percepite (Core Web Vitals)
     setTimeout(() => {
       this.fadeSplash = true;
 
@@ -74,7 +84,7 @@ export class AppComponent {
         this.showSplash = false;
       }, 500);
 
-    }, 1800);
+    }, 800);
   }
 
   private updateSeoTags(): void {
@@ -99,6 +109,10 @@ export class AppComponent {
       pageKey = 'LOGIN';
     } else if (url === '/quotes') {
       pageKey = 'QUOTES';
+    } else if (url === '/privacy-policy') {
+      pageKey = 'PRIVACY_POLICY';
+    } else if (url === '/terms-and-conditions') {
+      pageKey = 'TERMS_AND_CONDITIONS';
     }
 
     // Carica le traduzioni per la SEO e aggiorna i tag

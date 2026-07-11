@@ -27,6 +27,14 @@
     "QUOTES": {
       "TITLE": "Customer Quote Management - Reserved Area | Hi-Tech",
       "DESCRIPTION": "Reserved area for agents and administrators to manage clients, quotes, and generate personalized PDFs."
+    },
+    "PRIVACY_POLICY": {
+      "TITLE": "Privacy Policy | Hi-Tech - Data Protection",
+      "DESCRIPTION": "Read Hi-Tech Solutions' privacy policy. Discover how we collect, protect, and process your personal data in compliance with GDPR."
+    },
+    "TERMS_AND_CONDITIONS": {
+      "TITLE": "Terms and Conditions of Service | Hi-Tech",
+      "DESCRIPTION": "Review the terms and conditions of use for services offered by Hi-Tech Solutions, including liabilities, licenses, and contracts."
     }
   },
   "HEADER": {

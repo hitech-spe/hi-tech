@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ElementRef} from '@angular/core';
+import {Component, OnInit, inject, ElementRef, ChangeDetectionStrategy} from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {AiService} from '../../services/ai.service';
 import {LoadingService} from '../../services/loading.service';
@@ -15,6 +15,7 @@ import {NgClass} from "@angular/common";
     TranslateModule,
     NgClass
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class QuoteSimulatorComponent implements OnInit {
