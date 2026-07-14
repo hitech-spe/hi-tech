@@ -304,7 +304,14 @@
     "WELCOME": "Hello! I am the Hi-Tech Solutions Virtual Assistant. How can I help you today? Ask me about our services, mobile app development, or request a cost estimate!",
     "SEND": "Send",
     "CLOSE": "Close",
-    "ERROR": "An error occurred during response generation. Please try again later."
+    "ERROR": "An error occurred during response generation. Please try again later.",
+    "SETTINGS_TITLE": "API Configuration",
+    "SETTINGS_DESC": "Enter your OpenRouter API Key to enable real-time advanced artificial intelligence. It will only be stored locally in your browser.",
+    "STATUS_DEFAULT": "Status: Default Key (Inactive/Fallback)",
+    "STATUS_CUSTOM": "Status: Custom Key (Active)",
+    "SAVE": "Save",
+    "CLEAR": "Remove",
+    "BACK": "Back"
   },
   "ROI_CALC": {
     "TITLE": "ROI & Cloud Savings Calculator",

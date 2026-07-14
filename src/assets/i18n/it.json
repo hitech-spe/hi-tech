@@ -316,7 +316,14 @@
     "WELCOME": "Ciao! Sono l'Assistente Virtuale di Hi-Tech Solutions. Come posso aiutarti oggi? Chiedimi dei nostri servizi, dello sviluppo app o richiedi una stima dei costi!",
     "SEND": "Invia",
     "CLOSE": "Chiudi",
-    "ERROR": "Si è verificato un errore durante la risposta. Riprova più tardi."
+    "ERROR": "Si è verificato un errore durante la risposta. Riprova più tardi.",
+    "SETTINGS_TITLE": "Configurazione API",
+    "SETTINGS_DESC": "Inserisci la tua chiave API di OpenRouter se desideri abilitare l'intelligenza artificiale avanzata in tempo reale. Verrà salvata solo localmente nel tuo browser.",
+    "STATUS_DEFAULT": "Stato: Chiave Predefinita (Inattiva/Fallback)",
+    "STATUS_CUSTOM": "Stato: Chiave Personalizzata (Attiva)",
+    "SAVE": "Salva",
+    "CLEAR": "Rimuovi",
+    "BACK": "Indietro"
   },
   "ROI_CALC": {
     "TITLE": "Calcolatore ROI & Risparmio Cloud",

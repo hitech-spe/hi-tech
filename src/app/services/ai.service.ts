@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 
 export interface QuoteResponse {
   estimatedCost: string;
@@ -11,25 +12,60 @@ export interface QuoteResponse {
   providedIn: 'root'
 })
 export class AiService {
+  private readonly firestore = inject(Firestore);
+
   // NOTA: In produzione, non esporre MAI le chiavi API lato client.
   // Usa un backend (Node.js, Firebase Functions, etc.) come proxy.
   private readonly API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-  private readonly API_KEY = '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';
+  private readonly API_KEY = '';
+
+  private cachedApiKey: string | null = null;
+  private isKeyLoaded = false;
 
   constructor() {}
 
+  private async getActiveApiKey(): Promise<string> {
+    // 1. Check local storage first (gives local testing priority)
+    const localKey = typeof window !== 'undefined' ? localStorage.getItem('custom_openrouter_key') : null;
+    if (localKey && localKey.trim()) {
+      return localKey.trim();
+    }
+
+    // 2. Check cached Firestore key
+    if (this.isKeyLoaded) {
+      return this.cachedApiKey || this.API_KEY;
+    }
+
+    try {
+      const docRef = doc(this.firestore, 'config', 'openrouter');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const firestoreKey = docSnap.data()?.[ 'apiKey' ];
+        if (firestoreKey && firestoreKey.trim()) {
+          this.cachedApiKey = firestoreKey.trim();
+        }
+      }
+    } catch (error) {
+      console.warn('Could not fetch OpenRouter key from Firestore:', error);
+    }
+
+    this.isKeyLoaded = true;
+    return this.cachedApiKey || this.API_KEY;
+  }
+
   async getQuoteEstimate(description: string): Promise<QuoteResponse> {
     try {
+      const apiKey = await this.getActiveApiKey();
       const response = await fetch(this.API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.API_KEY}`,
+          'Authorization': `Bearer ${apiKey}`,
           'HTTP-Referer': 'https://hi-tech-simulator.it', // Opzionale per OpenRouter
           'X-Title': 'Hi-Tech AI Quote Simulator' // Opzionale per OpenRouter
         },
         body: JSON.stringify({
-          model: "google/gemini-2.0-flash-001", // Modello consigliato (veloce ed economico)
+          model: "google/gemini-2.5-flash", // Modello consigliato (veloce ed economico)
           messages: [
             {
               role: "system",
@@ -43,7 +79,8 @@ export class AiService {
           response_format: {
             type: 'json_object'
           },
-          temperature: 0.7
+          temperature: 0.7,
+          max_tokens: 1500
         })
       });
 
@@ -153,14 +190,15 @@ Rispondi esclusivamente nella lingua richiesta: ${currentLang === 'en' ? 'Ingles
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.API_KEY}`,
+          'Authorization': `Bearer ${await this.getActiveApiKey()}`,
           'HTTP-Referer': 'https://hi-tech-simulator.it',
           'X-Title': 'Hi-Tech Chatbot Assistant'
         },
         body: JSON.stringify({
-          model: "google/gemini-2.0-flash-001",
+          model: "google/gemini-2.5-flash",
           messages: messages,
-          temperature: 0.7
+          temperature: 0.7,
+          max_tokens: 1000
         })
       });
 
