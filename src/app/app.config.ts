@@ -1,15 +1,17 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideRouter, withInMemoryScrolling, withPreloading, PreloadAllModules } from '@angular/router';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import {getFirestore, provideFirestore} from "@angular/fire/firestore";
 import {getAuth, provideAuth} from "@angular/fire/auth";
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
+import { RemoteConfig, provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
+import { RemoteConfigTranslateLoader } from './services/remote-config-translate.loader';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+
+export function RemoteConfigLoaderFactory(http: HttpClient, remoteConfig: RemoteConfig) {
+  return new RemoteConfigTranslateLoader(http, remoteConfig);
 }
 
 const firebaseConfig = {
@@ -25,6 +27,12 @@ const firebaseConfig = {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRemoteConfig(() => {
+      const rc = getRemoteConfig();
+      // Impostiamo il caching a 0 secondi in sviluppo per caricare istantaneamente le modifiche, e a 12 ore in produzione
+      rc.settings.minimumFetchIntervalMillis = isDevMode() ? 0 : 43200000;
+      return rc;
+    }),
     provideRouter(
       routes,
       withInMemoryScrolling({
@@ -41,8 +49,8 @@ export const appConfig: ApplicationConfig = {
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+          useFactory: RemoteConfigLoaderFactory,
+          deps: [HttpClient, RemoteConfig]
         }
       })
     )
