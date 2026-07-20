@@ -54,6 +54,10 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
+      if (this.isBrowser) {
+        (window as any).prerenderReady = false;
+      }
+
       const tree = this.router.parseUrl(this.router.url);
       const urlLang = tree.queryParams['lang'];
       if (urlLang && (urlLang === 'it' || urlLang === 'en')) {
@@ -160,6 +164,12 @@ export class AppComponent {
 
       // Inietta schema Breadcrumbs
       this.injectBreadcrumbSchema(url);
+
+      // Segnala a Netlify Prerender che il rendering di questa pagina standard è completato
+      // (Facciamo scadere un piccolissimo timeout per assicurarci che il DOM sia pienamente pronto)
+      setTimeout(() => {
+        (window as any).prerenderReady = true;
+      }, 150);
     }
   }
 

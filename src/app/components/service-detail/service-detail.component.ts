@@ -329,6 +329,13 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
 
         // Inietta gli schemi JSON-LD del servizio e del relativo breadcrumb
         this.injectServiceSchema(this.service, id);
+
+        // Segnala a Netlify Prerender che il rendering di questa pagina dinamica è completato
+        if (isPlatformBrowser(this.platformId)) {
+          setTimeout(() => {
+            (window as any).prerenderReady = true;
+          }, 150);
+        }
       }
     } else {
       this.service = undefined; // Triggera l'errore 404 nel template
