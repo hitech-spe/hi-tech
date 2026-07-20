@@ -1,39 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Home -->
   <url>
     <loc>https://hitechsrls.com/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/"/>
     <priority>1.0</priority>
   </url>
+  <!-- About -->
   <url>
     <loc>https://hitechsrls.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/about?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/about?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/about"/>
     <priority>0.8</priority>
   </url>
+  <!-- Services List -->
   <url>
     <loc>https://hitechsrls.com/services</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/services?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/services?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/services"/>
     <priority>0.8</priority>
   </url>
+  <!-- Service Detail: Sviluppo Piattaforme Web B2B -->
   <url>
     <loc>https://hitechsrls.com/services/sviluppo-piattaforme-web-b2b</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/services/sviluppo-piattaforme-web-b2b?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/services/sviluppo-piattaforme-web-b2b?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/services/sviluppo-piattaforme-web-b2b"/>
     <priority>0.9</priority>
   </url>
+  <!-- Service Detail: Sviluppo App Mobile Native -->
   <url>
     <loc>https://hitechsrls.com/services/sviluppo-app-mobile-native</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/services/sviluppo-app-mobile-native?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/services/sviluppo-app-mobile-native?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/services/sviluppo-app-mobile-native"/>
     <priority>0.9</priority>
   </url>
+  <!-- Service Detail: Consulenza Cloud Aziendale -->
   <url>
     <loc>https://hitechsrls.com/services/consulenza-cloud-aziendale</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/services/consulenza-cloud-aziendale?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/services/consulenza-cloud-aziendale?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/services/consulenza-cloud-aziendale"/>
     <priority>0.9</priority>
   </url>
+  <!-- Service Detail: WordPress / Adastra -->
   <url>
     <loc>https://hitechsrls.com/services/adastra-wordpress</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/services/adastra-wordpress?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/services/adastra-wordpress?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/services/adastra-wordpress"/>
     <priority>0.8</priority>
   </url>
+  <!-- Contact -->
   <url>
     <loc>https://hitechsrls.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/contact?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/contact?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/contact"/>
     <priority>0.7</priority>
   </url>
+  <!-- Quote Simulator -->
   <url>
     <loc>https://hitechsrls.com/quote-simulator</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/quote-simulator?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/quote-simulator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/quote-simulator"/>
     <priority>0.8</priority>
   </url>
 </urlset>

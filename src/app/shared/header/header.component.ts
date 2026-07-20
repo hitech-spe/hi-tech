@@ -1,6 +1,6 @@
 import { Component, inject, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {RouterLink, RouterLinkActive, Router} from "@angular/router";
 import {AsyncPipe, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../../services/auth.service";
 import {FirestoreService} from "../../services/firestore.service";
@@ -28,6 +28,7 @@ export class HeaderComponent {
   private authService = inject(AuthService);
   private firestoreService = inject(FirestoreService);
   private firestore = inject(Firestore);
+  private router = inject(Router);
 
   user$ = this.authService.user$;
   userData$: Observable<any> = this.user$.pipe(
@@ -94,5 +95,9 @@ export class HeaderComponent {
     this.translate.use(lang);
     this.currentLang = lang;
     this.closeMenu();
+    this.router.navigate([], {
+      queryParams: { lang: lang },
+      queryParamsHandling: 'merge'
+    });
   }
 }

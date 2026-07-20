@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
-import {UpperCasePipe} from "@angular/common";
+import {UpperCasePipe, isPlatformBrowser} from "@angular/common";
 
 interface Service {
   id: string;
@@ -268,7 +268,8 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private translate: TranslateService,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
@@ -290,6 +291,12 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     if (this.langChangeSub) {
       this.langChangeSub.unsubscribe();
     }
+    if (isPlatformBrowser(this.platformId)) {
+      const existingScript = document.getElementById('service-jsonld-schema');
+      if (existingScript) existingScript.remove();
+      const existingBcScript = document.getElementById('breadcrumb-jsonld-schema');
+      if (existingBcScript) existingBcScript.remove();
+    }
   }
 
   private updateService(id: string): void {
@@ -307,9 +314,10 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         this.metaService.updateTag({ property: 'twitter:title', content: pageTitle });
         this.metaService.updateTag({ property: 'twitter:description', content: this.service.description });
 
-        // Aggiorna URL canonico per il dettaglio del servizio
+        // Aggiorna URL canonico per il dettaglio del servizio includendo parametro lingua
         const baseUrl = 'https://hitechsrls.com';
-        const canonicalUrl = `${baseUrl}/services/${id}`;
+        const currentLang = this.translate.currentLang || 'it';
+        const canonicalUrl = `${baseUrl}/services/${id}${currentLang === 'en' ? '?lang=en' : ''}`;
         this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
         this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
 
@@ -318,10 +326,83 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         if (canonicalLink) {
           canonicalLink.setAttribute('href', canonicalUrl);
         }
+
+        // Inietta gli schemi JSON-LD del servizio e del relativo breadcrumb
+        this.injectServiceSchema(this.service, id);
       }
     } else {
       this.service = undefined; // Triggera l'errore 404 nel template
     }
+  }
+
+  private injectServiceSchema(service: any, id: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Rimuovi vecchi script se presenti
+    const existingScript = document.getElementById('service-jsonld-schema');
+    if (existingScript) existingScript.remove();
+
+    const existingBcScript = document.getElementById('breadcrumb-jsonld-schema');
+    if (existingBcScript) existingBcScript.remove();
+
+    const currentLang = this.translate.currentLang || 'it';
+    const isEn = currentLang === 'en';
+    const baseUrl = 'https://hitechsrls.com';
+    const serviceUrl = `${baseUrl}/services/${id}${isEn ? '?lang=en' : ''}`;
+
+    // 1. Schema Servizio
+    const serviceSchema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": service.title,
+      "description": service.description,
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "Hi-Tech Solutions",
+        "image": `${baseUrl}/assets/images/logo-trasp.png`,
+        "telephone": "+39 3456425468",
+        "url": baseUrl
+      },
+      "url": serviceUrl
+    };
+
+    const script = document.createElement('script');
+    script.id = 'service-jsonld-schema';
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(serviceSchema);
+    document.head.appendChild(script);
+
+    // 2. Schema Breadcrumb per il dettaglio del servizio
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": isEn ? "Home" : "Pagina Iniziale",
+          "item": `${baseUrl}${isEn ? '?lang=en' : ''}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": isEn ? "Services" : "Servizi",
+          "item": `${baseUrl}/services${isEn ? '?lang=en' : ''}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": service.title,
+          "item": serviceUrl
+        }
+      ]
+    };
+
+    const bcScript = document.createElement('script');
+    bcScript.id = 'breadcrumb-jsonld-schema';
+    bcScript.type = 'application/ld+json';
+    bcScript.text = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(bcScript);
   }
 
   private localizeService(service: Service): Service {

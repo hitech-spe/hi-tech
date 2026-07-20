@@ -54,10 +54,17 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
+      const tree = this.router.parseUrl(this.router.url);
+      const urlLang = tree.queryParams['lang'];
+      if (urlLang && (urlLang === 'it' || urlLang === 'en')) {
+        if (this.translate.currentLang !== urlLang) {
+          this.translate.use(urlLang);
+        }
+      }
+
       this.updateSeoTags();
 
       if (this.isBrowser) {
-        const tree = this.router.parseUrl(this.router.url);
         if (tree.fragment) {
           // Aggiungi un piccolo ritardo per assicurarti che il DOM sia stato renderizzato
           setTimeout(() => {
@@ -92,8 +99,11 @@ export class AppComponent {
   private updateSeoTags(): void {
     const url = this.router.url.split('?')[0].split('#')[0]; // Rimuove query string e frammenti
     
+    // Aggiorna hreflang per l'URL corrente
+    this.updateHreflangTags(this.router.url);
+
     // Se siamo su una pagina di dettaglio di un servizio (es. /services/sviluppo-...),
-    // lasciamo che sia il ServiceDetailComponent a gestire la SEO.
+    // lasciamo che sia il ServiceDetailComponent a gestire la SEO e i suoi schema JSON-LD.
     if (url.startsWith('/services/') && url !== '/services') {
       return;
     }
@@ -134,9 +144,10 @@ export class AppComponent {
       this.metaService.updateTag({ property: 'twitter:description', content: translatedDesc });
     });
 
-    // Aggiorna URL canonico dinamico
+    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese
     const baseUrl = 'https://hitechsrls.com';
-    const canonicalUrl = `${baseUrl}${url === '/' ? '' : url}`;
+    const currentLang = this.translate.currentLang || 'it';
+    const canonicalUrl = `${baseUrl}${url === '/' ? '' : url}${currentLang === 'en' ? '?lang=en' : ''}`;
     this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
     this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
 
@@ -146,7 +157,97 @@ export class AppComponent {
       if (canonicalLink) {
         canonicalLink.setAttribute('href', canonicalUrl);
       }
+
+      // Inietta schema Breadcrumbs
+      this.injectBreadcrumbSchema(url);
     }
+  }
+
+  private updateHreflangTags(url: string): void {
+    if (!this.isBrowser) return;
+
+    // Rimuove la query string esistente per calcolare il path pulito
+    const cleanPath = url.split('?')[0].split('#')[0];
+    const baseUrl = 'https://hitechsrls.com';
+    const cleanUrl = `${baseUrl}${cleanPath === '/' ? '' : cleanPath}`;
+
+    const hreflangs = [
+      { lang: 'it', url: `${cleanUrl}?lang=it` },
+      { lang: 'en', url: `${cleanUrl}?lang=en` },
+      { lang: 'x-default', url: cleanUrl } // L'italiano senza parametri è x-default
+    ];
+
+    hreflangs.forEach(hl => {
+      let link: HTMLLinkElement | null = document.querySelector(`link[rel="alternate"][hreflang="${hl.lang}"]`);
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'alternate');
+        link.setAttribute('hreflang', hl.lang);
+        document.head.appendChild(link);
+      }
+      link.setAttribute('href', hl.url);
+    });
+  }
+
+  private injectBreadcrumbSchema(url: string): void {
+    if (!this.isBrowser) return;
+
+    // Rimuovi vecchi script se esistenti
+    const existingScript = document.getElementById('breadcrumb-jsonld-schema');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    if (url === '/') return; // Sulla home page non serve il breadcrumb (abbiamo ProfessionalService)
+
+    const currentLang = this.translate.currentLang || 'it';
+    const isEn = currentLang === 'en';
+
+    // Definisci i nomi dei segmenti in base alla lingua
+    let pageName = '';
+    if (url === '/about') {
+      pageName = isEn ? 'About Us' : 'Chi Siamo';
+    } else if (url === '/services') {
+      pageName = isEn ? 'Services' : 'Servizi';
+    } else if (url === '/contact') {
+      pageName = isEn ? 'Contact' : 'Contatti';
+    } else if (url === '/quote-simulator' || url === '/quote-ai') {
+      pageName = isEn ? 'Quote Simulator' : 'Simulatore Preventivi';
+    } else if (url === '/login') {
+      pageName = isEn ? 'Login' : 'Accesso';
+    } else if (url === '/privacy-policy') {
+      pageName = isEn ? 'Privacy Policy' : 'Informativa sulla Privacy';
+    } else if (url === '/terms-and-conditions') {
+      pageName = isEn ? 'Terms & Conditions' : 'Termini e Condizioni';
+    } else {
+      return;
+    }
+
+    const baseUrl = 'https://hitechsrls.com';
+    const breadcrumb = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": isEn ? "Home" : "Pagina Iniziale",
+          "item": `${baseUrl}${isEn ? '?lang=en' : ''}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": pageName,
+          "item": `${baseUrl}${url}${isEn ? '?lang=en' : ''}`
+        }
+      ]
+    };
+
+    const script = document.createElement('script');
+    script.id = 'breadcrumb-jsonld-schema';
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(breadcrumb);
+    document.head.appendChild(script);
   }
 
 }
