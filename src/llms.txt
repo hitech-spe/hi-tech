@@ -1,0 +1,15 @@
+# Hi-Tech Solutions
+> Hi-Tech Solutions è una software house ed agenzia di consulenza IT specializzata in sviluppo software, siti web, app mobile, servizi cloud e soluzioni AI.
+
+Questo file fornisce una mappa dei contenuti principali del sito web di Hi-Tech Solutions ad uso di crawler AI, assistenti virtuali e LLM.
+
+## Pagine Principali
+- [Home Page](https://hitechsrls.com/): Pagina principale di Hi-Tech Solutions con panoramica dei servizi, dei progetti e del simulatore di preventivi AI.
+- [Servizi](https://hitechsrls.com/services): Elenco dettagliato di tutte le nostre soluzioni tecnologiche (consulenza, sviluppo, cloud, SEO, CMS).
+- [Chi Siamo](https://hitechsrls.com/about): La nostra storia, la mission aziendale e i nostri valori orientati all'innovazione digitale.
+- [Simulatore Preventivi AI](https://hitechsrls.com/quote-ai): Strumento interattivo basato su intelligenza artificiale per generare stime di spesa personalizzate in tempo reale.
+- [Contatti](https://hitechsrls.com/contact): Informazioni di contatto per richiedere una consulenza o iniziare a collaborare con noi.
+
+## Note Legali
+- [Privacy Policy](https://hitechsrls.com/privacy-policy): Informativa estesa sul trattamento dei dati personali e sull'uso dei cookie.
+- [Termini e Condizioni](https://hitechsrls.com/terms-and-conditions): Termini generali di servizio per l'utilizzo delle nostre piattaforme.
