@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
-import {UpperCasePipe, isPlatformBrowser} from "@angular/common";
+import {UpperCasePipe, isPlatformBrowser, Location} from "@angular/common";
 
 interface Service {
   id: string;
@@ -269,8 +269,19 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private titleService: Title,
     private metaService: Meta,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private location: Location,
+    private router: Router
   ) { }
+
+  goBack(event: Event): void {
+    event.preventDefault();
+    if (isPlatformBrowser(this.platformId) && window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/home'], { fragment: 'services' });
+    }
+  }
 
   ngOnInit(): void {
     // Scrolla in alto quando si apre il dettaglio

@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectionStrategy, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { RouterLink } from "@angular/router";
+import { RouterLink, ActivatedRoute } from "@angular/router";
 import { ServicesComponent } from "../services/services.component";
 import { AboutComponent } from "../about/about.component";
 import { ContactComponent } from "../contact/contact.component";
@@ -37,10 +37,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   currentLang: string;
   private langSub: Subscription | undefined;
+  private routeFragmentSub: Subscription | undefined;
 
   constructor(
     private translate: TranslateService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private route: ActivatedRoute
   ) {
     this.currentLang = this.translate.currentLang || 'it';
     this.injectProfessionalServiceSchema();
@@ -53,11 +55,22 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.setupIntersectionObserver();
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.routeFragmentSub = this.route.fragment.subscribe(fragment => {
+        if (fragment) {
+          this.scrollToFragment(fragment);
+        }
+      });
+    }
   }
 
   ngOnDestroy() {
     if (this.langSub) {
       this.langSub.unsubscribe();
+    }
+    if (this.routeFragmentSub) {
+      this.routeFragmentSub.unsubscribe();
     }
     if (isPlatformBrowser(this.platformId)) {
       const existingScript = document.getElementById('home-professional-service-schema');
@@ -65,6 +78,33 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         existingScript.remove();
       }
     }
+  }
+
+  private scrollToFragment(fragment: string) {
+    // Dai tempo alle animazioni e al caricamento asincrono di posizionare gli elementi
+    setTimeout(() => {
+      const el = document.getElementById(fragment);
+      if (el) {
+        // Se l'elemento fa parte delle sezioni animate, gli aggiungiamo subito 'is-visible'
+        // in modo che occupi la sua posizione reale ed eviti salti di layout o problemi di opacità
+        el.classList.add('is-visible');
+        
+        // Trova se ha un contenitore genitore animato ed evidenzia anche quello
+        const parentSection = el.closest('.scroll-animate');
+        if (parentSection) {
+          parentSection.classList.add('is-visible');
+        }
+
+        const headerOffset = 90; // Altezza dell'header fixed
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 350);
   }
 
   private injectProfessionalServiceSchema() {

@@ -1,5 +1,5 @@
 import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from "../../services/auth.service";
 import { LoadingService } from "../../services/loading.service";
 import { TranslateModule } from "@ngx-translate/core";
@@ -18,6 +18,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private loadingService = inject(LoadingService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   isLoginMode = true;
   error = '';
@@ -100,7 +101,8 @@ export class LoginComponent {
     try {
       if (this.isLoginMode) {
         await this.authService.login(data.email, data.password);
-        await this.router.navigate(['/home']);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+        await this.router.navigateByUrl(returnUrl);
       } else {
         await this.authService.register(data.email, data.password, data.firstName, data.lastName);
         this.success = 'AUTH.SUCCESS_REGISTER';

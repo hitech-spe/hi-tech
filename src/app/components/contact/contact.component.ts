@@ -1,9 +1,9 @@
-import { Component, AfterViewInit, ElementRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
-import { RouterLink } from "@angular/router";
+import { RouterLink, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-contact',
@@ -18,7 +18,7 @@ import { RouterLink } from "@angular/router";
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
-export class ContactComponent implements AfterViewInit, OnDestroy {
+export class ContactComponent implements AfterViewInit, OnDestroy, OnInit {
   formData = {
     name: '',
     email: '',
@@ -30,7 +30,36 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   privacyAccepted = false;
   private observer: IntersectionObserver | null = null;
 
-  constructor(private el: ElementRef) {}
+  private serviceTitleMap: { [key: string]: string } = {
+    'sviluppo-piattaforme-web-b2b': 'SERVICES.WEB.TITLE',
+    'sviluppo-app-mobile-native': 'SERVICES.MOBILE.TITLE',
+    'consulenza-cloud-aziendale': 'SERVICES.CLOUD.TITLE',
+    'web': 'SERVICES.WEB.TITLE',
+    'mobile': 'SERVICES.MOBILE.TITLE',
+    'cloud': 'SERVICES.CLOUD.TITLE',
+    'social': 'SERVICES.SOCIAL.TITLE',
+    'graphic': 'SERVICES.GRAPHIC.TITLE'
+  };
+
+  constructor(
+    private el: ElementRef,
+    private route: ActivatedRoute,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const serviceId = params['service'];
+      if (serviceId && this.serviceTitleMap[serviceId]) {
+        const translationKey = this.serviceTitleMap[serviceId];
+        this.translate.get(translationKey).subscribe((serviceTitle: string) => {
+          this.translate.get('CONTACT.PREFILL_MESSAGE', { service: serviceTitle }).subscribe((prefillMsg: string) => {
+            this.formData.message = prefillMsg;
+          });
+        });
+      }
+    });
+  }
 
   ngAfterViewInit() {
     const options = {

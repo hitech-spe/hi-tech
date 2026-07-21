@@ -24,18 +24,13 @@
 
   <nav class="nav" [class.open]="isMenuOpen">
     <ul>
-      <li><a [routerLink]="['/home']" fragment="home" (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
-      <li><a [routerLink]="['/home']" fragment="about" (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
-      <li><a [routerLink]="['/home']" fragment="services" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a>
-      </li>
-      <li><a [routerLink]="['/home']" fragment="partnership" (click)="closeMenu()">{{ 'HEADER.Partnership' | translate }}</a>
-      </li>
-      <li><a [routerLink]="['/home']" fragment="news" (click)="closeMenu()">{{ 'HEADER.INSIGHTS' | translate }}</a>
-      </li>
-      <li><a routerLink="/quote-ai" routerLinkActive="active"
-             (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
-      <li><a [routerLink]="['/home']" fragment="contact" (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a>
-      </li>
+      <li><a [routerLink]="['/home']" fragment="home" [class.active]="activeSection === 'home'" (click)="closeMenu()">{{ 'HEADER.HOME' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="about" [class.active]="activeSection === 'about'" (click)="closeMenu()">{{ 'HEADER.ABOUT' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="services" [class.active]="activeSection === 'services'" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="partnership" [class.active]="activeSection === 'partnership'" (click)="closeMenu()">{{ 'HEADER.Partnership' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="news" [class.active]="activeSection === 'news'" (click)="closeMenu()">{{ 'HEADER.INSIGHTS' | translate }}</a></li>
+      <li><a routerLink="/quote-ai" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
+      <li><a [routerLink]="['/home']" fragment="contact" [class.active]="activeSection === 'contact'" (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
 
       @if (userData$ | async; as user) {
         <li><a routerLink="/quotes" routerLinkActive="active"

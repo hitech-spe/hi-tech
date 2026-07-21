@@ -166,7 +166,8 @@
     "SEND": "Invia Messaggio",
     "SENDING": "Invio in corso...",
     "SUCCESS": "Messaggio inviato con successo!",
-    "ERROR": "Errore durante l'invio. Riprova più tardi."
+    "ERROR": "Errore durante l'invio. Riprova più tardi.",
+    "PREFILL_MESSAGE": "Ciao Team, sono interessato al servizio di '{{service}}'. Vorrei ricevere maggiori informazioni o un preventivo personalizzato. Grazie!"
   },
   "HOME": {
     "HERO": {

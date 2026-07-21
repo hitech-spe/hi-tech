@@ -86,7 +86,7 @@
           transition: width 0.3s ease;
         }
 
-        &:hover, /*&.active*/ {
+        &:hover, &.active {
           color: #00d2ff; /* Testo azzurro hover/active */
           background: none;
 

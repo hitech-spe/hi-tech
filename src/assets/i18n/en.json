@@ -165,7 +165,8 @@
     "SEND": "Send Message",
     "SENDING": "Sending...",
     "SUCCESS": "Message sent successfully!",
-    "ERROR": "Error while sending. Please try again later."
+    "ERROR": "Error while sending. Please try again later.",
+    "PREFILL_MESSAGE": "Hello Team, I am interested in the '{{service}}' service. I would like to receive more information or a custom quote. Thank you!"
   },
   "HOME": {
     "HERO": {
