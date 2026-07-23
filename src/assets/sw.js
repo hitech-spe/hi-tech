@@ -3,7 +3,7 @@ const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/assets/manifest.json',
-  '/assets/images/logo-trasp.png',
+  '/assets/images/logo-trasp.webp',
   '/assets/favicon-16x16.png',
   '/assets/favicon-32x32.png',
   '/assets/apple-touch-icon.png',

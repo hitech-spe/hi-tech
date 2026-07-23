@@ -377,7 +377,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       "provider": {
         "@type": "ProfessionalService",
         "name": "Hi-Tech Solutions",
-        "image": `${baseUrl}/assets/images/logo-trasp.png`,
+        "image": `${baseUrl}/assets/images/logo-trasp.webp`,
         "telephone": "+39 3456425468",
         "url": baseUrl
       },

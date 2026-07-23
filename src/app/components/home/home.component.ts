@@ -124,7 +124,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Hi-Tech Solutions",
-      "image": `${baseUrl}/assets/images/logo-trasp.png`,
+      "image": `${baseUrl}/assets/images/logo-trasp.webp`,
       "@id": `${baseUrl}/#organization`,
       "url": baseUrl,
       "telephone": "+39 3456425468",
