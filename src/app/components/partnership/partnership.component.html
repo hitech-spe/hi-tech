@@ -1,12 +1,12 @@
 <div class="partnership-container adastra-section">
-  <div class="section-header scroll-reveal" #animatedElement>
+  <div class="section-header scroll-reveal" data-aos="fade-up">
     <div class="animated-header">
       <h2 class="section-title"><span class="text-gradient">{{ 'PARTNERSHIP.SUBTITLE' | translate }}</span></h2>
     </div>
   </div>
 
-  <div class="partnership-content scroll-reveal" #animatedElement>
-    <div *ngFor="let partner of partners" class="partnership-card glass-card">
+  <div class="partnership-content scroll-reveal">
+    <div *ngFor="let partner of partners; let i = index" class="partnership-card glass-card" data-aos="fade-up" [attr.data-aos-delay]="i * 150">
       <div class="partner-logo">
         <img [ngSrc]="partner.logo" [alt]="partner.name | translate" class="logo-img" [height]="partner.height" [width]="partner.width">
       </div>

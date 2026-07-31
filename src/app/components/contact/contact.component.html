@@ -1,4 +1,4 @@
-<section class="contact-showcase-container scroll-reveal">
+<section class="contact-showcase-container scroll-reveal" data-aos="fade-up">
 
     <div class="section-header animated-header">
         <h2 class="section-title">{{ 'CONTACT.TITLE' | translate }} <span
@@ -7,7 +7,7 @@
 
     <div class="contact-grid">
 
-        <div class="glass-panel contact-info animated-left">
+        <div class="glass-panel contact-info animated-left" data-aos="fade-right">
             <div class="panel-glow"></div>
             <h3>{{ 'CONTACT.INFO' | translate }}</h3>
             <p class="desc">{{ 'CONTACT.INFO_DESC' | translate }}</p>
@@ -74,7 +74,7 @@
             </ul>
         </div>
 
-        <form (ngSubmit)="onSubmit()" class="glass-panel contact-form animated-right">
+        <form (ngSubmit)="onSubmit()" class="glass-panel contact-form animated-right" data-aos="fade-left">
 
             <div class="form-row">
                 <div class="form-group">

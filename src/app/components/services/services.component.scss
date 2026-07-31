@@ -149,136 +149,14 @@
 }
 
 /* =========================================
-   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+   AOS (Animate On Scroll) INTEGRATION
 ========================================= */
-
-/* Nascosti di default finché non sono visibili (scroll-reveal) */
-.scroll-reveal .animated-header,
-.scroll-reveal .animated-img,
-.scroll-reveal .animated-text {
-  opacity: 0;
-  will-change: opacity, transform;
-}
-
-/* 1. HEADER (Appare dal basso) */
-.scroll-reveal.is-visible .animated-header {
-  animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-/* 2. RIGA NORMALE (Immagine a SINISTRA, Testo a DESTRA) */
-.service-row.scroll-reveal.is-visible:not(.reverse) {
-
-  .animated-img {
-    /* L'immagine appare subito da Sinistra */
-    animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  }
-
-  .animated-text {
-    /* Il testo appare da Destra con 0.3s di ritardo! */
-    animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
-  }
-}
-
-/* 3. RIGA REVERSE (Immagine a DESTRA, Testo a SINISTRA) */
-.service-row.scroll-reveal.is-visible.reverse {
-
-  .animated-img {
-    /* L'immagine appare subito da Destra */
-    animation: slideInRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  }
-
-  .animated-text {
-    /* Il testo appare da Sinistra con 0.3s di ritardo! */
-    animation: slideInLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
-  }
-}
-
-/* --- KEYFRAMES --- */
-@keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-50px);
-    filter: blur(5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes slideInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(50px);
-    filter: blur(5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
-  }
-}
 
 /* --- RESPONSIVE MOBILE (ANIMAZIONI IN SEQUENZA - SAFE MODE) --- */
 @media (max-width: 992px) {
   .services-showcase-container {
 
-    /* 1. SPEGNIAMO LE ANIMAZIONI DESKTOP (Uccidiamo i keyframe e i filtri) */
-    .service-row.scroll-reveal.is-visible .animated-img,
-    .service-row.scroll-reveal.is-visible.reverse .animated-img,
-    .service-row.scroll-reveal.is-visible .animated-text,
-    .service-row.scroll-reveal.is-visible.reverse .animated-text,
-    .scroll-reveal.is-visible .animated-header {
-      animation: none !important;
-    }
-
-    /* 2. STATO INIZIALE (Gli elementi partono invisibili e un po' più in basso) */
-    .scroll-reveal .animated-header,
-    .scroll-reveal .animated-img,
-    .scroll-reveal .animated-text {
-      opacity: 0;
-      transform: translateY(20px);
-      /* Usiamo transizioni morbide e native. Zero sforzo per il telefono */
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-      filter: none !important; /* Assoluto divieto di blur su mobile! */
-      will-change: opacity, transform;
-    }
-
-    /* 3. LA REGIA: COSA SUCCEDE ALLO SCROLL */
-    .scroll-reveal.is-visible .animated-header {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .service-row.scroll-reveal.is-visible {
-
-      /* A. L'immagine di sfondo (e la sua ombra) compaiono subito */
-      .animated-img {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* B. Il testo aspetta 0.4 secondi, poi sale elegantemente sopra l'immagine */
-      .animated-text {
-        opacity: 1;
-        transform: translateY(0);
-        transition-delay: 0.7s;
-      }
-    }
-
-    /* 4. LAYOUT DELLA CARD (Griglia sovrapposta, invariata) */
+    /* 1. LAYOUT DELLA CARD (Griglia sovrapposta, invariata) */
     .services-list { gap: 3rem; }
 
     .service-row, .service-row.reverse {

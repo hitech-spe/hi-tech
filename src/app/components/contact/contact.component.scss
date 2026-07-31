@@ -308,48 +308,8 @@
 }
 
 /* =========================================
-   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL
+   AOS (Animate On Scroll) INTEGRATION
 ========================================= */
-
-/* 1. Stato iniziale: invisibili */
-.animated-header,
-.animated-left,
-.animated-right {
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-/* 2. TRIGGER CORRETTO: Quando la section ha la classe .is-visible */
-.contact-showcase-container.is-visible {
-
-  .animated-header {
-    animation: contactFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animated-left {
-    animation: contactSlideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-  }
-
-  .animated-right {
-    animation: contactSlideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-  }
-}
-
-/* Keyframes con nomi univoci per evitare conflitti */
-@keyframes contactFadeUp {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes contactSlideInLeft {
-  0% { opacity: 0; transform: translateX(-40px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes contactSlideInRight {
-  0% { opacity: 0; transform: translateX(40px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
 
 /* --- RESPONSIVE MOBILE (STATICO E SICURO PER iOS) --- */
 @media (max-width: 992px) {
@@ -357,21 +317,7 @@
   .contact-showcase-container {
     padding: 2rem 1rem;
 
-    /* 1. RESET ASSOLUTO: Spegniamo le animazioni a scomparsa per iOS */
-    .animated-header,
-    .animated-left,
-    .animated-right,
-    &.is-visible .animated-header,
-    &.is-visible .animated-left,
-    &.is-visible .animated-right {
-      animation: none !important;
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-      will-change: auto !important; /* Libera la memoria RAM del telefono */
-    }
-
-    /* 2. LAYOUT A COLONNA UNICA */
+    /* 1. LAYOUT A COLONNA UNICA */
     .contact-grid {
       grid-template-columns: 1fr;
       gap: 2rem;
@@ -410,9 +356,4 @@
     }
 
   }
-}
-
-/* FALLBACK DESKTOP: Assicura che il form sia visibile se l'Observer fallisce su PC */
-.animated-header, .animated-left, .animated-right {
-  transition: opacity 1s ease;
 }

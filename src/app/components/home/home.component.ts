@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectionStrategy, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectionStrategy, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { RouterLink, ActivatedRoute } from "@angular/router";
@@ -32,8 +32,6 @@ import { Subscription } from 'rxjs';
   standalone: true
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
-  // Selezioniamo tutti gli elementi che hanno la classe 'scroll-animate'
-  @ViewChildren('animatedSection') animatedSections!: QueryList<ElementRef>;
 
   currentLang: string;
   private langSub: Subscription | undefined;
@@ -54,8 +52,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.setupIntersectionObserver();
-
     if (isPlatformBrowser(this.platformId)) {
       this.routeFragmentSub = this.route.fragment.subscribe(fragment => {
         if (fragment) {
@@ -85,16 +81,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       const el = document.getElementById(fragment);
       if (el) {
-        // Se l'elemento fa parte delle sezioni animate, gli aggiungiamo subito 'is-visible'
-        // in modo che occupi la sua posizione reale ed eviti salti di layout o problemi di opacità
-        el.classList.add('is-visible');
-        
-        // Trova se ha un contenitore genitore animato ed evidenzia anche quello
-        const parentSection = el.closest('.scroll-animate');
-        if (parentSection) {
-          parentSection.classList.add('is-visible');
-        }
-
         const headerOffset = 90; // Altezza dell'header fixed
         const elementPosition = el.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -168,31 +154,5 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     script.type = 'application/ld+json';
     script.text = JSON.stringify(schema);
     document.head.appendChild(script);
-  }
-
-  private setupIntersectionObserver() {
-    const options = {
-      root: null,
-      /* rootMargin anticipa il caricamento di 50px prima che entri nello schermo,
-         aiutando la fluidità su mobile */
-      rootMargin: '50px',
-      threshold: 0.05 /* Abbassato al 5%: scatta subito senza far faticare il telefono */
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-
-          // FONDAMENTALE PER IL MOBILE: Smetti di osservare l'elemento!
-          // Evita che scatti a ripetizione andando su e giù, salvando tantissima batteria e RAM.
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    this.animatedSections.forEach(section => {
-      observer.observe(section.nativeElement);
-    });
   }
 }

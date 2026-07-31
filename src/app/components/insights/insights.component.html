@@ -1,5 +1,5 @@
 <section id="news" class="insights-section">
-  <div class="section-header">
+  <div class="section-header" data-aos="fade-up">
     <div class="animated-header">
       <div class="badge">{{ 'INSIGHTS.BADGE' | translate }}</div>
       <h2 class="section-title">H-Tech <span class="text-gradient">Insights</span></h2>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="news-grid">
-    <article *ngFor="let item of newsItems" class="news-card glass-card scroll-reveal">
+    <article *ngFor="let item of newsItems; let i = index" class="news-card glass-card scroll-reveal" data-aos="fade-up" [attr.data-aos-delay]="i * 150">
       <div class="news-image">
         <img [src]="item.image" [alt]="item.titleKey | translate" loading="lazy" width="800" height="533">
         <div class="category-tag">{{ item.categoryKey | translate }}</div>

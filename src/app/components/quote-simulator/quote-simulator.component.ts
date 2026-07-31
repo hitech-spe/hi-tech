@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ElementRef, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {AiService} from '../../services/ai.service';
 import {LoadingService} from '../../services/loading.service';
@@ -27,57 +27,19 @@ export class QuoteSimulatorComponent implements OnInit {
   userEmail: string = '';
   userName: string = '';
 
-  //private loadingService = inject(LoadingService);
-
-  private observer: IntersectionObserver | null = null;
-
   constructor(
     private aiService: AiService,
-    private translate: TranslateService,
-    private el: ElementRef
+    private translate: TranslateService
   ) {
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    // Il trucco del setTimeout per dare respiro al browser
-    setTimeout(() => {
-      const options = {
-        root: null,
-        rootMargin: '50px',
-        threshold: 0.05
-      };
-
-      this.observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            this.observer?.unobserve(entry.target); // Stoppa l'osservazione per salvare RAM
-          }
-        });
-      }, options);
-
-      // Cerca tutti i blocchi che devono essere animati
-      const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
-      elements.forEach((el: Element) => {
-        this.observer?.observe(el);
-      });
-    }, 100);
-  }
-
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
-  }
-
   async generateQuote() {
     if (!this.userInput.trim() || this.isLoading) return;
 
     this.isLoading = true;
-    //this.loadingService.show();
     this.aiResponse = null;
     this.submitStatus = null;
 
@@ -88,7 +50,6 @@ export class QuoteSimulatorComponent implements OnInit {
       this.submitStatus = 'error';
     } finally {
       this.isLoading = false;
-      //this.loadingService.hide();
     }
   }
 
@@ -96,47 +57,41 @@ export class QuoteSimulatorComponent implements OnInit {
     if (!this.userEmail || this.isSending || !this.aiResponse) return;
 
     this.isSending = true;
-    // this.loadingService.show();
-
-    // Formattiamo le funzionalità identificate in una lista testuale leggibile
-    const featuresList = this.aiResponse.features
-      ? this.aiResponse.features.map((f: string) => `- ${f}`).join('\n')
-      : '';
-
-    const templateParams = {
-      user_name: this.userName,
-      user_email: this.userEmail,
-      project_description: this.userInput,
-      estimate_details: `
-Costo Stimato: ${this.aiResponse.estimatedCost}
-Tempo di Sviluppo: ${this.aiResponse.estimatedTime}
-
-Funzionalità identificate:
-${featuresList}
-
-Suggerimento AI:
-${this.aiResponse.suggestion}
-      `,
-      estimated_cost: this.aiResponse.estimatedCost,
-      estimated_time: this.aiResponse.estimatedTime
-    };
-
-    // Usiamo le stesse chiavi già configurate nel ContactComponent
-    const serviceID = 'service_dvvpn9b';
-    const templateID = 'template_c7lex0n';
-    const publicKey = 'BeTmkZ_BQMgszAUkE';
 
     try {
+      const templateParams = {
+        to_email: this.userEmail,
+        to_name: this.userName || 'Cliente',
+        project_type: this.aiResponse.projectType || 'Progetto personalizzato',
+        total_estimate: this.aiResponse.totalEstimate || 'Non disponibile',
+        timeline: this.aiResponse.timeline || 'Da definire',
+        features: this.formatFeaturesForEmail(this.aiResponse.features)
+      };
+
+      const serviceID = 'service_dvvpn9b'; // Sostituisci con il tuo Service ID EmailJS
+      const templateID = 'template_1guzxla'; // Sostituisci con il tuo Template ID per i preventivi
+      const publicKey = 'BeTmkZ_BQMgszAUkE'; // Sostituisci con la tua Public Key
+
       await emailjs.send(serviceID, templateID, templateParams, publicKey);
+      
       this.submitStatus = 'success';
       this.userEmail = '';
       this.userName = '';
+      setTimeout(() => this.submitStatus = null, 5000);
+      
     } catch (error) {
-      console.error('Errore nell\'invio della mail:', error);
+      console.error('Errore invio email preventivo:', error);
       this.submitStatus = 'error';
     } finally {
       this.isSending = false;
-      //this.loadingService.hide();
     }
+  }
+
+  private formatFeaturesForEmail(features: any[]): string {
+    if (!features || !Array.isArray(features)) return 'Nessuna feature specificata.';
+    
+    return features.map(f => 
+      `- ${f.name}: ${f.description} (Costo stimato: ${f.estimatedCost})`
+    ).join('\n');
   }
 }

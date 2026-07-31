@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import {TranslateModule} from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-about',
@@ -12,5 +12,4 @@ import {TranslateModule} from "@ngx-translate/core";
   standalone: true
 })
 export class AboutComponent {
-
 }

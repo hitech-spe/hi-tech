@@ -1,9 +1,10 @@
-import { Component, AfterViewInit, ElementRef, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
 import { RouterLink, ActivatedRoute } from "@angular/router";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -18,7 +19,7 @@ import { RouterLink, ActivatedRoute } from "@angular/router";
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
-export class ContactComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
   formData = {
     name: '',
     email: '',
@@ -28,7 +29,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy, OnInit {
   isSending = false;
   submitStatus: 'success' | 'error' | null = null;
   privacyAccepted = false;
-  private observer: IntersectionObserver | null = null;
+  private queryParamsSub: Subscription | undefined;
 
   private serviceTitleMap: { [key: string]: string } = {
     'sviluppo-piattaforme-web-b2b': 'SERVICES.WEB.TITLE',
@@ -42,13 +43,12 @@ export class ContactComponent implements AfterViewInit, OnDestroy, OnInit {
   };
 
   constructor(
-    private el: ElementRef,
     private route: ActivatedRoute,
     private translate: TranslateService
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.queryParamsSub = this.route.queryParams.subscribe(params => {
       const serviceId = params['service'];
       if (serviceId && this.serviceTitleMap[serviceId]) {
         const translationKey = this.serviceTitleMap[serviceId];
@@ -61,31 +61,9 @@ export class ContactComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  ngAfterViewInit() {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.15
-    };
-
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          this.observer?.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    const elements = this.el.nativeElement.querySelectorAll('.scroll-reveal');
-    elements.forEach((el: Element) => {
-      this.observer?.observe(el);
-    });
-  }
-
   ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
+    if (this.queryParamsSub) {
+      this.queryParamsSub.unsubscribe();
     }
   }
 

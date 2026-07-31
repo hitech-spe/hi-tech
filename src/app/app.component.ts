@@ -8,6 +8,7 @@ import {SpinnerComponent} from "./shared/spinner/spinner.component";
 import {FooterComponent} from "./shared/footer/footer.component";
 import {ChatbotComponent} from "./shared/chatbot/chatbot.component";
 import {filter} from 'rxjs/operators';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -27,8 +28,8 @@ export class AppComponent {
   title = 'hi-tech';
   private isBrowser: boolean;
 
-  showSplash = true;  // Controlla se il blocco esiste nell'HTML
-  fadeSplash = false; // Controlla l'animazione di dissolvenza
+  showSplash = true;  
+  fadeSplash = false;
 
   constructor(
     private translate: TranslateService,
@@ -41,21 +42,22 @@ export class AppComponent {
     translate.use('it');
     this.isBrowser = isPlatformBrowser(platformId);
 
-    // Registra il Service Worker per le performance offline e PWA su mobile/web
     if (this.isBrowser && 'serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/assets/sw.js')
-          .then(reg => console.log('Service Worker registrato con successo (Scope):', reg.scope))
           .catch(err => console.error('Errore nella registrazione del Service Worker:', err));
       });
     }
 
-    // Gestione dello scroll manuale per i frammenti ed SEO su navigazione
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       if (this.isBrowser) {
         (window as any).prerenderReady = false;
+        
+        setTimeout(() => {
+          AOS.refresh();
+        }, 150);
       }
 
       const tree = this.router.parseUrl(this.router.url);
@@ -70,7 +72,6 @@ export class AppComponent {
 
       if (this.isBrowser) {
         if (tree.fragment) {
-          // Aggiungi un piccolo ritardo per assicurarti che il DOM sia stato renderizzato
           setTimeout(() => {
             const element = document.querySelector('#' + tree.fragment);
             if (element) {
@@ -81,21 +82,31 @@ export class AppComponent {
       }
     });
 
-    // Aggiorna SEO alla variazione della lingua
     this.translate.onLangChange.subscribe(() => {
       this.updateSeoTags();
     });
   }
 
   ngOnInit() {
-    // Ridotto il tempo a 800ms per migliorare drasticamente le prestazioni di caricamento percepite (Core Web Vitals)
+    // Timer classico e veloce: aspetta 800ms per caricare la barra azzurra
     setTimeout(() => {
-      this.fadeSplash = true;
+      this.fadeSplash = true; // Applica la classe .fade-out che sfuma lo schermo
 
-      // Dopo un altro mezzo secondo (il tempo della transizione CSS), la rimuoviamo del tutto
+      // Dopo mezzo secondo di dissolvenza, distrugge il div e innesca le animazioni AOS
       setTimeout(() => {
         this.showSplash = false;
-      }, 500);
+
+        if (this.isBrowser) {
+          AOS.init({
+            duration: 800,
+            once: true,
+            mirror: false,
+            offset: 100,
+            easing: 'ease-out-cubic',
+            delay: 50
+          });
+        }
+      }, 500); 
 
     }, 800);
   }

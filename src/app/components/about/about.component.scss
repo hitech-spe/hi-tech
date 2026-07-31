@@ -156,115 +156,20 @@
 }
 
 /* =========================================
-   ANIMAZIONI CINEMATOGRAFICHE ALLO SCROLL (PERFECT SYNC)
+   AOS (Animate On Scroll) INTEGRATION
 ========================================= */
-
-.animated-header, .animated-image, .animated-text {
-  opacity: 0;
-}
-
-.about-image-side .overlay {
-  opacity: 0;
-}
-
-/* Trigger dell'animazione al momento dello scroll */
-:host-context(.is-visible) {
-
-  .animated-header {
-    animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  /* * REGIA SINCRONIZZATA: Immagine, Testo e Overlay usano tutti la stessa
-   * durata (2.4s). La magia di chi entra prima e chi dopo la facciamo dentro i keyframes!
-   */
-  .animated-image {
-    animation: cinematicImage 2.4s linear 0.2s both;
-  }
-
-  .animated-text {
-    animation: cinematicText 2.4s linear 0.2s both;
-  }
-
-  .about-image-side .overlay {
-    animation: cinematicOverlay 2.4s linear 0.2s both;
-  }
-}
-
-/* --- KEYFRAMES DESKTOP --- */
-
-@keyframes fadeUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cinematicImage {
-  /* FASE 1 (0% - 20%): L'immagine compare dolcemente sulla sinistra, invadendo lo spazio del testo */
-  0% {
-    opacity: 0;
-    transform: translateX(-60%);
-    animation-timing-function: ease-out; /* Curva dolce per la comparsa */
-  }
-  20% {
-    opacity: 1;
-    transform: translateX(-60%);
-    /* Qui l'immagine è apparsa. Ora prepariamo la "scivolata" con una curva ultra-morbida */
-    animation-timing-function: cubic-bezier(0.65, 0, 0.05, 1);
-  }
-  /* FASE 2 (20% - 100%): L'immagine scivola al suo posto sulla destra */
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes cinematicText {
-  /* FASE 1 (0% - 20%): Il testo resta completamente invisibile e fermo, aspetta l'immagine */
-  0% { opacity: 0; transform: translateX(-60px); }
-  20% {
-    opacity: 0;
-    transform: translateX(-60px);
-    /* Applica la STESSA curva dell'immagine, così si muovono all'unisono */
-    animation-timing-function: cubic-bezier(0.65, 0, 0.05, 1);
-  }
-  /* FASE 2 (20% - 100%): Mentre l'immagine va a destra, il testo entra da sinistra */
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes cinematicOverlay {
-  /* FASE 1: L'overlay scuro è spento perché l'immagine deve vedersi bene */
-  0% { opacity: 0; }
-  20% {
-    opacity: 0;
-    animation-timing-function: cubic-bezier(0.65, 0, 0.05, 1);
-  }
-  /* FASE 2: Mentre il testo entra, compare lo scuro sull'immagine per fare contrasto */
-  100% { opacity: 1; }
-}
 
 /* --- RESPONSIVE MOBILE (STATICO, SICURO E SEMPRE VISIBILE PER iOS) --- */
 @media (max-width: 992px) {
   .about-showcase-container {
 
-    /* 1. RESET ASSOLUTO: Spegniamo tutte le animazioni e forziamo la visibilità */
-    .animated-header,
-    .animated-image,
-    .animated-text,
-    :host-context(.is-visible) .animated-image,
-    :host-context(.is-visible) .animated-text {
-      animation: none !important;
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-      filter: none !important;
-    }
-
-    /* 2. LAYOUT: Immagine sopra, testo sotto */
+    /* 1. LAYOUT: Immagine sopra, testo sotto */
     .about-hero-layout {
       flex-direction: column-reverse;
       gap: 2rem;
     }
 
-    /* 3. LATO TESTO */
+    /* 2. LATO TESTO */
     .about-text-side {
       max-width: 100%;
 
@@ -274,7 +179,7 @@
       }
     }
 
-    /* 4. LATO IMMAGINE */
+    /* 3. LATO IMMAGINE */
     .about-image-side {
       height: 280px; /* Altezza elegante per fare da "copertina" */
       width: 100%;

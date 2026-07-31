@@ -1,5 +1,5 @@
 /* =========================================
-   SPLASH SCREEN INIZIALE
+   SPLASH SCREEN INIZIALE CLASSICA
 ========================================= */
 .global-splash-screen {
   position: fixed;
@@ -7,7 +7,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #020617; // Slate 950 - Molto enterprise e profondo
+  background: #020617; /* Slate 950 - Molto enterprise e profondo */
   z-index: 99999;
   display: flex;
   justify-content: center;
@@ -37,7 +37,7 @@
       img {
         width: 240px;
         max-width: 80vw;
-        filter: brightness(0) invert(1); // Logo puramente bianco
+        filter: brightness(0) invert(1); /* Logo puramente bianco */
       }
     }
 
@@ -64,15 +64,13 @@
   }
 }
 
+/* =========================================
+   KEYFRAMES
+========================================= */
+
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
@@ -83,9 +81,4 @@
 @keyframes progressFill {
   0% { transform: scaleX(0); }
   100% { transform: scaleX(1); }
-}
-
-@keyframes progressMove {
-  0% { left: -40%; }
-  100% { left: 110%; }
 }

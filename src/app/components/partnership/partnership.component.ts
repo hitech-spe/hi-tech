@@ -1,7 +1,6 @@
-import { Component, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 interface Partner {
   name: string;
@@ -19,8 +18,7 @@ interface Partner {
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./partnership.component.scss']
 })
-export class PartnershipComponent implements AfterViewInit {
-  @ViewChildren('animatedElement') animatedElements!: QueryList<ElementRef>;
+export class PartnershipComponent {
 
   partners: Partner[] = [
     {
@@ -46,30 +44,5 @@ export class PartnershipComponent implements AfterViewInit {
     }
   ];
 
-  constructor(private sanitizer: DomSanitizer) {}
-
-  ngAfterViewInit() {
-    this.setupIntersectionObserver();
-  }
-
-  private setupIntersectionObserver() {
-    const options = {
-      root: null,
-      rootMargin: '50px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    this.animatedElements.forEach(el => {
-      observer.observe(el.nativeElement);
-    });
-  }
+  constructor() {}
 }

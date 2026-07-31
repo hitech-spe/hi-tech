@@ -1,21 +1,37 @@
 import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { RemoteConfig, getValue, fetchAndActivate, activate } from '@angular/fire/remote-config';
-import { Observable, from, forkJoin } from 'rxjs';
+import { Observable, from, forkJoin, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 export class RemoteConfigTranslateLoader implements TranslateLoader {
   constructor(
     private http: HttpClient,
-    private remoteConfig: RemoteConfig
+    private remoteConfig: RemoteConfig | null
   ) {}
 
   getTranslation(lang: string): Observable<any> {
+    // 0. Server-Side Rendering (Prerender) safe path
+    // Nel contesto NodeJS, Angular SSR non può fare vere HTTP calls ai file locali senza un URL assoluto
+    // e Firebase RemoteConfig non è disponibile. Passiamo i dati statici leggendo il file node.
+    if (!this.remoteConfig || typeof window === 'undefined') {
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const filePath = path.join(process.cwd(), 'src/assets/i18n', `${lang}.json`);
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        return of(JSON.parse(fileContent));
+      } catch (e) {
+        console.warn(`SSR Fallback: Could not read local translation for ${lang}`, e);
+        return of({});
+      }
+    }
+
     // 1. Load the local static JSON translation file
     const local$ = this.http.get(`/assets/i18n/${lang}.json`).pipe(
       catchError((err) => {
         console.error(`Could not load local static translation file for ${lang}:`, err);
-        return [{}];
+        return of({});
       })
     );
 
@@ -23,7 +39,7 @@ export class RemoteConfigTranslateLoader implements TranslateLoader {
     const remote$ = from(
       activate(this.remoteConfig)
         .then(() => {
-          const value = getValue(this.remoteConfig, `i18n_${lang}`).asString();
+          const value = getValue(this.remoteConfig!, `i18n_${lang}`).asString();
           if (value && value.trim()) {
             try {
               return JSON.parse(value);
@@ -35,7 +51,7 @@ export class RemoteConfigTranslateLoader implements TranslateLoader {
         })
         .then((cachedJson) => {
           // Trigger fetch in background to get updates for subsequent sessions/pages
-          fetchAndActivate(this.remoteConfig)
+          fetchAndActivate(this.remoteConfig!)
             .then((updated) => {
               if (updated) {
                 console.log(`Remote Config updated in background for ${lang}`);
@@ -51,7 +67,7 @@ export class RemoteConfigTranslateLoader implements TranslateLoader {
           return {};
         })
     ).pipe(
-      catchError(() => [{}])
+      catchError(() => of({}))
     );
 
     // 3. Perform a deep merge, giving priority to the Remote Config values (or cached ones)

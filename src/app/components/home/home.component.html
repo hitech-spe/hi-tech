@@ -43,59 +43,32 @@
 
     <div class="content-sections">
 
-      <section id="about" #animatedSection class="glass-card section-wrapper scroll-animate">
+      <section id="about" class="glass-card section-wrapper">
         <app-about></app-about>
       </section>
 
-      <section id="services" #animatedSection class="glass-card section-wrapper scroll-animate delay-1">
+      <section id="services" class="glass-card section-wrapper">
         <app-services></app-services>
       </section>
 
-      <section id="tech-matcher" #animatedSection class="scroll-animate">
+      <section id="tech-matcher">
         <app-tech-matcher></app-tech-matcher>
       </section>
-
-      <!--section id="cases" #animatedSection class="glass-card section-wrapper scroll-animate">
-        <div class="section-header">
-          <div class="animated-header">
-            <div class="badge">Success Stories</div>
-            <h2 class="section-title">{{ (currentLang === 'it' ? 'Casi di' : 'Success') }} <span class="text-gradient">{{ (currentLang === 'it' ? 'Successo' : 'Stories') }}</span></h2>
-          </div>
-        </div>
-        <div class="cases-grid">
-          <div class="case-card glass-card">
-            <h3>{{ (currentLang === 'it' ? 'Automazione Processi B2B' : 'B2B Process Automation') }}</h3>
-            <p>{{ (currentLang === 'it' ? "Abbiamo ridotto i costi operativi del 30% per un'azienda logistica attraverso una piattaforma web personalizzata che automatizza la gestione degli ordini." : "We reduced operational costs by 30% for a logistics company through a custom web platform that automates order management.") }}</p>
-          </div>
-          <div class="case-card glass-card">
-            <h3>{{ (currentLang === 'it' ? 'App Nativa per l\'Industria 4.0' : 'Native App for Industry 4.0') }}</h3>
-            <p>{{ (currentLang === 'it' ? "Sviluppo di un'app mobile per il monitoraggio in tempo reale dei macchinari, migliorando la manutenzione preventiva e riducendo i tempi di fermo." : "Development of a mobile app for real-time machinery monitoring, improving preventive maintenance and reducing downtime.") }}</p>
-          </div>
-          <div class="case-card glass-card">
-            <h3>{{ (currentLang === 'it' ? 'Infrastruttura Cloud Scalabile' : 'Scalable Cloud Infrastructure') }}</h3>
-            <p>{{ (currentLang === 'it' ? "Migrazione al cloud di un intero ecosistema aziendale, garantendo sicurezza dei dati e una scalabilità fluida durante i picchi di traffico." : "Cloud migration of an entire business ecosystem, ensuring data security and smooth scalability during traffic peaks.") }}</p>
-          </div>
-        </div>
-      </section-->
 
       <section id="partnership" class="glass-card section-wrapper">
         <app-partnership></app-partnership>
       </section>
 
-      <section id="roi" #animatedSection class="scroll-animate">
+      <section id="roi">
         <app-roi-calculator></app-roi-calculator>
       </section>
 
       <!-- Sezione Blog/News per SEO -->
-      <section #animatedSection class="scroll-animate">
+      <section>
         <app-insights></app-insights>
       </section>
 
-      <!--section id="faq" #animatedSection class="scroll-animate">
-        <app-faq></app-faq>
-      </section-->
-
-      <section id="contact" #animatedSection class="glass-card section-wrapper scroll-animate delay-2">
+      <section id="contact" class="glass-card section-wrapper">
         <app-contact></app-contact>
       </section>
 
