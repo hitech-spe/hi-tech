@@ -67,10 +67,26 @@
   </url>
   <!-- Quote Simulator -->
   <url>
-    <loc>https://hitechsrls.com/quote-simulator</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/quote-simulator?lang=it"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/quote-simulator?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/quote-simulator"/>
+    <loc>https://hitechsrls.com/quote-ai</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/quote-ai?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/quote-ai?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/quote-ai"/>
     <priority>0.8</priority>
+  </url>
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://hitechsrls.com/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/privacy-policy?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/privacy-policy?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/privacy-policy"/>
+    <priority>0.3</priority>
+  </url>
+  <!-- Terms and Conditions -->
+  <url>
+    <loc>https://hitechsrls.com/terms-and-conditions</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://hitechsrls.com/terms-and-conditions?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hitechsrls.com/terms-and-conditions?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hitechsrls.com/terms-and-conditions"/>
+    <priority>0.3</priority>
   </url>
 </urlset>
