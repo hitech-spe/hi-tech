@@ -1,7 +1,7 @@
 const CACHE_NAME = 'hitech-cache-v1';
 const ASSETS_TO_CACHE = [
   '/',
-  '/index.html',
+  '/index.csr.html',
   '/assets/manifest.json',
   '/assets/images/logo-trasp.webp',
   '/assets/favicon-16x16.png',
@@ -82,9 +82,9 @@ self.addEventListener('fetch', (event) => {
         }
         return networkResponse;
       }).catch((err) => {
-        // Offline Fallback for SPA routing - serve index.html
+        // Offline Fallback for SPA routing - serve index.csr.html
         if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('/index.html');
+          return caches.match('/index.csr.html');
         }
         return Promise.reject(err);
       });
