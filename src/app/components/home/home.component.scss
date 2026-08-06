@@ -102,6 +102,25 @@
   border-radius: 0;
   margin-bottom: 0;
 
+  // Griglia prospettica digitale futuristica in CSS puro
+  .hero-grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 210, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 210, 255, 0.015) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center;
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    opacity: 0.7;
+    z-index: 1;
+    pointer-events: none;
+  }
+
   .hero-content-split {
     display: flex;
     align-items: center;
@@ -114,38 +133,157 @@
   .hero-text-side {
     flex: 1;
     max-width: 650px;
+    animation: textSideFloat 8s ease-in-out infinite alternate; // Float in opposizione al prisma!
+
+    // Nuovissimo Glass-Glow Badge Enterprise
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1.1rem;
+      background: rgba(15, 23, 42, 0.45); // Slate 900 Glassmorphic
+      border: 1px solid rgba(0, 210, 255, 0.18);
+      border-radius: 50px;
+      margin-bottom: 1.8rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 10px rgba(0, 210, 255, 0.05);
+
+      .badge-pulse {
+        width: 7px;
+        height: 7px;
+        background: #00d2ff;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 8px #00d2ff;
+        animation: pulseGreen 1.5s infinite;
+      }
+
+      .badge-text {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: rgba(255, 255, 255, 0.85);
+        text-transform: uppercase;
+        text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+      }
+    }
 
     h1 {
       font-size: clamp(2.5rem, 5vw, 4rem);
       margin-bottom: 1rem;
       text-align: left;
+      line-height: 1.15;
+
+      // Gradiente metallico a tre colori coordinato con l'aurora
+      .text-gradient {
+        background: linear-gradient(135deg, #00d2ff 0%, #0066ff 60%, #bf00ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 2px 10px rgba(0, 210, 255, 0.1));
+        display: block;
+        font-weight: 800;
+      }
     }
 
     p {
       color: var(--text-muted);
-      margin-bottom: 2rem;
-      font-size: 1.2rem;
+      margin-bottom: 2.2rem;
+      font-size: 1.15rem;
       text-align: left;
       max-width: none;
       margin-inline: 0;
+      line-height: 1.65;
     }
 
+    /* --- PULSANTI CTAs ULTRA-LUSSUOSI --- */
     .cta {
       display: flex;
-      gap: 1rem;
+      gap: 1.2rem;
       justify-content: flex-start;
-    }
 
-    .badge {
-      display: inline-block;
-      padding: 0.4rem 1rem;
-      background: rgba(0, 210, 255, 0.1);
-      color: var(--primary);
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(0, 210, 255, 0.2);
+      .btn {
+        position: relative;
+        padding: 0.9rem 2.2rem;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        border-radius: 12px;
+        text-transform: uppercase;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+
+        .btn-text {
+          position: relative;
+          z-index: 2;
+        }
+
+        /* --- BOTTONE PRIMARIO CON SHIMMER SWEEP E GLOW --- */
+        &.btn-primary {
+          background: linear-gradient(135deg, #00d2ff 0%, #0066ff 100%);
+          border: 1px solid rgba(0, 210, 255, 0.25);
+          color: #ffffff;
+          box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25);
+
+          .btn-shimmer {
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg, 
+              transparent 0%, 
+              rgba(255, 255, 255, 0.25) 50%, 
+              transparent 100%
+            );
+            transform: skewX(-25deg);
+            transition: none;
+            pointer-events: none;
+          }
+
+          &:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 210, 255, 0.6);
+            box-shadow: 
+              0 15px 35px rgba(0, 102, 255, 0.4),
+              0 0 20px rgba(0, 210, 255, 0.3);
+
+            .btn-shimmer {
+              animation: buttonShine 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+          }
+        }
+
+        /* --- BOTTONE OUTLINE GLASSMORPHIC --- */
+        &.btn-outline {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+
+          &:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(0, 210, 255, 0.35);
+            color: #ffffff;
+            box-shadow: 
+              0 10px 25px rgba(0, 0, 0, 0.35),
+              0 0 15px rgba(0, 210, 255, 0.1);
+          }
+        }
+      }
     }
   }
 
@@ -154,15 +292,288 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 
-    .dashboard-core-img {
-      width: 52rem;
-      height: auto;
-      aspect-ratio: 700 / 499;
-      border-radius: 20px;
-      filter: drop-shadow(0 0 30px rgba(0, 210, 255, 0.3));
-      animation: float 6s ease-in-out infinite;
+  /* =========================================
+     AURORA MESH LIQUIDA & PRISMA DI VETRO
+  ========================================= */
+  .interactive-aurora-container {
+    width: 480px;
+    height: 380px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform: rotateX(1deg) rotateY(-6deg) rotateZ(0.5deg);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    animation: auroraFloat 7s ease-in-out infinite;
+
+    // Effetto Hover di inclinazione 3D e intensificazione
+    &:hover {
+      transform: scale(1.02) rotateX(4deg) rotateY(6deg) rotateZ(0deg);
+      
+      .blob {
+        opacity: 0.7;
+        filter: blur(65px);
+        transform: scale(1.1);
+      }
+
+      .glass-emblem-prism {
+        border-color: rgba(0, 210, 255, 0.35);
+        box-shadow: 
+          0 40px 80px rgba(0, 0, 0, 0.55), 
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          0 0 50px rgba(0, 210, 255, 0.15);
+      }
+
+      .emblem-hexagon {
+        stroke: #00d2ff;
+        filter: drop-shadow(0 0 8px #00d2ff);
+      }
+
+      .emblem-brand {
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
+      }
     }
+
+    /* --- LIQUID AURORA MESH --- */
+    .aurora-mesh {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 50%;
+      filter: blur(75px);
+      opacity: 0.85;
+    }
+
+    .blob {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+
+      &.blob-cyan {
+        background: #00d2ff;
+        top: 10%;
+        left: 10%;
+        animation: blobMoveCyan 10s infinite alternate ease-in-out;
+      }
+
+      &.blob-blue {
+        background: #0066ff;
+        bottom: 10%;
+        right: 10%;
+        animation: blobMoveBlue 12s infinite alternate ease-in-out;
+      }
+
+      &.blob-purple {
+        background: #bf00ff;
+        top: 35%;
+        left: 35%;
+        animation: blobMovePurple 8s infinite alternate ease-in-out;
+      }
+    }
+
+    /* --- NEON FIBER OPTIC BEAMS --- */
+    .neon-beams-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.4;
+    }
+
+    .neon-beam {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #00d2ff, #0066ff, transparent);
+      filter: drop-shadow(0 0 4px #00d2ff);
+      pointer-events: none;
+
+      &.beam-1 {
+        width: 150px;
+        top: 25%;
+        left: -150px;
+        transform: rotate(-15deg);
+        animation: laserSlide 4s infinite linear;
+      }
+
+      &.beam-2 {
+        width: 200px;
+        top: 60%;
+        left: -200px;
+        transform: rotate(10deg);
+        animation: laserSlide 5s infinite linear 1.5s;
+      }
+
+      &.beam-3 {
+        width: 120px;
+        top: 80%;
+        left: -120px;
+        transform: rotate(-5deg);
+        animation: laserSlide 3.5s infinite linear 0.8s;
+      }
+    }
+
+    /* --- GLASSMORPHIC EMBLEM PRISM --- */
+    .glass-emblem-prism {
+      width: 320px;
+      height: 320px;
+      background: rgba(15, 23, 42, 0.35); // Slate 900 Glassmorphic
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      box-shadow: 
+        0 35px 70px rgba(0, 0, 0, 0.45), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 0 45px rgba(0, 210, 255, 0.04);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+
+      .emblem-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+        width: 100%;
+      }
+
+      /* --- ORBITAL CONTAINER --- */
+      .brand-orbit-container {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        // Globo di Sfondo (revolving earth wireframe, rappresentando il "mondo" della favicon)
+        .prism-globe-bg {
+          position: absolute;
+          width: 90px;
+          height: 90px;
+          z-index: 1;
+          opacity: 0.22;
+          pointer-events: none;
+          animation: rotateClockwise 25s linear infinite;
+
+          .globe-line {
+            fill: none;
+            stroke: #00d2ff;
+            stroke-width: 0.75px;
+          }
+        }
+
+        // Anello HUD orbitante esterno (satelliti e orbite dati)
+        .prism-hud-orbit {
+          position: absolute;
+          width: 140px;
+          height: 140px;
+          z-index: 2;
+          pointer-events: none;
+          animation: rotateCounterClockwise 15s linear infinite;
+
+          .orbit-line-dashed {
+            fill: none;
+            stroke: rgba(0, 210, 255, 0.15);
+            stroke-width: 0.8px;
+            stroke-dasharray: 4 8;
+          }
+
+          .orbit-line-solid {
+            fill: none;
+            stroke: rgba(0, 102, 255, 0.08);
+            stroke-width: 0.5px;
+          }
+
+          .orbit-satellite {
+            fill: #020617;
+            stroke: #00d2ff;
+            stroke-width: 1.2px;
+            filter: drop-shadow(0 0 4px #00d2ff);
+            animation: satelliteGlow 2s infinite alternate;
+          }
+        }
+
+        // Logo aziendale effettivo al centro
+        .prism-brand-logo {
+          width: 100px;
+          height: auto;
+          z-index: 3;
+          filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(255, 255, 255, 0.18));
+          transition: all 0.5s ease;
+          animation: logoGlowBreathing 3s ease-in-out infinite;
+        }
+      }
+
+      /* --- TYPOGRAPHY UNDER EMBLEM --- */
+      .prism-brand-tagline {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.85);
+        transition: all 0.4s;
+        text-transform: uppercase;
+        margin-top: 0.3rem;
+      }
+
+      .prism-brand-sub {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.55rem;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        color: rgba(0, 210, 255, 0.45);
+        text-transform: uppercase;
+        text-shadow: 0 0 8px rgba(0, 210, 255, 0.15);
+      }
+    }
+  }
+
+  /* =========================================
+     ANIMAZIONI EXTRA OPTION 3
+  ========================================= */
+  @keyframes rotateClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes rotateCounterClockwise {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+
+  @keyframes satelliteGlow {
+    0%, 100% { filter: drop-shadow(0 0 2px #00d2ff); }
+    50% { filter: drop-shadow(0 0 8px #00d2ff) brightness(1.2); }
+  }
+
+  @keyframes logoGlowBreathing {
+    0%, 100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.15)); }
+    50% { transform: scale(1.02); filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(0, 210, 255, 0.4)); }
+  }
+
+  @keyframes blobMovePurple {
+    0% { top: 35%; left: 35%; transform: scale(1); }
+    50% { top: 15%; left: 45%; transform: scale(1.15); }
+    100% { top: 40%; left: 20%; transform: scale(0.9); }
   }
 
   .hero-bg-shapes {
@@ -248,6 +659,20 @@
   100% { transform: translateY(0px); }
 }
 
+@keyframes buttonShine {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+@keyframes textSideFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-5px); }
+}
+
 .fade-in { animation: fadeIn 0.8s ease-out forwards; }
 .fade-in-delayed { opacity: 0; animation: fadeIn 0.8s ease-out 0.4s forwards; }
 
@@ -280,13 +705,21 @@
 /* =========================================
    6. RESPONSIVE DESIGN (Mobile & Tablet)
    ========================================= */
+/* =========================================
+   6. RESPONSIVE DESIGN (Mobile & Tablet)
+   ========================================= */
 @media (max-width: 1024px) {
 
   /* --- SETUP CONTENITORE --- */
   .dashboard-hero-split {
-    height: auto;
-    padding: 5rem 1rem 3rem;
-    background: radial-gradient(circle at top, rgba(0, 210, 255, 0.08) 0%, transparent 70%);
+    min-height: auto;
+    padding: 6rem 1.5rem 4rem;
+    background: radial-gradient(circle at top, #0e1e38 0%, #020617 80%);
+    
+    .hero-grid-overlay {
+      background-size: 40px 40px;
+      opacity: 0.5;
+    }
   }
 
   .hero-bg-shapes { display: none !important; }
@@ -295,91 +728,114 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 2.5rem;
     width: 100%;
   }
 
-  /* MAGIA: Esplodiamo il contenitore testo per riordinare i singoli elementi */
+  /* Layout ordinato e pulito per il testo a sinistra */
   .hero-text-side {
-    display: contents;
-  }
-
-  /* 1. IL TITOLO ESCE PER PRIMO IN ALTO (Tempo: 0.0s) */
-  .hero-text-side h1 {
-    order: 1;
-    text-align: center;
-    font-size: clamp(2.2rem, 8vw, 3rem);
-    margin-bottom: 2rem;
-    z-index: 3;
-
-    transform: none !important;
-    opacity: 0;
-    animation: fadeInMobile 0.8s ease-out 0s forwards;
-  }
-
-  /* 2. L'IMMAGINE ESCE SOTTO IL TITOLO (Tempo: 0.4s) */
-  .dashboard-hero-split .hero-image-side {
-    display: block;
-    order: 2;
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-
-    opacity: 0;
-    animation: fadeInMobile 0.8s ease-out 0.4s forwards;
-
-    .dashboard-core-img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 700 / 499;
-      border-radius: 24px;
-      filter: none;
-      box-shadow: 0 -10px 40px rgba(0, 210, 255, 0.1); /* Luce soffusa da sopra */
-    }
-
-    /* Gradiente che fonde dolcemente il fondo dell'immagine con lo sfondo della pagina */
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0; right: 0; height: 80%;
-      background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.9) 60%, rgba(15,23,42,1) 100%);
-      border-radius: 0 0 24px 24px;
-      pointer-events: none;
-    }
-  }
-
-  /* 3. IL TESTO SALE SOVRAPPONENDOSI ALL'IMMAGINE (Tempo: 0.8s) */
-  .hero-text-side p {
-    order: 3;
-    margin-top: -110px; /* Tira il testo "sopra" l'area sfumata dell'immagine */
-    z-index: 3;
-    position: relative;
-    text-align: center;
-    padding: 0 1.5rem;
-    margin-bottom: 2rem;
-    color: #e2e8f0;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-
-    transform: none !important;
-    opacity: 0;
-    animation: fadeInMobile 0.8s ease-out 0.8s forwards;
-  }
-
-  /* 4. I BOTTONI ESCONO SOTTO IL TESTO (Tempo: 1.2s) */
-  .hero-text-side .cta {
-    order: 4;
-    z-index: 3;
-    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    text-align: center;
     width: 100%;
-    max-width: 350px;
-    padding: 0 1.5rem;
+    max-width: 600px;
+    animation: none; // Disattiva galleggiamento fluttuante su mobile per stabilità dello scrolling
 
-    opacity: 0;
-    animation: fadeInMobile 0.8s ease-out 1.2s forwards;
+    .hero-badge {
+      margin-bottom: 1.2rem;
+      align-self: center;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+      
+      .text-gradient {
+        display: inline; // Scorre in linea naturalmente su mobile
+        background-clip: text;
+        -webkit-background-clip: text;
+      }
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+      color: var(--text-muted);
+    }
+
+    .cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      width: 100%;
+      
+      .btn {
+        padding: 0.85rem 1.8rem;
+        font-size: 0.9rem;
+        min-width: 170px;
+      }
+    }
+  }
+
+  /* Layout centrato e scalato per la console aurora a destra */
+  .dashboard-hero-split .hero-image-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    perspective: none; // Rimuove prospettiva per prevenire artefatti grafici su smartphone
+    
+    .interactive-aurora-container {
+      // Usiamo dimensioni reali ridotte anziché scale() per azzerare l'ingombro e l'overflow orizzontale!
+      width: 320px !important;
+      height: 320px !important;
+      transform: none !important;
+      animation: float 6s ease-in-out infinite;
+
+      &:hover {
+        transform: none !important; // Disattiva il tilt 3D dinamico su touch-screen
+      }
+
+      .glass-emblem-prism {
+        width: 230px !important;
+        height: 230px !important;
+        border-radius: 20px !important;
+
+        .brand-orbit-container {
+          width: 130px !important;
+          height: 130px !important;
+
+          .prism-brand-logo {
+            width: 80px !important;
+          }
+          .prism-globe-bg {
+            width: 70px !important;
+            height: 70px !important;
+          }
+          .prism-hud-orbit {
+            width: 110px !important;
+            height: 110px !important;
+          }
+        }
+
+        .prism-brand-tagline {
+          font-size: 0.7rem !important;
+          letter-spacing: 0.15em !important;
+        }
+        .prism-brand-sub {
+          font-size: 0.5rem !important;
+          letter-spacing: 0.2em !important;
+        }
+      }
+    }
   }
 
   /* Layout Sezioni Successive */
@@ -390,22 +846,78 @@
   }
 }
 
-/* Animazione custom ottimizzata per questa sequenza */
-@keyframes fadeInMobile {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Specifico per Smartphone piccolissimi (iPhone SE ecc.) --- */
+/* --- Specifico per Smartphone (iPhone, Samsung ecc.) --- */
 @media (max-width: 480px) {
-  .dashboard-hero-split .hero-text-side .cta {
-    padding: 0 1rem;
-    .btn { padding: 1rem; width: 100%; text-align: center; }
+  .dashboard-hero-split {
+    padding: 5rem 1rem 3rem;
   }
 
-  /* Regoliamo l'altezza del sormonto per schermi minuscoli */
-  .hero-text-side p {
-    margin-top: -20px !important;
-    color: white !important;
+  .hero-text-side {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    p {
+      font-size: 0.95rem;
+      padding: 0 0.5rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .cta {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+  }
+
+  .dashboard-hero-split .hero-image-side {
+    margin-top: 0.5rem;
+
+    .interactive-aurora-container {
+      // Ridimensionamento reale finissimo per piccoli schermi per impedire scorrimenti
+      width: 250px !important;
+      height: 250px !important;
+      transform: none !important;
+      
+      &:hover {
+        transform: none !important;
+      }
+
+      .glass-emblem-prism {
+        width: 180px !important;
+        height: 180px !important;
+        border-radius: 16px !important;
+
+        .brand-orbit-container {
+          width: 100px !important;
+          height: 100px !important;
+
+          .prism-brand-logo {
+            width: 60px !important;
+          }
+          .prism-globe-bg {
+            width: 55px !important;
+            height: 55px !important;
+          }
+          .prism-hud-orbit {
+            width: 85px !important;
+            height: 85px !important;
+          }
+        }
+
+        .prism-brand-tagline {
+          font-size: 0.55rem !important;
+          letter-spacing: 0.12em !important;
+        }
+        .prism-brand-sub {
+          display: none !important; // Rimuove il sottotesto per non sovraffollare lo scudo
+        }
+      }
+    }
   }
 }

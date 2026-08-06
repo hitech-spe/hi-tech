@@ -1,5 +1,5 @@
 /* =========================================
-   SPLASH SCREEN INIZIALE CLASSICA
+   SPLASH SCREEN CORPORATE PREMIUM - CUBE BUILDER
 ========================================= */
 .global-splash-screen {
   position: fixed;
@@ -7,17 +7,28 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #020617; /* Slate 950 - Molto enterprise e profondo */
+  // Sfondo 100% solido e opaco (senza alcun canale alfa) per mascherare totalmente la pagina sottostante
+  background: radial-gradient(circle at center, #0e1e38 0%, #020617 80%);
   z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+  overflow: hidden;
+  
+  // Dissolvenza cinematografica morbidissima con scala e sfocatura progressiva
+  transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), 
+              filter 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+              visibility 0.7s;
   opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
   visibility: visible;
 
   &.fade-out {
     opacity: 0;
+    transform: scale(1.03);
+    filter: blur(12px);
     visibility: hidden;
   }
 
@@ -26,59 +37,207 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 300px;
-    gap: 3rem;
+    max-width: 440px;
+    gap: 1.2rem;
+    text-align: center;
+    position: relative;
 
-    .logo-container {
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeInUp 1s ease-out forwards;
-
-      img {
-        width: 240px;
-        max-width: 80vw;
-        filter: brightness(0) invert(1); /* Logo puramente bianco */
+    // Cubo isometrico 3D (Simbolo di infrastruttura cloud ed ingegneria solida)
+    .cube-wrapper {
+      width: 130px;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      
+      .enterprise-cube-svg {
+        width: 100%;
+        height: 100%;
+        transform-origin: center;
+        animation: gentleFloat 5s ease-in-out infinite;
+        
+        .cube-polygon {
+          fill: rgba(0, 210, 255, 0.01);
+          stroke: rgba(0, 210, 255, 0.05);
+          stroke-width: 0.5px;
+          stroke-dasharray: 2 4;
+        }
+        
+        .cube-edge {
+          fill: none;
+          stroke: url(#cyberGradient);
+          stroke-width: 1.2px;
+          stroke-linecap: round;
+          stroke-dasharray: 100;
+          stroke-dashoffset: 100;
+          
+          // Sequenza temporizzata del disegno a laser degli spigoli
+          &.line-1  { animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards; }
+          &.line-2  { animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards; }
+          &.line-3  { animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards; }
+          &.line-4  { animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards; }
+          &.line-5  { animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards; }
+          &.line-6  { animation: drawLine 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards; }
+          
+          &.line-7  { animation: drawLine 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards; }
+          &.line-8  { animation: drawLine 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
+          &.line-9  { animation: drawLine 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards; }
+          &.line-10 { animation: drawLine 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards; }
+          &.line-11 { animation: drawLine 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
+          &.line-12 { animation: drawLine 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards; }
+        }
+        
+        .cube-node {
+          fill: #020617;
+          stroke: #00d2ff;
+          stroke-width: 1.5px;
+          opacity: 0;
+          transform: scale(0.3);
+          transform-origin: center;
+          // I nodi spuntano in sincrono alla fine del disegno geometrico
+          animation: nodeEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s forwards,
+                     nodeGlow 2.5s ease-in-out infinite 1.9s;
+                     
+          &.core-node {
+            stroke: #00d2ff;
+            fill: #00d2ff;
+          }
+        }
       }
     }
 
-    .loading-container {
-      width: 100%;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 4px;
-      overflow: hidden;
+    // Logo aziendale con riflesso metallico shimmer (faded-in dopo il disegno del cubo)
+    .logo-shimmer-wrapper {
       position: relative;
+      width: 215px;
+      max-width: 75vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
       opacity: 0;
-      animation: fadeIn 0.5s ease-out 0.8s forwards;
-
-      .loading-bar {
-        position: absolute;
-        height: 100%;
+      transform: scale(0.98);
+      animation: logoFadeIn 1.3s cubic-bezier(0.25, 1, 0.5, 1) 1.2s forwards;
+      border-radius: 4px;
+      
+      .corporate-logo {
         width: 100%;
-        background: #00d2ff;
-        transform: scaleX(0);
-        transform-origin: left;
-        animation: progressFill 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.8s forwards;
+        height: auto;
+        filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.12));
+      }
+      
+      // Il riflesso di luce diagonale (shimmer) che attraversa il logo lentamente
+      .shimmer-reflection {
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg, 
+          transparent 0%, 
+          rgba(255, 255, 255, 0) 30%, 
+          rgba(0, 210, 255, 0.18) 50%, 
+          rgba(255, 255, 255, 0) 70%, 
+          transparent 100%
+        );
+        transform: skewX(-25deg);
+        animation: metallicShimmer 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.2s;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+      }
+    }
+
+    // Sottilissimo indicatore di caricamento (1px di spessore, stile Apple/Stripe)
+    .corporate-loader-container {
+      width: 130px;
+      margin-top: 0.6rem;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 1.2s forwards;
+      
+      .loader-track {
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        position: relative;
+        overflow: hidden;
+        border-radius: 1px;
+        
+        .loader-bar {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background: linear-gradient(90deg, rgba(0, 210, 255, 0.35), #00d2ff);
+          transform: scaleX(0);
+          transform-origin: left;
+          // Riempimento fluido e calibrato in 1.8 secondi (inizia in sincrono con il logo)
+          animation: progressFill 1.8s cubic-bezier(0.1, 0.85, 0.25, 1) 1.2s forwards;
+        }
       }
     }
   }
 }
 
 /* =========================================
-   KEYFRAMES
+   KEYFRAMES CUBE & LOGO BUILDER
 ========================================= */
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes nodeEntrance {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes nodeGlow {
+  0%, 100% {
+    stroke-width: 1.5px;
+    filter: drop-shadow(0 0 1px rgba(0, 210, 255, 0.4));
+  }
+  50% {
+    stroke-width: 2.5px;
+    filter: drop-shadow(0 0 4px rgba(0, 210, 255, 0.9));
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(1deg); }
+}
+
+@keyframes logoFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes metallicShimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
 }
 
 @keyframes progressFill {
   0% { transform: scaleX(0); }
   100% { transform: scaleX(1); }
 }
+
+
+
+
+

@@ -13,7 +13,9 @@
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 10000; // Incrementato per sicurezza globale
+  transform: translate3d(0, 0, 10000px); // Forza il rendering 3D in primo piano su iOS
+  -webkit-transform: translate3d(0, 0, 10000px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding: 0.6rem 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -250,7 +252,7 @@
 /* =========================================
    RESPONSIVE MOBILE
 ========================================= */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .header {
     padding: 0.5rem 0; /* Rimosso il padding destro/sinistro globale */
     flex-direction: row;

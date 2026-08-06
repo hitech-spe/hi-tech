@@ -6,6 +6,18 @@ import { AuthService } from './services/auth.service';
 import { FirestoreService } from './services/firestore.service';
 import { Firestore } from '@angular/fire/firestore';
 import { of } from 'rxjs';
+import { vi } from 'vitest';
+
+// Mock di lottie-web per prevenire errori legati alla mancanza di Canvas in ambiente JSDOM
+vi.mock('lottie-web', () => {
+  return {
+    default: {
+      loadAnimation: vi.fn().mockReturnValue({
+        destroy: vi.fn()
+      })
+    }
+  };
+});
 
 describe('AppComponent', () => {
   const mockAuthService = {

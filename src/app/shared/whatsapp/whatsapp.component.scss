@@ -1,0 +1,64 @@
+.whatsapp-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem; /* Ripristinato a destra sotto il chatbot */
+  z-index: 99998; // Appena sotto il chatbot (99999)
+  transform: translate3d(0, 0, 99998px); // Risolve il bug 3D di iOS Safari
+  -webkit-transform: translate3d(0, 0, 99998px);
+
+  @media (max-width: 480px) {
+    bottom: 1.2rem; // Allineato perfettamente su piccoli schermi mobili
+    right: 1.2rem;
+  }
+}
+
+.whatsapp-float {
+  width: 60px;
+  height: 60px;
+  background-color: #25D366 !important; /* VERDE WHATSAPP */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  animation: pulse-green 2s infinite;
+
+  @keyframes pulse-green {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: #128c7e !important; /* Verde più scuro al passaggio del mouse */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  svg {
+    width: 32px;
+    height: 32px;
+    /* L'icona dentro sarà bianca grazie al fill="white" nell'HTML */
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 50px;
+    
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+}

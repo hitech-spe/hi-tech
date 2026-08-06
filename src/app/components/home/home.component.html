@@ -3,33 +3,83 @@
   <main class="main-view">
 
     <section id="home" class="hero dashboard-hero-split">
+      <!-- Sottile griglia prospettica digitale di sfondo -->
+      <div class="hero-grid-overlay"></div>
+
       <div class="hero-content-split">
 
         <div class="hero-text-side cinematic-text-slide">
+          <!-- Nuovissimo Glass-Glow Badge Enterprise -->
+          <div class="hero-badge fade-in">
+            <span class="badge-pulse"></span>
+            <span class="badge-text">{{ 'HOME.HERO.BADGE' | translate }}</span>
+          </div>
+
           <h1 class="fade-in">
             {{ 'HOME.HERO.TITLE' | translate }}
             <span class="text-gradient">{{ 'HOME.HERO.SUBTITLE' | translate }}</span>
           </h1>
           <p class="fade-in-delayed">{{ 'HOME.HERO.DESC' | translate }}</p>
           <div class="cta fade-in-delayed">
-            <a routerLink="/services" class="btn btn-primary">{{ 'HOME.HERO.CTA_SERVICES' | translate }}</a>
-            <a routerLink="/contact" class="btn btn-outline">{{ 'HOME.HERO.CTA_CONTACT' | translate }}</a>
+            <a routerLink="/services" class="btn btn-primary">
+              <span class="btn-text">{{ 'HOME.HERO.CTA_SERVICES' | translate }}</span>
+              <span class="btn-shimmer"></span>
+            </a>
+            <a routerLink="/contact" class="btn btn-outline">
+              <span class="btn-text">{{ 'HOME.HERO.CTA_CONTACT' | translate }}</span>
+            </a>
           </div>
         </div>
 
         <div class="hero-image-side cinematic-image-reveal">
-          <img
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=webp&q=60&w=700"
-            srcset="
-            https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=webp&q=50&w=400 400w,
-            https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=webp&q=60&w=700 700w"
-            sizes="(max-width: 600px) 100vw, 700px"
-            alt="Sviluppo Software e Dashboard Dashboard B2B Hi-Tech"
-            class="dashboard-core-img"
-            width="700"
-            height="499"
-            loading="eager"
-            fetchpriority="high">
+          <!-- Nuova Sfondo Aurora Mesh Liquida & Neon Beams con Prisma di Vetro -->
+          <div class="interactive-aurora-container" aria-label="Hi-Tech Solutions Liquid Aurora Mesh Console">
+            <!-- Liquid Gradient Blob Grid (Sfondo Fluido) -->
+            <div class="aurora-mesh">
+              <div class="blob blob-cyan"></div>
+              <div class="blob blob-blue"></div>
+              <div class="blob blob-purple"></div>
+            </div>
+            
+            <!-- Neon Beams (Fasci ottici ciano/blu a scorrimento laser) -->
+            <div class="neon-beams-grid">
+              <div class="neon-beam beam-1"></div>
+              <div class="neon-beam beam-2"></div>
+              <div class="neon-beam beam-3"></div>
+            </div>
+
+            <!-- Glassmorphic Prism (Scudo Vetroso a Hover 3D) -->
+            <div class="glass-emblem-prism">
+              <div class="emblem-content">
+                <!-- Contenitore dell'emblema orbitale -->
+                <div class="brand-orbit-container">
+                  <!-- Globo terrestre wireframe di sfondo (Il 'mondo della favicon' stilizzato) -->
+                  <svg class="prism-globe-bg" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="45" class="globe-line" />
+                    <ellipse cx="50" cy="50" rx="20" ry="45" class="globe-line" />
+                    <ellipse cx="50" cy="50" rx="45" ry="16" class="globe-line" />
+                    <line x1="50" y1="5" x2="50" y2="95" class="globe-line" />
+                    <line x1="5" y1="50" x2="95" y2="50" class="globe-line" />
+                  </svg>
+                  
+                  <!-- Anelli orbitali HUD rotanti (Satelliti e Orbite dati) -->
+                  <svg class="prism-hud-orbit" viewBox="0 0 120 120" aria-hidden="true">
+                    <circle cx="60" cy="60" r="54" class="orbit-line-dashed" />
+                    <circle cx="60" cy="60" r="48" class="orbit-line-solid" />
+                    <circle cx="60" cy="6" r="3" class="orbit-satellite sat-1" />
+                    <circle cx="60" cy="114" r="3" class="orbit-satellite sat-2" />
+                  </svg>
+
+                  <!-- Logo aziendale effettivo posizionato al centro -->
+                  <img src="/assets/images/logo-trasp.webp" alt="Hi-Tech Solutions Brand Logo" class="prism-brand-logo">
+                </div>
+                
+                <!-- Dettagli del brand sotto -->
+                <div class="prism-brand-tagline">ENTERPRISE IT SOLUTIONS</div>
+                <div class="prism-brand-sub">CLOUD & AI COGNITIVE CORE</div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

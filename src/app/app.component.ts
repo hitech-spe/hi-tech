@@ -1,12 +1,13 @@
 import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {RouterOutlet, Router, NavigationEnd} from "@angular/router";
 import {Title, Meta} from '@angular/platform-browser';
 import {HeaderComponent} from "./shared/header/header.component";
 import {SpinnerComponent} from "./shared/spinner/spinner.component";
 import {FooterComponent} from "./shared/footer/footer.component";
 import {ChatbotComponent} from "./shared/chatbot/chatbot.component";
+import {WhatsappComponent} from "./shared/whatsapp/whatsapp.component";
 import {filter} from 'rxjs/operators';
 import * as AOS from 'aos';
 
@@ -19,7 +20,9 @@ import * as AOS from 'aos';
     HeaderComponent,
     FooterComponent,
     SpinnerComponent,
-    ChatbotComponent
+    ChatbotComponent,
+    WhatsappComponent,
+    TranslateModule
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
@@ -88,11 +91,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    // Timer classico e veloce: aspetta 800ms per caricare la barra azzurra
+    // Lo splash screen corporate dura 2800ms per completare il disegno 3D del cubo e il shimmer metallico
     setTimeout(() => {
-      this.fadeSplash = true; // Applica la classe .fade-out che sfuma lo schermo
+      this.fadeSplash = true; // Applica la classe .fade-out con dissolvenza e blur cinematografico
 
-      // Dopo mezzo secondo di dissolvenza, distrugge il div e innesca le animazioni AOS
+      // Dopo mezzo secondo (500ms), distrugge lo splash e innesca le animazioni AOS
       setTimeout(() => {
         this.showSplash = false;
 
@@ -108,7 +111,7 @@ export class AppComponent {
         }
       }, 500); 
 
-    }, 800);
+    }, 2800);
   }
 
   private updateSeoTags(): void {

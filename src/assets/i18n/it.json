@@ -171,6 +171,7 @@
   },
   "HOME": {
     "HERO": {
+      "BADGE": "TRANSITION 5.0 // CLOUD & AI SOLUTIONS",
       "TITLE": "Sviluppo Software, App e",
       "SUBTITLE": "Soluzioni Cloud",
       "DESC": "Accompagniamo la tua azienda verso l'innovazione digitale con soluzioni software su misura progettate per generare risultati concreti e scalabili.",
@@ -385,5 +386,8 @@
     "RESULT_CLOUD": "Consulenza Cloud & Infrastruttura DevOps",
     "RESULT_CLOUD_DESC": "Consigliato! Per connettere database, API complesse ed automatizzare i flussi, un'infrastruttura Cloud Native scalabile (AWS/Azure) con pipeline di CI/CD ti garantirà stabilità, sicurezza e costi sotto controllo.",
     "CTA_MATCH": "Richiedi un preventivo dettagliato per questa soluzione"
+  },
+  "SPLASH": {
+    "INITIALIZING": "Inizializzazione ecosistema"
   }
 }

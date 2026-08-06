@@ -1,10 +1,12 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, DestroyRef, inject } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
 import { RouterLink, ActivatedRoute } from "@angular/router";
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +21,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
-export class ContactComponent implements OnInit, OnDestroy {
+export class ContactComponent implements OnInit {
   formData = {
     name: '',
     email: '',
@@ -29,7 +31,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   isSending = false;
   submitStatus: 'success' | 'error' | null = null;
   privacyAccepted = false;
-  private queryParamsSub: Subscription | undefined;
+  private destroyRef = inject(DestroyRef);
 
   private serviceTitleMap: { [key: string]: string } = {
     'sviluppo-piattaforme-web-b2b': 'SERVICES.WEB.TITLE',
@@ -48,23 +50,25 @@ export class ContactComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.queryParamsSub = this.route.queryParams.subscribe(params => {
-      const serviceId = params['service'];
-      if (serviceId && this.serviceTitleMap[serviceId]) {
-        const translationKey = this.serviceTitleMap[serviceId];
-        this.translate.get(translationKey).subscribe((serviceTitle: string) => {
-          this.translate.get('CONTACT.PREFILL_MESSAGE', { service: serviceTitle }).subscribe((prefillMsg: string) => {
-            this.formData.message = prefillMsg;
-          });
-        });
+    this.route.queryParams.pipe(
+      switchMap(params => {
+        const serviceId = params['service'];
+        if (serviceId && this.serviceTitleMap[serviceId]) {
+          const translationKey = this.serviceTitleMap[serviceId];
+          return this.translate.get(translationKey).pipe(
+            switchMap((serviceTitle: string) => 
+              this.translate.get('CONTACT.PREFILL_MESSAGE', { service: serviceTitle })
+            )
+          );
+        }
+        return of(null);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(prefillMsg => {
+      if (prefillMsg) {
+        this.formData.message = prefillMsg;
       }
     });
-  }
-
-  ngOnDestroy() {
-    if (this.queryParamsSub) {
-      this.queryParamsSub.unsubscribe();
-    }
   }
 
   onSubmit() {

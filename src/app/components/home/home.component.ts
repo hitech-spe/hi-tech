@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectionStrategy, Inject, PLATFORM_ID, OnDestroy, signal, inject, DestroyRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { RouterLink, ActivatedRoute } from "@angular/router";
@@ -10,7 +10,7 @@ import { InsightsComponent } from "../insights/insights.component";
 import { RoiCalculatorComponent } from "../roi-calculator/roi-calculator.component";
 import { FaqComponent } from "../faq/faq.component";
 import { TechMatcherComponent } from "../tech-matcher/tech-matcher.component";
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -33,27 +33,30 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
 
-  currentLang: string;
-  private langSub: Subscription | undefined;
-  private routeFragmentSub: Subscription | undefined;
+  currentLang = signal('it'); // Usiamo Angular Signals!
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private route: ActivatedRoute
   ) {
-    this.currentLang = this.translate.currentLang || 'it';
+    this.currentLang.set(this.translate.currentLang || 'it');
     this.injectProfessionalServiceSchema();
 
-    this.langSub = this.translate.onLangChange.subscribe(event => {
-      this.currentLang = event.lang;
+    this.translate.onLangChange.pipe(
+      takeUntilDestroyed()
+    ).subscribe(event => {
+      this.currentLang.set(event.lang);
       this.injectProfessionalServiceSchema();
     });
   }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.routeFragmentSub = this.route.fragment.subscribe(fragment => {
+      this.route.fragment.pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe(fragment => {
         if (fragment) {
           this.scrollToFragment(fragment);
         }
@@ -62,12 +65,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.langSub) {
-      this.langSub.unsubscribe();
-    }
-    if (this.routeFragmentSub) {
-      this.routeFragmentSub.unsubscribe();
-    }
     if (isPlatformBrowser(this.platformId)) {
       const existingScript = document.getElementById('home-professional-service-schema');
       if (existingScript) {
