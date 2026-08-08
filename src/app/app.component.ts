@@ -1,5 +1,5 @@
 import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, DOCUMENT} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {RouterOutlet, Router, NavigationEnd} from "@angular/router";
 import {Title, Meta} from '@angular/platform-browser';
@@ -39,7 +39,8 @@ export class AppComponent {
     private router: Router,
     private titleService: Title,
     private metaService: Meta,
-    @Inject(PLATFORM_ID) platformId: Object
+    @Inject(PLATFORM_ID) platformId: Object,
+    @Inject(DOCUMENT) private document: Document
   ) {
     translate.setDefaultLang('it');
     translate.use('it');
@@ -165,20 +166,30 @@ export class AppComponent {
     // Aggiorna URL canonico dinamico includendo parametro lingua se inglese
     const baseUrl = 'https://hitechsrls.com';
     const currentLang = this.translate.currentLang || 'it';
-    const canonicalUrl = `${baseUrl}${url === '/' ? '' : url}${currentLang === 'en' ? '?lang=en' : ''}`;
+    const normUrl = (url === '/' || url === '/home') ? '' : url;
+    
+    let canonicalUrl = '';
+    if (normUrl === '') {
+      canonicalUrl = currentLang === 'en' ? `${baseUrl}/?lang=en` : `${baseUrl}/`;
+    } else {
+      canonicalUrl = `${baseUrl}${normUrl}${currentLang === 'en' ? '?lang=en' : ''}`;
+    }
     this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
     this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
 
-    // Aggiorna anche l'elemento link canonical nel DOM
+    // Aggiorna anche l'elemento link canonical nel DOM (sia su browser che server/prerender)
+    let canonicalLink = this.document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = this.document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      this.document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonicalUrl);
+
+    // Inietta schema Breadcrumbs (sia su browser che server/prerender)
+    this.injectBreadcrumbSchema(url);
+
     if (this.isBrowser) {
-      let canonicalLink = document.querySelector('link[rel="canonical"]');
-      if (canonicalLink) {
-        canonicalLink.setAttribute('href', canonicalUrl);
-      }
-
-      // Inietta schema Breadcrumbs
-      this.injectBreadcrumbSchema(url);
-
       // Segnala a Netlify Prerender che il rendering di questa pagina standard è completato
       // (Facciamo scadere un piccolissimo timeout per assicurarci che il DOM sia pienamente pronto)
       setTimeout(() => {
@@ -188,36 +199,36 @@ export class AppComponent {
   }
 
   private updateHreflangTags(url: string): void {
-    if (!this.isBrowser) return;
-
     // Rimuove la query string esistente per calcolare il path pulito
     const cleanPath = url.split('?')[0].split('#')[0];
+    const normPath = (cleanPath === '/' || cleanPath === '/home') ? '' : cleanPath;
     const baseUrl = 'https://hitechsrls.com';
-    const cleanUrl = `${baseUrl}${cleanPath === '/' ? '' : cleanPath}`;
+    const cleanUrl = `${baseUrl}${normPath}`;
+
+    // Per l'homepage (normPath === ''), usiamo '/?lang=' per corrispondere esattamente a sitemap.xml
+    const langPrefix = normPath === '' ? '/?' : '?';
 
     const hreflangs = [
-      { lang: 'it', url: `${cleanUrl}?lang=it` },
-      { lang: 'en', url: `${cleanUrl}?lang=en` },
-      { lang: 'x-default', url: cleanUrl } // L'italiano senza parametri è x-default
+      { lang: 'it', url: `${cleanUrl}${langPrefix}lang=it` },
+      { lang: 'en', url: `${cleanUrl}${langPrefix}lang=en` },
+      { lang: 'x-default', url: normPath === '' ? `${baseUrl}/` : cleanUrl }
     ];
 
     hreflangs.forEach(hl => {
-      let link: HTMLLinkElement | null = document.querySelector(`link[rel="alternate"][hreflang="${hl.lang}"]`);
+      let link: HTMLLinkElement | null = this.document.querySelector(`link[rel="alternate"][hreflang="${hl.lang}"]`);
       if (!link) {
-        link = document.createElement('link');
+        link = this.document.createElement('link');
         link.setAttribute('rel', 'alternate');
         link.setAttribute('hreflang', hl.lang);
-        document.head.appendChild(link);
+        this.document.head.appendChild(link);
       }
       link.setAttribute('href', hl.url);
     });
   }
 
   private injectBreadcrumbSchema(url: string): void {
-    if (!this.isBrowser) return;
-
     // Rimuovi vecchi script se esistenti
-    const existingScript = document.getElementById('breadcrumb-jsonld-schema');
+    const existingScript = this.document.getElementById('breadcrumb-jsonld-schema');
     if (existingScript) {
       existingScript.remove();
     }
@@ -267,11 +278,11 @@ export class AppComponent {
       ]
     };
 
-    const script = document.createElement('script');
+    const script = this.document.createElement('script');
     script.id = 'breadcrumb-jsonld-schema';
     script.type = 'application/ld+json';
     script.text = JSON.stringify(breadcrumb);
-    document.head.appendChild(script);
+    this.document.head.appendChild(script);
   }
 
 }

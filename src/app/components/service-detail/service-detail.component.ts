@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
-import {UpperCasePipe, isPlatformBrowser, Location} from "@angular/common";
+import {UpperCasePipe, isPlatformBrowser, Location, DOCUMENT} from "@angular/common";
 
 interface Service {
   id: string;
@@ -271,7 +271,8 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private metaService: Meta,
     @Inject(PLATFORM_ID) private platformId: Object,
     private location: Location,
-    private router: Router
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
   goBack(event: Event): void {
@@ -284,8 +285,10 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Scrolla in alto quando si apre il dettaglio
-    window.scrollTo(0, 0);
+    // Scrolla in alto quando si apre il dettaglio (solo lato browser)
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
 
     this.route.params.subscribe(params => {
       const id = params['id'] || this.route.snapshot.data['id'];
@@ -302,12 +305,10 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     if (this.langChangeSub) {
       this.langChangeSub.unsubscribe();
     }
-    if (isPlatformBrowser(this.platformId)) {
-      const existingScript = document.getElementById('service-jsonld-schema');
-      if (existingScript) existingScript.remove();
-      const existingBcScript = document.getElementById('breadcrumb-jsonld-schema');
-      if (existingBcScript) existingBcScript.remove();
-    }
+    const existingScript = this.document.getElementById('service-jsonld-schema');
+    if (existingScript) existingScript.remove();
+    const existingBcScript = this.document.getElementById('breadcrumb-jsonld-schema');
+    if (existingBcScript) existingBcScript.remove();
   }
 
   private updateService(id: string): void {
@@ -332,11 +333,14 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
         this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
 
-        // Aggiorna anche l'elemento link canonical nel DOM
-        let canonicalLink = document.querySelector('link[rel="canonical"]');
-        if (canonicalLink) {
-          canonicalLink.setAttribute('href', canonicalUrl);
+        // Aggiorna anche l'elemento link canonical nel DOM (sia su browser che server/prerender)
+        let canonicalLink = this.document.querySelector('link[rel="canonical"]');
+        if (!canonicalLink) {
+          canonicalLink = this.document.createElement('link');
+          canonicalLink.setAttribute('rel', 'canonical');
+          this.document.head.appendChild(canonicalLink);
         }
+        canonicalLink.setAttribute('href', canonicalUrl);
 
         // Inietta gli schemi JSON-LD del servizio e del relativo breadcrumb
         this.injectServiceSchema(this.service, id);
@@ -354,13 +358,11 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   }
 
   private injectServiceSchema(service: any, id: string): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-
     // Rimuovi vecchi script se presenti
-    const existingScript = document.getElementById('service-jsonld-schema');
+    const existingScript = this.document.getElementById('service-jsonld-schema');
     if (existingScript) existingScript.remove();
 
-    const existingBcScript = document.getElementById('breadcrumb-jsonld-schema');
+    const existingBcScript = this.document.getElementById('breadcrumb-jsonld-schema');
     if (existingBcScript) existingBcScript.remove();
 
     const currentLang = this.translate.currentLang || 'it';
@@ -384,11 +386,11 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       "url": serviceUrl
     };
 
-    const script = document.createElement('script');
+    const script = this.document.createElement('script');
     script.id = 'service-jsonld-schema';
     script.type = 'application/ld+json';
     script.text = JSON.stringify(serviceSchema);
-    document.head.appendChild(script);
+    this.document.head.appendChild(script);
 
     // 2. Schema Breadcrumb per il dettaglio del servizio
     const breadcrumbSchema = {
@@ -416,11 +418,11 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       ]
     };
 
-    const bcScript = document.createElement('script');
+    const bcScript = this.document.createElement('script');
     bcScript.id = 'breadcrumb-jsonld-schema';
     bcScript.type = 'application/ld+json';
     bcScript.text = JSON.stringify(breadcrumbSchema);
-    document.head.appendChild(bcScript);
+    this.document.head.appendChild(bcScript);
   }
 
   private localizeService(service: Service): Service {
