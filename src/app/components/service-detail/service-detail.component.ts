@@ -280,7 +280,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId) && window.history.length > 1) {
       this.location.back();
     } else {
-      this.router.navigate(['/home'], { fragment: 'services' });
+      this.router.navigate(['/'], { fragment: 'services' });
     }
   }
 

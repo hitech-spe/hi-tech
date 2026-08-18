@@ -101,7 +101,7 @@ export class LoginComponent {
     try {
       if (this.isLoginMode) {
         await this.authService.login(data.email, data.password);
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         await this.router.navigateByUrl(returnUrl);
       } else {
         await this.authService.register(data.email, data.password, data.firstName, data.lastName);
