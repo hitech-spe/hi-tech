@@ -163,7 +163,7 @@ export class AppComponent {
       this.metaService.updateTag({ property: 'twitter:description', content: translatedDesc });
     });
 
-    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese
+    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese e trailing slash
     const baseUrl = 'https://hitechsrls.com';
     const currentLang = this.translate.currentLang || 'it';
     const normUrl = (url === '/' || url === '/home') ? '' : url;
@@ -172,7 +172,8 @@ export class AppComponent {
     if (normUrl === '') {
       canonicalUrl = currentLang === 'en' ? `${baseUrl}/?lang=en` : `${baseUrl}/`;
     } else {
-      canonicalUrl = `${baseUrl}${normUrl}${currentLang === 'en' ? '?lang=en' : ''}`;
+      const pathWithSlash = normUrl.endsWith('/') ? normUrl : `${normUrl}/`;
+      canonicalUrl = `${baseUrl}${pathWithSlash}${currentLang === 'en' ? '?lang=en' : ''}`;
     }
     this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
     this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
@@ -203,10 +204,18 @@ export class AppComponent {
     const cleanPath = url.split('?')[0].split('#')[0];
     const normPath = (cleanPath === '/' || cleanPath === '/home') ? '' : cleanPath;
     const baseUrl = 'https://hitechsrls.com';
-    const cleanUrl = `${baseUrl}${normPath}`;
+    
+    let cleanUrl = '';
+    let langPrefix = '';
 
-    // Per l'homepage (normPath === ''), usiamo '/?lang=' per corrispondere esattamente a sitemap.xml
-    const langPrefix = normPath === '' ? '/?' : '?';
+    if (normPath === '') {
+      cleanUrl = `${baseUrl}/`;
+      langPrefix = '?';
+    } else {
+      const pathWithSlash = normPath.endsWith('/') ? normPath : `${normPath}/`;
+      cleanUrl = `${baseUrl}${pathWithSlash}`;
+      langPrefix = '?';
+    }
 
     const hreflangs = [
       { lang: 'it', url: `${cleanUrl}${langPrefix}lang=it` },

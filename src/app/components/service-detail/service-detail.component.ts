@@ -326,10 +326,10 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         this.metaService.updateTag({ property: 'twitter:title', content: pageTitle });
         this.metaService.updateTag({ property: 'twitter:description', content: this.service.description });
 
-        // Aggiorna URL canonico per il dettaglio del servizio includendo parametro lingua
+        // Aggiorna URL canonico per il dettaglio del servizio includendo parametro lingua e trailing slash
         const baseUrl = 'https://hitechsrls.com';
         const currentLang = this.translate.currentLang || 'it';
-        const canonicalUrl = `${baseUrl}/services/${id}${currentLang === 'en' ? '?lang=en' : ''}`;
+        const canonicalUrl = `${baseUrl}/services/${id}/${currentLang === 'en' ? '?lang=en' : ''}`;
         this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
         this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
 
