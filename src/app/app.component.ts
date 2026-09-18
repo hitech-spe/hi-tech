@@ -163,7 +163,7 @@ export class AppComponent {
       this.metaService.updateTag({ property: 'twitter:description', content: translatedDesc });
     });
 
-    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese e trailing slash
+    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese
     const baseUrl = 'https://hitechsrls.com';
     const currentLang = this.translate.currentLang || 'it';
     const normUrl = (url === '/' || url === '/home') ? '' : url;
@@ -172,8 +172,8 @@ export class AppComponent {
     if (normUrl === '') {
       canonicalUrl = currentLang === 'en' ? `${baseUrl}/?lang=en` : `${baseUrl}/`;
     } else {
-      const pathWithSlash = normUrl.endsWith('/') ? normUrl : `${normUrl}/`;
-      canonicalUrl = `${baseUrl}${pathWithSlash}${currentLang === 'en' ? '?lang=en' : ''}`;
+      const pathWithoutSlash = normUrl.endsWith('/') ? normUrl.slice(0, -1) : normUrl;
+      canonicalUrl = `${baseUrl}${pathWithoutSlash}${currentLang === 'en' ? '?lang=en' : ''}`;
     }
     this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
     this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
@@ -212,8 +212,8 @@ export class AppComponent {
       cleanUrl = `${baseUrl}/`;
       langPrefix = '?';
     } else {
-      const pathWithSlash = normPath.endsWith('/') ? normPath : `${normPath}/`;
-      cleanUrl = `${baseUrl}${pathWithSlash}`;
+      const pathWithoutSlash = normPath.endsWith('/') ? normPath.slice(0, -1) : normPath;
+      cleanUrl = `${baseUrl}${pathWithoutSlash}`;
       langPrefix = '?';
     }
 
