@@ -32,15 +32,15 @@ export class PdfQuoteGeneratorService {
 
     // Helper per verificare e aggiungere nuova pagina se lo spazio residuo è insufficiente
     const checkAddPage = (neededSpaceMm: number) => {
-      if (currentY + neededSpaceMm > pageHeight - 25) {
+      if (currentY + neededSpaceMm > pageHeight - 22) {
         doc.addPage();
-        currentY = margin + 12; // Lascia spazio per la testata
+        currentY = margin + 8; // 28mm: spazio di sicurezza sotto la testatina di pagina 2+ (che sta a 14.5mm)
       }
     };
 
     // Helper per disegnare titoli di sezione con barra verticale ciano
     const drawSectionHeader = (title: string) => {
-      checkAddPage(18);
+      checkAddPage(25);
       currentY += 4;
       // Barra verticale ciano
       doc.setDrawColor(primaryColor[0], primaryColor[1], primaryColor[2]);
@@ -221,7 +221,7 @@ export class PdfQuoteGeneratorService {
     currentY += (scopeIntroLines.length * 4.8) + 4;
 
     quote.modules.forEach(mod => {
-      checkAddPage(20);
+      checkAddPage(22);
       currentY += 2;
       // Intestazione Modulo
       doc.setFont('helvetica', 'bold');
@@ -232,28 +232,35 @@ export class PdfQuoteGeneratorService {
 
       // Elenco feature del modulo
       mod.features.forEach(feat => {
-        checkAddPage(12);
-        // Checkmark ✓ stilizzato
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(10);
-        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-        doc.text('✓', margin + 1, currentY);
+        // Calcola in anticipo le righe della descrizione per calcolare l'altezza esatta
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.6);
+        const descLines = doc.splitTextToSize(feat.description, contentWidth - 8);
+        const totalBlockHeight = 4.5 + (descLines.length * 4.3) + 3.5;
 
-        // Titolo feature (bold) e descrizione (normale)
+        // Verifica lo spazio considerando l'ALTEZZA REALE del blocco feature
+        checkAddPage(totalBlockHeight);
+
+        // 1. Disegna checkmark vettoriale perfetto in Ciano (evita caratteri unicode non supportati)
+        doc.setDrawColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+        doc.setLineWidth(0.55);
+        doc.line(margin + 1, currentY - 1.2, margin + 2.3, currentY);
+        doc.line(margin + 2.3, currentY, margin + 4.5, currentY - 3.2);
+
+        // 2. Titolo Feature in Grassetto (stampato una sola volta!)
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(9);
         doc.setTextColor(textDark[0], textDark[1], textDark[2]);
         doc.text(`${feat.title}:`, margin + 6, currentY);
+        currentY += 4.5;
 
-        const featTitleWidth = doc.getTextWidth(`${feat.title}: `);
+        // 3. Descrizione Feature in font normale indentata
         doc.setFont('helvetica', 'normal');
-        doc.setTextColor(textDark[0], textDark[1], textDark[2]);
+        doc.setFontSize(8.6);
+        doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
+        doc.text(descLines, margin + 6, currentY);
 
-        const fullFeatText = `${feat.title}: ${feat.description}`;
-        const featLines = doc.splitTextToSize(fullFeatText, contentWidth - 6);
-        doc.text(featLines, margin + 6, currentY);
-
-        currentY += (featLines.length * 4.6) + 3;
+        currentY += (descLines.length * 4.3) + 2.5;
       });
       currentY += 3;
     });
@@ -277,18 +284,20 @@ export class PdfQuoteGeneratorService {
     ];
 
     techItems.forEach(item => {
-      checkAddPage(14);
+      const fullText = `${item.label}: ${item.text}`;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.8);
+      const lines = doc.splitTextToSize(fullText, contentWidth - 8);
+      const itemHeight = (lines.length * 4.6) + 3.5;
+      checkAddPage(itemHeight);
+
       doc.setFillColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
       doc.circle(margin + 2, currentY - 1, 1, 'F');
 
-      const fullText = `${item.label}: ${item.text}`;
-      const lines = doc.splitTextToSize(fullText, contentWidth - 6);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.8);
       doc.setTextColor(textDark[0], textDark[1], textDark[2]);
       doc.text(lines, margin + 6, currentY);
 
-      currentY += (lines.length * 4.6) + 3;
+      currentY += itemHeight;
     });
     currentY += 4;
 
@@ -425,16 +434,18 @@ export class PdfQuoteGeneratorService {
     currentY += 5.5;
 
     quote.inclusions.forEach(inc => {
-      checkAddPage(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      const lines = doc.splitTextToSize(inc, contentWidth - 8);
+      const itemHeight = (lines.length * 4.4) + 3;
+      checkAddPage(itemHeight);
+
       doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
       doc.circle(margin + 2, currentY - 1, 1, 'F');
 
-      const lines = doc.splitTextToSize(inc, contentWidth - 6);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
       doc.setTextColor(textDark[0], textDark[1], textDark[2]);
       doc.text(lines, margin + 6, currentY);
-      currentY += (lines.length * 4.4) + 2.5;
+      currentY += itemHeight;
     });
     currentY += 4;
 
@@ -447,16 +458,18 @@ export class PdfQuoteGeneratorService {
     currentY += 5.5;
 
     quote.exclusions.forEach(exc => {
-      checkAddPage(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      const lines = doc.splitTextToSize(exc, contentWidth - 8);
+      const itemHeight = (lines.length * 4.4) + 3;
+      checkAddPage(itemHeight);
+
       doc.setFillColor(textMuted[0], textMuted[1], textMuted[2]);
       doc.circle(margin + 2, currentY - 1, 1, 'F');
 
-      const lines = doc.splitTextToSize(exc, contentWidth - 6);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
       doc.setTextColor(textDark[0], textDark[1], textDark[2]);
       doc.text(lines, margin + 6, currentY);
-      currentY += (lines.length * 4.4) + 2.5;
+      currentY += itemHeight;
     });
     currentY += 12;
 
