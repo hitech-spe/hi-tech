@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
 import {isPlatformBrowser, DOCUMENT} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {RouterOutlet, Router, NavigationEnd} from "@angular/router";
@@ -31,15 +31,11 @@ export class AppComponent {
   title = 'hi-tech';
   private isBrowser: boolean;
 
-  showSplash = true;  
-  fadeSplash = false;
-
   constructor(
     private translate: TranslateService,
     private router: Router,
     private titleService: Title,
     private metaService: Meta,
-    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) platformId: Object,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -101,29 +97,16 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    // Lo splash screen corporate dura 2800ms per completare il disegno 3D del cubo e il shimmer metallico
-    setTimeout(() => {
-      this.fadeSplash = true; // Applica la classe .fade-out con dissolvenza e blur cinematografico
-      this.cdr.markForCheck();
-
-      // Dopo mezzo secondo (500ms), distrugge lo splash e innesca le animazioni AOS
-      setTimeout(() => {
-        this.showSplash = false;
-        this.cdr.markForCheck();
-
-        if (this.isBrowser) {
-          AOS.init({
-            duration: 800,
-            once: true,
-            mirror: false,
-            offset: 100,
-            easing: 'ease-out-cubic',
-            delay: 50
-          });
-        }
-      }, 500); 
-
-    }, 2800);
+    if (this.isBrowser) {
+      AOS.init({
+        duration: 800,
+        once: true,
+        mirror: false,
+        offset: 100,
+        easing: 'ease-out-cubic',
+        delay: 50
+      });
+    }
   }
 
   private updateSeoTags(): void {

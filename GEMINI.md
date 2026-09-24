@@ -31,7 +31,7 @@ src/
 │   ├── i18n/                     # File di traduzione (it.json ed en.json)
 │   └── images/                   # Loghi statici e risorse grafiche
 └── app/
-    ├── app.component.*           # Componente radice principale (con splash screen personalizzata a dissolvenza)
+    ├── app.component.*           # Componente radice principale (header, footer, routing e tag SEO globali)
     ├── app.config.ts             # Configurazione dell'applicazione (routing funzionale, provider firebase, i18n)
     ├── app.routes.ts             # Percorsi di routing e guardie (guards)
     ├── components/               # Pagine e viste personalizzate (Standalone)
@@ -122,7 +122,6 @@ Le performance di caricamento e la stabilità visiva costituiscono fattori cruci
 * **Pre-caricamento Critico (preload) e Preconnessione DNS:**
   * Applicato il pre-caricamento all'immagine del logo principale, ai file delle traduzioni essenziali (`it.json`) e ai fogli di stile tipografici.
   * Connessione preventiva (`preconnect`) configurata sia per i server dei font Google che per `https://images.unsplash.com` per ridurre la latenza del handshake di rete durante il caricamento di risorse ed immagini dinamiche.
-* **Velocità Splash Screen Ottimizzata:** Ridotto l'artificio del tempo di attesa della splash screen da 1.8s a 800ms in `AppComponent` per rendere l'interazione iniziale quasi istantanea pur mantenendo l'elegante dissolvenza del brand.
 * **SEO Dinamico per Pagine Legali:** Mappate le pagine `/privacy-policy` e `/terms-and-conditions` all'interno di `updateSeoTags()` per garantire metadati, descrizioni e titoli localizzati e unici per ciascuna pagina legale (risolvendo i problemi di contenuti duplicati).
 
 ---

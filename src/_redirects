@@ -1,1 +1,3 @@
+/api/callmebot/*    https://api.callmebot.com/:splat   200!
+/api/send-whatsapp    /.netlify/functions/send-whatsapp   200
 /*    /index.csr.html   200

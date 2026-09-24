@@ -1,0 +1,10 @@
+{
+  "/api/callmebot": {
+    "target": "https://api.callmebot.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/callmebot": ""
+    }
+  }
+}

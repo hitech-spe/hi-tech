@@ -7,6 +7,8 @@ import {
   doc,
   setDoc,
   getDoc,
+  updateDoc,
+  deleteDoc,
   query,
   where,
   docData
@@ -65,6 +67,19 @@ export class FirestoreService {
     });
   }
 
+  updateQuote(id: string, quote: any) {
+    const ref = doc(this.firestore, 'quotes', id);
+    return updateDoc(ref, {
+      ...quote,
+      updatedAt: new Date().toISOString()
+    });
+  }
+
+  deleteQuote(id: string) {
+    const ref = doc(this.firestore, 'quotes', id);
+    return deleteDoc(ref);
+  }
+
   // --- Clienti per preventivi ---
 
   addClient(client: any) {
@@ -73,6 +88,63 @@ export class FirestoreService {
       ...client,
       createdAt: new Date().toISOString()
     });
+  }
+
+  updateClient(id: string, client: any) {
+    const ref = doc(this.firestore, 'clients', id);
+    return updateDoc(ref, {
+      ...client,
+      updatedAt: new Date().toISOString()
+    });
+  }
+
+  deleteClient(id: string) {
+    const ref = doc(this.firestore, 'clients', id);
+    return deleteDoc(ref);
+  }
+
+  // --- Contratti di Manutenzione e Canoni Ricorrenti ---
+
+  getMaintenanceContracts(userId: string): Observable<any[]> {
+    const ref = collection(this.firestore, 'maintenance_contracts');
+    const q = query(ref, where('userId', '==', userId));
+    return collectionData(q, { idField: 'id' }) as Observable<any[]>;
+  }
+
+  saveMaintenanceContract(contract: any) {
+    const ref = collection(this.firestore, 'maintenance_contracts');
+    return addDoc(ref, {
+      ...contract,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  updateMaintenanceContract(id: string, contract: any) {
+    const ref = doc(this.firestore, 'maintenance_contracts', id);
+    return updateDoc(ref, {
+      ...contract,
+      updatedAt: new Date().toISOString()
+    });
+  }
+
+  deleteMaintenanceContract(id: string) {
+    const ref = doc(this.firestore, 'maintenance_contracts', id);
+    return deleteDoc(ref);
+  }
+
+  // --- Impostazioni Notifiche Admin ---
+
+  getAdminAlertSettings(userId: string): Observable<any> {
+    const ref = doc(this.firestore, 'admin_settings', `alerts_${userId}`);
+    return docData(ref);
+  }
+
+  saveAdminAlertSettings(userId: string, settings: any) {
+    const ref = doc(this.firestore, 'admin_settings', `alerts_${userId}`);
+    return setDoc(ref, {
+      ...settings,
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
   }
 
 }

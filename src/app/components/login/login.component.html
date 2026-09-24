@@ -8,61 +8,36 @@
         {{ (isLoginMode ? 'AUTH.LOGIN_SUBTITLE' : 'AUTH.REGISTER_SUBTITLE') | translate }}
       </p>
 
-      <form [formRoot]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <form (ngSubmit)="onSubmit()" class="auth-form">
         @if (!isLoginMode) {
           <div class="form-group">
-            <label for="firstName">{{ 'AUTH.FIRST_NAME' | translate }}</label>
-            <input type="text" id="firstName" [formField]="loginForm.firstName"
-                   placeholder="{{ 'AUTH.FIRST_NAME_PLACEHOLDER' | translate }}">
-            @if (loginForm.firstName().touched() && loginForm.firstName().invalid()) {
-              <span class="error-message status-message error" style="margin-top: 0.5rem; padding: 0.5rem;">
-                {{ (loginForm.firstName().errors()[0]?.message || '') | translate }}
-              </span>
-            }
+            <label for="firstName">{{ 'AUTH.FIRST_NAME' | translate }} *</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName"
+                   placeholder="{{ 'AUTH.FIRST_NAME_PLACEHOLDER' | translate }}" required>
           </div>
 
           <div class="form-group">
-            <label for="lastName">{{ 'AUTH.LAST_NAME' | translate }}</label>
-            <input type="text" id="lastName" [formField]="loginForm.lastName"
-                   placeholder="{{ 'AUTH.LAST_NAME_PLACEHOLDER' | translate }}">
-            @if (loginForm.lastName().touched() && loginForm.lastName().invalid()) {
-              <span class="error-message status-message error" style="margin-top: 0.5rem; padding: 0.5rem;">
-                {{ (loginForm.lastName().errors()[0]?.message || '') | translate }}
-              </span>
-            }
+            <label for="lastName">{{ 'AUTH.LAST_NAME' | translate }} *</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName"
+                   placeholder="{{ 'AUTH.LAST_NAME_PLACEHOLDER' | translate }}" required>
           </div>
         }
 
         <div class="form-group">
-          <label for="email">{{ 'AUTH.EMAIL' | translate }}</label>
-          <input type="email" id="email" [formField]="loginForm.email" placeholder="example@email.com">
-          @if (loginForm.email().touched() && loginForm.email().invalid()) {
-            <span class="error-message status-message error" style="margin-top: 0.5rem; padding: 0.5rem;">
-              {{ (loginForm.email().errors()[0]?.message || '') | translate }}
-            </span>
-          }
+          <label for="email">{{ 'AUTH.EMAIL' | translate }} *</label>
+          <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="example@email.com" required autocomplete="email">
         </div>
 
         <div class="form-group">
-          <label for="password">{{ 'AUTH.PASSWORD' | translate }}</label>
-          <input type="password" id="password" [formField]="loginForm.password" placeholder="********">
-          @if (loginForm.password().touched() && loginForm.password().invalid()) {
-            <span class="error-message status-message error" style="margin-top: 0.5rem; padding: 0.5rem;">
-              {{ (loginForm.password().errors()[0]?.message || '') | translate }}
-            </span>
-          }
+          <label for="password">{{ 'AUTH.PASSWORD' | translate }} *</label>
+          <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Minimo 6 caratteri" required autocomplete="current-password">
         </div>
 
         @if (!isLoginMode) {
           <div class="form-group">
-            <label for="confirmPassword">{{ 'AUTH.CONFIRM_PASSWORD' | translate }}</label>
-            <input type="password" id="confirmPassword" [formField]="loginForm.confirmPassword"
-                   placeholder="********">
-            @if (loginForm.confirmPassword().touched() && loginForm.confirmPassword().invalid()) {
-              <span class="error-message status-message error" style="margin-top: 0.5rem; padding: 0.5rem;">
-                {{ (loginForm.confirmPassword().errors()[0]?.message || '') | translate }}
-              </span>
-            }
+            <label for="confirmPassword">{{ 'AUTH.CONFIRM_PASSWORD' | translate }} *</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword"
+                   placeholder="Ripeti la password" required autocomplete="new-password">
           </div>
         }
 
@@ -78,8 +53,7 @@
           </div>
         }
 
-
-        <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading || loginForm().invalid()">
+        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()" [disabled]="isLoading">
           <span>{{ (isLoginMode ? 'AUTH.LOGIN_BTN' : 'AUTH.REGISTER_BTN') | translate }}</span>
           @if (isLoading) {
             <span class="spinner"></span>

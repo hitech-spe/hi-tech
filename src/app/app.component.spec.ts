@@ -58,25 +58,9 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('hi-tech');
   });
 
-  it('should dismiss splash screen after timer', () => {
-    vi.useFakeTimers();
-    try {
-      const fixture = TestBed.createComponent(AppComponent);
-      const app = fixture.componentInstance;
-      expect(app.showSplash).toBe(true);
-      expect(app.fadeSplash).toBe(false);
-
-      app.ngOnInit();
-
-      // Fast-forward 2800ms for fade out
-      vi.advanceTimersByTime(2800);
-      expect(app.fadeSplash).toBe(true);
-
-      // Fast-forward another 500ms for full removal
-      vi.advanceTimersByTime(500);
-      expect(app.showSplash).toBe(false);
-    } finally {
-      vi.useRealTimers();
-    }
+  it('should initialize successfully on ngOnInit', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(() => app.ngOnInit()).not.toThrow();
   });
 });

@@ -53,7 +53,13 @@
             </div>
           }
         </li>
-      }
+      } <!--@else {
+        <li>
+          <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()" class="login-nav-link">
+            {{ 'HEADER.LOGIN' | translate }}
+          </a>
+        </li>
+      }-->
 
       <li class="lang-selector">
         <button (click)="changeLang('it')" [class.active]="currentLang === 'it'">IT</button>

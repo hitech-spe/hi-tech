@@ -3,13 +3,11 @@
   bottom: 6.8rem; // Alzato di circa 75px per fare spazio al pulsante WhatsApp sotto!
   right: 2rem;
   z-index: 99999; // Precedenza assoluta
-  transform: translate3d(0, 0, 99999px); // Risolve il bug 3D di iOS Safari
-  -webkit-transform: translate3d(0, 0, 99999px);
   font-family: 'Inter', sans-serif;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   
-  @media (max-width: 480px) {
-    bottom: 5.2rem; // Alzato su telefoni piccoli!
+  @media (max-width: 768px) {
+    bottom: 5.2rem; // Allineato su mobile sopra il pulsante WhatsApp
     right: 1.2rem;
   }
 }
@@ -96,7 +94,9 @@
   bottom: 80px;
   right: 0;
   width: 380px;
+  max-width: calc(100vw - 32px);
   height: 520px;
+  max-height: calc(100vh - 160px);
   display: flex;
   flex-direction: column;
   border-radius: 1.25rem;
@@ -105,14 +105,26 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   animation: slide-up 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     position: fixed;
-    bottom: 112px; // Alzato per non sormontare i pulsanti WhatsApp e Chatbot sottostanti!
+    top: auto;
+    bottom: calc(5.2rem + 62px);
     left: 12px;
     right: 12px;
-    width: calc(100vw - 24px);
-    height: calc(100vh - 140px);
-    border-radius: 1rem;
+    width: auto;
+    max-width: 440px;
+    margin: 0 auto;
+    height: min(520px, calc(100dvh - 145px));
+    max-height: calc(100dvh - 145px);
+    border-radius: 1.25rem;
+  }
+
+  @media (max-width: 380px) {
+    left: 8px;
+    right: 8px;
+    bottom: calc(5.2rem + 56px);
+    height: min(480px, calc(100dvh - 135px));
+    max-height: calc(100dvh - 135px);
   }
 }
 
@@ -302,7 +314,7 @@
     border-radius: 1.5rem;
     padding: 0.75rem 1.2rem;
     color: #ffffff;
-    font-size: 0.875rem;
+    font-size: 16px; // Minimo 16px per evitare lo zoom automatico sgradevole su iOS Safari
     outline: none;
     transition: all 0.2s ease;
 

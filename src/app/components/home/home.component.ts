@@ -25,7 +25,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     PartnershipComponent,
     InsightsComponent,
     RoiCalculatorComponent,
-    FaqComponent,
     TechMatcherComponent
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
