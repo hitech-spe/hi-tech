@@ -24,12 +24,16 @@
   transform: scale(1);
   filter: blur(0px);
   visibility: visible;
+  
+  // Timer di sicurezza puro CSS: se JS o WebView ritardano/bloccano l'idratazione, si dissolve comunque dopo 3.5s
+  animation: splashAutoDismiss 0.8s cubic-bezier(0.25, 1, 0.5, 1) 3.5s forwards;
 
   &.fade-out {
     opacity: 0;
     transform: scale(1.03);
     filter: blur(12px);
     visibility: hidden;
+    pointer-events: none;
   }
 
   .splash-content {
@@ -235,6 +239,23 @@
 @keyframes progressFill {
   0% { transform: scaleX(0); }
   100% { transform: scaleX(1); }
+}
+
+@keyframes splashAutoDismiss {
+  to {
+    opacity: 0;
+    transform: scale(1.03);
+    filter: blur(12px);
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Assicura che i banner Cookiebot siano sempre posizionati e cliccabili al di sopra di tutto */
+#CookieConsent,
+#CookiebotWidget,
+.CookieConsent {
+  z-index: 2147483647 !important;
 }
 
 

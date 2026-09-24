@@ -1,4 +1,4 @@
-import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {isPlatformBrowser, DOCUMENT} from '@angular/common';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {RouterOutlet, Router, NavigationEnd} from "@angular/router";
@@ -39,6 +39,7 @@ export class AppComponent {
     private router: Router,
     private titleService: Title,
     private metaService: Meta,
+    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) platformId: Object,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -62,6 +63,14 @@ export class AppComponent {
         setTimeout(() => {
           AOS.refresh();
         }, 150);
+
+        if (typeof (window as any).Cookiebot !== 'undefined' && typeof (window as any).Cookiebot.runScripts === 'function') {
+          try {
+            (window as any).Cookiebot.runScripts();
+          } catch {
+            // Ignore Cookiebot error in WebView
+          }
+        }
       }
 
       const tree = this.router.parseUrl(this.router.url);
@@ -77,7 +86,7 @@ export class AppComponent {
       if (this.isBrowser) {
         if (tree.fragment) {
           setTimeout(() => {
-            const element = document.querySelector('#' + tree.fragment);
+            const element = document.getElementById(tree.fragment!);
             if (element) {
               element.scrollIntoView({behavior: 'smooth', block: 'start'});
             }
@@ -95,10 +104,12 @@ export class AppComponent {
     // Lo splash screen corporate dura 2800ms per completare il disegno 3D del cubo e il shimmer metallico
     setTimeout(() => {
       this.fadeSplash = true; // Applica la classe .fade-out con dissolvenza e blur cinematografico
+      this.cdr.markForCheck();
 
       // Dopo mezzo secondo (500ms), distrugge lo splash e innesca le animazioni AOS
       setTimeout(() => {
         this.showSplash = false;
+        this.cdr.markForCheck();
 
         if (this.isBrowser) {
           AOS.init({

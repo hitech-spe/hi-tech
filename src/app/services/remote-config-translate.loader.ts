@@ -2,7 +2,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { RemoteConfig, getValue, fetchAndActivate, activate } from '@angular/fire/remote-config';
 import { Observable, from, forkJoin, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, timeout } from 'rxjs/operators';
 
 export class RemoteConfigTranslateLoader implements TranslateLoader {
   constructor(
@@ -29,6 +29,7 @@ export class RemoteConfigTranslateLoader implements TranslateLoader {
 
     // 1. Load the local static JSON translation file
     const local$ = this.http.get(`/assets/i18n/${lang}.json`).pipe(
+      timeout({ each: 3000, with: () => of({}) }),
       catchError((err) => {
         console.error(`Could not load local static translation file for ${lang}:`, err);
         return of({});
@@ -67,6 +68,7 @@ export class RemoteConfigTranslateLoader implements TranslateLoader {
           return {};
         })
     ).pipe(
+      timeout({ each: 2000, with: () => of({}) }),
       catchError(() => of({}))
     );
 

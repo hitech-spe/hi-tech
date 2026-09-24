@@ -1,11 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { AppComponent } from './app.component';
-import { AuthService } from './services/auth.service';
-import { FirestoreService } from './services/firestore.service';
-import { Firestore } from '@angular/fire/firestore';
-import { of } from 'rxjs';
 import { vi } from 'vitest';
 
 // Mock di lottie-web per prevenire errori legati alla mancanza di Canvas in ambiente JSDOM
@@ -18,6 +10,15 @@ vi.mock('lottie-web', () => {
     }
   };
 });
+
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { AppComponent } from './app.component';
+import { AuthService } from './services/auth.service';
+import { FirestoreService } from './services/firestore.service';
+import { Firestore } from '@angular/fire/firestore';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   const mockAuthService = {
@@ -55,5 +56,27 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('hi-tech');
+  });
+
+  it('should dismiss splash screen after timer', () => {
+    vi.useFakeTimers();
+    try {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.componentInstance;
+      expect(app.showSplash).toBe(true);
+      expect(app.fadeSplash).toBe(false);
+
+      app.ngOnInit();
+
+      // Fast-forward 2800ms for fade out
+      vi.advanceTimersByTime(2800);
+      expect(app.fadeSplash).toBe(true);
+
+      // Fast-forward another 500ms for full removal
+      vi.advanceTimersByTime(500);
+      expect(app.showSplash).toBe(false);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
