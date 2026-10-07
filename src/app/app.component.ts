@@ -157,7 +157,7 @@ export class AppComponent {
       this.metaService.updateTag({ property: 'twitter:description', content: translatedDesc });
     });
 
-    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese
+    // Aggiorna URL canonico dinamico includendo parametro lingua se inglese e garantendo trailing slash per Netlify
     const baseUrl = 'https://hitechsrls.com';
     const currentLang = this.translate.currentLang || 'it';
     const normUrl = (url === '/' || url === '/home') ? '' : url;
@@ -166,8 +166,8 @@ export class AppComponent {
     if (normUrl === '') {
       canonicalUrl = currentLang === 'en' ? `${baseUrl}/?lang=en` : `${baseUrl}/`;
     } else {
-      const pathWithoutSlash = normUrl.endsWith('/') ? normUrl.slice(0, -1) : normUrl;
-      canonicalUrl = `${baseUrl}${pathWithoutSlash}${currentLang === 'en' ? '?lang=en' : ''}`;
+      const pathWithSlash = normUrl.endsWith('/') ? normUrl : `${normUrl}/`;
+      canonicalUrl = `${baseUrl}${pathWithSlash}${currentLang === 'en' ? '?lang=en' : ''}`;
     }
     this.metaService.updateTag({ property: 'og:url', content: canonicalUrl });
     this.metaService.updateTag({ property: 'twitter:url', content: canonicalUrl });
@@ -200,21 +200,18 @@ export class AppComponent {
     const baseUrl = 'https://hitechsrls.com';
     
     let cleanUrl = '';
-    let langPrefix = '';
 
     if (normPath === '') {
       cleanUrl = `${baseUrl}/`;
-      langPrefix = '?';
     } else {
-      const pathWithoutSlash = normPath.endsWith('/') ? normPath.slice(0, -1) : normPath;
-      cleanUrl = `${baseUrl}${pathWithoutSlash}`;
-      langPrefix = '?';
+      const pathWithSlash = normPath.endsWith('/') ? normPath : `${normPath}/`;
+      cleanUrl = `${baseUrl}${pathWithSlash}`;
     }
 
     const hreflangs = [
-      { lang: 'it', url: `${cleanUrl}${langPrefix}lang=it` },
-      { lang: 'en', url: `${cleanUrl}${langPrefix}lang=en` },
-      { lang: 'x-default', url: normPath === '' ? `${baseUrl}/` : cleanUrl }
+      { lang: 'it', url: `${cleanUrl}?lang=it` },
+      { lang: 'en', url: `${cleanUrl}?lang=en` },
+      { lang: 'x-default', url: cleanUrl }
     ];
 
     hreflangs.forEach(hl => {
@@ -262,6 +259,7 @@ export class AppComponent {
     }
 
     const baseUrl = 'https://hitechsrls.com';
+    const pathWithSlash = url.endsWith('/') ? url : `${url}/`;
     const breadcrumb = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -270,13 +268,13 @@ export class AppComponent {
           "@type": "ListItem",
           "position": 1,
           "name": isEn ? "Home" : "Pagina Iniziale",
-          "item": `${baseUrl}${isEn ? '?lang=en' : ''}`
+          "item": `${baseUrl}/${isEn ? '?lang=en' : ''}`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": pageName,
-          "item": `${baseUrl}${url}${isEn ? '?lang=en' : ''}`
+          "item": `${baseUrl}${pathWithSlash}${isEn ? '?lang=en' : ''}`
         }
       ]
     };

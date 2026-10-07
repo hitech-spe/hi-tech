@@ -368,7 +368,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     const currentLang = this.translate.currentLang || 'it';
     const isEn = currentLang === 'en';
     const baseUrl = 'https://hitechsrls.com';
-    const serviceUrl = `${baseUrl}/services/${id}${isEn ? '?lang=en' : ''}`;
+    const serviceUrl = `${baseUrl}/services/${id}/${isEn ? '?lang=en' : ''}`;
 
     // 1. Schema Servizio
     const serviceSchema = {
@@ -401,13 +401,13 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           "@type": "ListItem",
           "position": 1,
           "name": isEn ? "Home" : "Pagina Iniziale",
-          "item": `${baseUrl}${isEn ? '?lang=en' : ''}`
+          "item": `${baseUrl}/${isEn ? '?lang=en' : ''}`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": isEn ? "Services" : "Servizi",
-          "item": `${baseUrl}/services${isEn ? '?lang=en' : ''}`
+          "item": `${baseUrl}/services/${isEn ? '?lang=en' : ''}`
         },
         {
           "@type": "ListItem",

@@ -20,6 +20,30 @@
   status = 200
 
 [[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home/"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quote-simulator"
+  to = "/quote-ai/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quote-simulator/"
+  to = "/quote-ai/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.csr.html"
   status = 200

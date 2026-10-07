@@ -28,6 +28,15 @@ export const serverRoutes: ServerRoute[] = [
     path: 'quotes',
     renderMode: RenderMode.Client
   },
+  // Rotte di reindirizzamento: non prerenderizzare come pagine statiche duplicate
+  {
+    path: 'home',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'quote-simulator',
+    renderMode: RenderMode.Client
+  },
   // Tutte le altre rotte statiche del sito vengono "Prerenderizzate" in HTML statico
   // a tempo di build. Questo risolve l'indicizzazione in Google Search Console!
   {

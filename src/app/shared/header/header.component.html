@@ -29,7 +29,7 @@
       <li><a [routerLink]="['/']" fragment="services" [class.active]="activeSection === 'services'" (click)="closeMenu()">{{ 'HEADER.SERVICES' | translate }}</a></li>
       <li><a [routerLink]="['/']" fragment="partnership" [class.active]="activeSection === 'partnership'" (click)="closeMenu()">{{ 'HEADER.Partnership' | translate }}</a></li>
       <li><a [routerLink]="['/']" fragment="news" [class.active]="activeSection === 'news'" (click)="closeMenu()">{{ 'HEADER.INSIGHTS' | translate }}</a></li>
-      <li><a routerLink="/quote-ai" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
+      <li><a routerLink="/quote-ai/" routerLinkActive="active" (click)="closeMenu()">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
       <li><a [routerLink]="['/']" fragment="contact" [class.active]="activeSection === 'contact'" (click)="closeMenu()">{{ 'HEADER.CONTACT' | translate }}</a></li>
 
       @if (userData$ | async; as user) {
