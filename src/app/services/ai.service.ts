@@ -26,7 +26,9 @@ export class AiService {
 
   private async getActiveApiKey(): Promise<string> {
     // 1. Check local storage first (gives local testing priority)
-    const localKey = typeof window !== 'undefined' ? localStorage.getItem('custom_openrouter_key') : null;
+    const localKey = (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined')
+      ? window.localStorage.getItem('custom_openrouter_key')
+      : null;
     if (localKey && localKey.trim()) {
       return localKey.trim();
     }

@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
-    "build": "ng build --configuration production",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:hi-tech": "node dist/server/server.mjs"
+    "start": "NODE_NO_WARNINGS=1 ng serve --open",
+    "build": "NODE_NO_WARNINGS=1 ng build --configuration production",
+    "watch": "NODE_NO_WARNINGS=1 ng build --watch --configuration development",
+    "test": "NODE_NO_WARNINGS=1 ng test",
+    "serve:ssr:hi-tech": "NODE_NO_WARNINGS=1 node dist/server/server.mjs"
   },
   "private": true,
   "overrides": {

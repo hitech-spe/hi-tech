@@ -28,6 +28,10 @@
       "TITLE": "Gestione Preventivi Clienti - Area Riservata | Hi-Tech",
       "DESCRIPTION": "Area riservata per agenti e amministratori per la gestione dei clienti, preventivi e generazione di PDF personalizzati."
     },
+    "ADMIN": {
+      "TITLE": "Pannello Amministrativo | Hi-Tech Solutions",
+      "DESCRIPTION": "Area riservata per la gestione aziendale, preventivi, canoni di manutenzione e rubrica clienti."
+    },
     "PRIVACY_POLICY": {
       "TITLE": "Informativa sulla Privacy | Hi-Tech - Protezione dei Dati",
       "DESCRIPTION": "Leggi l'informativa sulla privacy di Hi-Tech Solutions. Scopri come raccogliamo, proteggiamo e trattiamo i tuoi dati personali in conformità al GDPR."
@@ -43,6 +47,7 @@
     "SERVICES": "Servizi",
     "QUOTE_AI": "Preventivo AI",
     "QUOTES": "I miei Preventivi",
+    "ADMIN": "Pannello Admin",
     "Partnership": "Partnership",
     "CONTACT": "Contatti",
     "LOGIN": "Accedi",

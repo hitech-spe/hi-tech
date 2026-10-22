@@ -29,6 +29,7 @@ import * as AOS from 'aos';
 })
 export class AppComponent {
   title = 'hi-tech';
+  isAdminRoute = false;
   private isBrowser: boolean;
 
   constructor(
@@ -42,6 +43,7 @@ export class AppComponent {
     translate.setDefaultLang('it');
     translate.use('it');
     this.isBrowser = isPlatformBrowser(platformId);
+    this.checkAdminRoute(this.router.url);
 
     if (this.isBrowser && 'serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -53,6 +55,7 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
+      this.checkAdminRoute(this.router.url);
       if (this.isBrowser) {
         (window as any).prerenderReady = false;
         
@@ -109,6 +112,11 @@ export class AppComponent {
     }
   }
 
+  private checkAdminRoute(rawUrl: string): void {
+    const url = rawUrl.split('?')[0].split('#')[0];
+    this.isAdminRoute = url === '/admin' || url.startsWith('/admin/') || url === '/quotes' || url.startsWith('/quotes/');
+  }
+
   private updateSeoTags(): void {
     const url = this.router.url.split('?')[0].split('#')[0]; // Rimuove query string e frammenti
     
@@ -132,6 +140,8 @@ export class AppComponent {
       pageKey = 'QUOTE_AI';
     } else if (url === '/login') {
       pageKey = 'LOGIN';
+    } else if (url === '/admin') {
+      pageKey = 'ADMIN';
     } else if (url === '/quotes') {
       pageKey = 'QUOTES';
     } else if (url === '/privacy-policy') {

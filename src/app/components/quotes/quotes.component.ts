@@ -171,8 +171,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   loadClients() {
-    this.firestoreService.getClientsByUser(this.currentUser.uid).subscribe(data => {
-      this.clients = data.filter(c => c.userId === this.currentUser.uid);
+    this.firestoreService.getClients().subscribe(data => {
+      this.clients = (data || []).sort((a, b) => (a.company || a.name || '').localeCompare(b.company || b.name || ''));
     });
   }
 
@@ -372,9 +372,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   loadQuotes() {
-    this.firestoreService.getQuotesByUser(this.currentUser.uid).subscribe(data => {
-      this.quotes = data
-        .filter(q => q.userId === this.currentUser.uid)
+    this.firestoreService.getQuotes().subscribe(data => {
+      this.quotes = (data || [])
         .sort((a, b) => new Date(b.date || b.createdAt).getTime() - new Date(a.date || a.createdAt).getTime());
     });
   }
@@ -492,9 +491,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   loadMaintenanceContracts() {
-    this.firestoreService.getMaintenanceContracts(this.currentUser.uid).subscribe(data => {
-      this.contracts = data
-        .filter(c => c.userId === this.currentUser.uid)
+    this.firestoreService.getMaintenanceContracts().subscribe(data => {
+      this.contracts = (data || [])
         .sort((a, b) => new Date(a.nextDueDate).getTime() - new Date(b.nextDueDate).getTime());
 
       // Se abilitato, controlla ed esegue l'auto-check delle scadenze

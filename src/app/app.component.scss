@@ -1,3 +1,11 @@
+.admin-layout-container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: var(--darker, #080b11);
+}
+
 /* Assicura che i banner Cookiebot siano sempre posizionati e cliccabili al di sopra di tutto */
 #CookieConsent,
 #CookiebotWidget,

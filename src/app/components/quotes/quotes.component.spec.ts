@@ -17,9 +17,13 @@ describe('QuotesComponent', () => {
   };
 
   const mockFirestoreService = {
+    getClients: vi.fn().mockReturnValue(of([
+      { id: 'client-1', userId: 'test-admin-123', name: 'Mario Rossi', company: 'Masseria Semeraro', email: 'mario@test.com', phone: '+393401234567' }
+    ])),
     getClientsByUser: vi.fn().mockReturnValue(of([
       { id: 'client-1', userId: 'test-admin-123', name: 'Mario Rossi', company: 'Masseria Semeraro', email: 'mario@test.com', phone: '+393401234567' }
     ])),
+    getQuotes: vi.fn().mockReturnValue(of([])),
     getQuotesByUser: vi.fn().mockReturnValue(of([])),
     addClient: vi.fn().mockResolvedValue({ id: 'new-client-id' }),
     updateClient: vi.fn().mockResolvedValue(true),

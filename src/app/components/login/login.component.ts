@@ -84,8 +84,8 @@ export class LoginComponent {
     try {
       if (this.isLoginMode) {
         await this.authService.login(this.email.trim(), this.password);
-        // Reindirizza all'area riservata /quotes come destinazione naturale
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/quotes';
+        // Reindirizza all'area riservata /admin come destinazione naturale
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
         await this.router.navigateByUrl(returnUrl);
       } else {
         await this.authService.register(

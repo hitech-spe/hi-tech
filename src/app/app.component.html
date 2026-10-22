@@ -1,13 +1,15 @@
-<app-header></app-header>
+@if (!isAdminRoute) {
+  <app-header></app-header>
+}
 
-<main class="main-content">
+<main [class.main-content]="!isAdminRoute" [class.admin-layout-container]="isAdminRoute">
   <router-outlet></router-outlet>
 </main>
 
-<app-footer></app-footer>
+@if (!isAdminRoute) {
+  <app-footer></app-footer>
+  <app-chatbot></app-chatbot>
+  <app-whatsapp></app-whatsapp>
+}
 
 <app-spinner></app-spinner>
-
-<app-chatbot></app-chatbot>
-
-<app-whatsapp></app-whatsapp>

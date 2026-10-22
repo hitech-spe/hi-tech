@@ -1,0 +1,1024 @@
+<div class="admin-dashboard-container fade-in">
+  <!-- ========================================================= -->
+  <!-- TOPBAR ADMIN DEDICATA (ISOLATA DAL SITO PUBBLICO) -->
+  <!-- ========================================================= -->
+  <header class="admin-topbar">
+    <div class="admin-topbar-left">
+      <div class="admin-brand">
+        <a routerLink="/" class="brand-link" title="Torna alla Home del sito">
+          <img src="assets/images/logo-trasp.webp" alt="Hi-Tech Solutions" class="admin-logo">
+        </a>
+        <div class="brand-meta">
+          <span class="brand-title">HI-TECH SOLUTIONS</span>
+          <span class="admin-badge">ADMIN CONSOLE</span>
+        </div>
+      </div>
+
+      <!-- Quick KPI Stats -->
+      <div class="admin-kpi-bar">
+        <div class="kpi-item" title="Totale Canoni Ricorrenti Annuali">
+          <span class="kpi-label">ARR Ricorrente</span>
+          <span class="kpi-val text-cyan">€ {{ formatNumber(totalAnnualRecurringRevenue) }}</span>
+        </div>
+        <div class="kpi-item" title="Contratti di manutenzione attivi">
+          <span class="kpi-label">Canoni</span>
+          <span class="kpi-val">{{ contracts.length }}</span>
+        </div>
+        @if (expiringContractsCount > 0) {
+          <div class="kpi-item kpi-warning" title="Canoni in scadenza entro 15 giorni">
+            <span class="kpi-label">In Scadenza</span>
+            <span class="kpi-val pulse-val">{{ expiringContractsCount }}</span>
+          </div>
+        }
+        <div class="kpi-item" title="Preventivi salvati a sistema">
+          <span class="kpi-label">Preventivi</span>
+          <span class="kpi-val">{{ quotes.length }}</span>
+        </div>
+        <div class="kpi-item" title="Clienti memorizzati in rubrica">
+          <span class="kpi-label">Clienti</span>
+          <span class="kpi-val">{{ clients.length }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Switcher Navigazione & Profilo -->
+    <div class="admin-topbar-right">
+      <nav class="admin-nav-tabs">
+        <button class="nav-tab-btn" [class.active]="currentTab === 'quotes'" (click)="currentTab = 'quotes'">
+          📄 Preventivi
+        </button>
+        <button class="nav-tab-btn" [class.active]="currentTab === 'maintenance'" (click)="currentTab = 'maintenance'">
+          🔄 Manutenzioni
+          @if (expiringContractsCount > 0) {
+            <span class="tab-badge-alert">{{ expiringContractsCount }}</span>
+          }
+        </button>
+        <button class="nav-tab-btn" [class.active]="currentTab === 'clients'" (click)="currentTab = 'clients'">
+          👥 Clienti ({{ clients.length }})
+        </button>
+        <button class="nav-tab-btn settings-btn" (click)="showSettingsModal = true" title="Impostazioni Notifiche WhatsApp Soci">
+          ⚙️ Alert Soci
+        </button>
+      </nav>
+
+      <div class="admin-user-profile">
+        <div class="user-avatar-circle" [title]="currentUser?.email || 'Admin'">
+          {{ getUserInitials() }}
+        </div>
+        <div class="user-meta-info">
+          <span class="user-role">Amministratore</span>
+          <span class="user-email-text">{{ currentUser?.email }}</span>
+        </div>
+
+        <div class="admin-actions-group">
+          <a routerLink="/" class="btn-icon-link" title="Visualizza il sito pubblico">
+            🌐 <span class="action-btn-text">Sito</span>
+          </a>
+          <button class="btn-logout" (click)="logout()" title="Disconnetti e chiudi sessione">
+            Esci ⎋
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================= -->
+  <!-- CORPO PRINCIPALE DASHBOARD -->
+  <!-- ========================================================= -->
+  <main class="admin-main-view">
+    
+    <!-- ======================================================= -->
+    <!-- TAB 1: PREVENTIVI & PROPOSTE COMMERCIALI -->
+    <!-- ======================================================= -->
+    @if (currentTab === 'quotes') {
+      <div class="tab-content-area fade-in">
+        <div class="section-intro-bar">
+          <div>
+            <h2>📄 Proposte Commerciali &amp; Preventivi</h2>
+            <p>Genera preventivi formali in PDF con brand Hi-Tech, personalizza moduli tecnici, milestones e clausole contrattuali.</p>
+          </div>
+          <button class="btn btn-primary" (click)="newQuote()">
+            + Crea Nuovo Preventivo
+          </button>
+        </div>
+
+        <div class="quotes-grid">
+          <!-- Colonna Sinistra: Modulo Compilazione Preventivo -->
+          <div class="glass-card quote-form-container">
+            <div class="form-header-bar">
+              <div class="form-title-group">
+                <h3>{{ editingQuoteId ? 'Modifica Preventivo' : 'Nuovo Preventivo' }}</h3>
+                @if (editingQuoteId) {
+                  <span class="editing-tag">MODIFICA IN CORSO</span>
+                }
+              </div>
+              <button class="btn btn-outline-sm" (click)="newQuote()">
+                + Resetta Maschera
+              </button>
+            </div>
+
+            <!-- Selettore Tipologia di Lavoro -->
+            <div class="worktype-selector-card">
+              <label class="section-label">Modello Struttura &amp; Tipologia Progetto:</label>
+              <div class="select-wrapper">
+                <select [ngModel]="quote.workType" (change)="onWorkTypeChange($event)">
+                  @for (opt of workTypeOptions; track opt.value) {
+                    <option [value]="opt.value">{{ opt.label }}</option>
+                  }
+                </select>
+              </div>
+              <span class="hint-text">Cambiando tipologia puoi pre-caricare automaticamente testi, moduli e capitolato tecnico.</span>
+            </div>
+
+            <!-- Tabs Navigazione Form -->
+            <div class="tabs-nav">
+              <button class="tab-btn" [class.active]="activeSection === 'client'" (click)="activeSection = 'client'">
+                1. Cliente &amp; Dati
+              </button>
+              <button class="tab-btn" [class.active]="activeSection === 'premise'" (click)="activeSection = 'premise'">
+                2. Premessa &amp; Obiettivi
+              </button>
+              <button class="tab-btn" [class.active]="activeSection === 'modules'" (click)="activeSection = 'modules'">
+                3. Moduli Funzionali ({{ quote.modules.length }})
+              </button>
+              <button class="tab-btn" [class.active]="activeSection === 'tech'" (click)="activeSection = 'tech'">
+                4. Tecnologia &amp; Fasi
+              </button>
+              <button class="tab-btn" [class.active]="activeSection === 'economic'" (click)="activeSection = 'economic'">
+                5. Prezzo &amp; Pagamenti
+              </button>
+              <button class="tab-btn" [class.active]="activeSection === 'inclusions'" (click)="activeSection = 'inclusions'">
+                6. Inclusioni &amp; Note
+              </button>
+            </div>
+
+            <!-- TAB 1: DATI CLIENTE E METADATI OFFERTA -->
+            @if (activeSection === 'client') {
+              <div class="tab-pane fade-in">
+                <div class="client-selection-box">
+                  <label>Rubrica Clienti Salvati su Firestore ({{ clients.length }}):</label>
+                  <div class="client-select-row">
+                    <div class="select-wrapper flex-grow">
+                      <select (change)="onClientSelect($event)">
+                        <option value="">-- Seleziona un cliente esistente oppure digitalo sotto --</option>
+                        @for (c of clients; track c.id) {
+                          <option [value]="c.id" [selected]="client.id === c.id">
+                            {{ c.company ? c.company + ' - ' : '' }}{{ c.name }} {{ c.email ? '(' + c.email + ')' : '' }}
+                          </option>
+                        }
+                      </select>
+                    </div>
+                    @if (client.id) {
+                      <button class="btn-danger-icon" (click)="deleteClient(client.id, $event)" title="Elimina cliente da rubrica">
+                        🗑️
+                      </button>
+                    }
+                  </div>
+                </div>
+
+                <div class="form-section-title">Anagrafica Destinatario</div>
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label>Nome e Cognome Referente *</label>
+                    <input type="text" [(ngModel)]="client.name" placeholder="es. Mario Rossi">
+                  </div>
+                  <div class="form-group">
+                    <label>Azienda / Ragione Sociale</label>
+                    <input type="text" [(ngModel)]="client.company" placeholder="es. Alfa S.r.l.">
+                  </div>
+                </div>
+
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" [(ngModel)]="client.email" placeholder="mario@azienda.it">
+                  </div>
+                  <div class="form-group">
+                    <label>Telefono</label>
+                    <input type="text" [(ngModel)]="client.phone" placeholder="+39 340 ...">
+                  </div>
+                </div>
+
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label>Partita IVA / Codice Fiscale</label>
+                    <input type="text" [(ngModel)]="client.vat" placeholder="es. IT01234567890">
+                  </div>
+                  <div class="form-group">
+                    <label>Indirizzo e N. Civico</label>
+                    <input type="text" [(ngModel)]="client.address" placeholder="es. Via Roma 10">
+                  </div>
+                </div>
+
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label>Città e CAP</label>
+                    <input type="text" [(ngModel)]="client.city" placeholder="es. 70100 Bari (BA)">
+                  </div>
+                  <div class="form-group align-end">
+                    <button type="button" class="btn btn-outline w-100" (click)="saveClientPermanently()">
+                      💾 {{ client.id ? 'Aggiorna Cliente in Rubrica' : 'Salva Cliente in Rubrica' }}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-section-title mt-4">Metadati Preventivo</div>
+                <div class="form-group">
+                  <label>Oggetto Formale della Proposta *</label>
+                  <input type="text" [(ngModel)]="quote.subject" placeholder="es. Sviluppo Piattaforma Web B2B ed Integrazione ERP">
+                </div>
+
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label>Data Emissione</label>
+                    <input type="date" [ngModel]="quote.date | date:'yyyy-MM-dd'" (ngModelChange)="quote.date = $event">
+                  </div>
+                  <div class="form-group">
+                    <label>Validità Offerta (Giorni)</label>
+                    <input type="number" [(ngModel)]="quote.validityDays" min="1" max="180">
+                  </div>
+                  <div class="form-group">
+                    <label>Stato Preventivo</label>
+                    <div class="select-wrapper">
+                      <select [(ngModel)]="quote.status">
+                        <option value="draft">Bozza</option>
+                        <option value="sent">Inviato al Cliente</option>
+                        <option value="accepted">Accettato / Confermato</option>
+                        <option value="rejected">Rifiutato</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="next-step-row">
+                  <button class="btn btn-primary" (click)="activeSection = 'premise'">
+                    Avanti: Premessa &amp; Obiettivi →
+                  </button>
+                </div>
+              </div>
+            }
+
+            <!-- TAB 2: PREMESSA & SOLUZIONE PROPOSTA -->
+            @if (activeSection === 'premise') {
+              <div class="tab-pane fade-in">
+                <div class="form-section-title">1. Premessa e Scenario Attuale</div>
+                <div class="form-group">
+                  <label>Testo Introduttivo di Sintesi:</label>
+                  <textarea [(ngModel)]="quote.premiseIntro" rows="4" placeholder="Descrivi lo scenario attuale del cliente e le motivazioni della proposta..."></textarea>
+                </div>
+
+                <div class="form-section-title mt-4">Criticità e Punti di Dolore Rilevati</div>
+                @for (problem of quote.currentProblems; track $index) {
+                  <div class="array-item-row">
+                    <input type="text" [(ngModel)]="quote.currentProblems[$index]" placeholder="Criticità riscontrata...">
+                    <button class="btn-danger-sm" (click)="removeProblem($index)" [disabled]="quote.currentProblems.length <= 1">✕</button>
+                  </div>
+                }
+                <button class="btn btn-outline-sm mt-2" (click)="addProblem()">+ Aggiungi Criticità</button>
+
+                <div class="form-section-title mt-4">2. La Soluzione Proposta da Hi-Tech</div>
+                <div class="form-group">
+                  <label>Titolo della Soluzione Strategica:</label>
+                  <input type="text" [(ngModel)]="quote.solutionTitle" placeholder="es. Architettura Web Moderna e Scalabile">
+                </div>
+                <div class="form-group">
+                  <label>Descrizione della Strategia Tecnologica:</label>
+                  <textarea [(ngModel)]="quote.solutionDescription" rows="4" placeholder="Spiega come la soluzione di Hi-Tech risolverà le criticità..."></textarea>
+                </div>
+
+                <div class="next-step-row">
+                  <button class="btn btn-outline" (click)="activeSection = 'client'">← Indietro</button>
+                  <button class="btn btn-primary" (click)="activeSection = 'modules'">Avanti: Moduli Funzionali →</button>
+                </div>
+              </div>
+            }
+
+            <!-- TAB 3: MODULI FUNZIONALI (SCOPE OF WORK) -->
+            @if (activeSection === 'modules') {
+              <div class="tab-pane fade-in">
+                <div class="form-section-title">Moduli Funzionali del Progetto (Capitolato)</div>
+                <p class="section-help-text">Elenca i macro-moduli e le singole feature che compongono l'opera software.</p>
+
+                @for (module of quote.modules; track $index; let modIdx = $index) {
+                  <div class="module-card">
+                    <div class="module-header">
+                      <div class="form-group flex-grow">
+                        <label>Titolo Macro-Modulo #{{ modIdx + 1 }}</label>
+                        <input type="text" [(ngModel)]="module.title" placeholder="es. Modulo 1: Autenticazione e Gestione Ruoli">
+                      </div>
+                      <button class="btn-danger-sm align-end" (click)="removeModule(modIdx)" [disabled]="quote.modules.length <= 1">
+                        Elimina Modulo
+                      </button>
+                    </div>
+
+                    <div class="module-features-box">
+                      <label class="sub-label">Funzionalità Incluse nel Modulo:</label>
+                      @for (feat of module.features; track $index; let featIdx = $index) {
+                        <div class="feature-item-row">
+                          <div class="form-group flex-grow">
+                            <input type="text" [(ngModel)]="feat.title" placeholder="Nome Feature (es. Single Sign-On)">
+                            <textarea [(ngModel)]="feat.description" rows="2" placeholder="Dettaglio funzionale..."></textarea>
+                          </div>
+                          <button class="btn-danger-sm" (click)="removeFeature(modIdx, featIdx)" [disabled]="module.features.length <= 1">✕</button>
+                        </div>
+                      }
+                      <button class="btn btn-outline-sm mt-2" (click)="addFeature(modIdx)">+ Aggiungi Funzionalità al Modulo</button>
+                    </div>
+                  </div>
+                }
+
+                <button class="btn btn-outline mt-3" (click)="addModule()">+ Aggiungi Nuovo Macro-Modulo</button>
+
+                <div class="next-step-row">
+                  <button class="btn btn-outline" (click)="activeSection = 'premise'">← Indietro</button>
+                  <button class="btn btn-primary" (click)="activeSection = 'tech'">Avanti: Tecnologia &amp; Fasi →</button>
+                </div>
+              </div>
+            }
+
+            <!-- TAB 4: TECNOLOGIA & PIANIFICAZIONE FASI -->
+            @if (activeSection === 'tech') {
+              <div class="tab-pane fade-in">
+                <div class="form-section-title">Stack Tecnologico e Infrastruttura</div>
+                
+                <div class="form-group">
+                  <label>Frontend &amp; Interfaccia Utente</label>
+                  <input type="text" [(ngModel)]="quote.techStack.frontend" placeholder="es. Angular 22, TypeScript, TailwindCSS/SCSS PWA">
+                </div>
+                <div class="form-group">
+                  <label>Backend, API &amp; Database</label>
+                  <input type="text" [(ngModel)]="quote.techStack.backendAndDb" placeholder="es. Node.js, NestJS, PostgreSQL / Cloud Firestore">
+                </div>
+                <div class="form-group">
+                  <label>Hosting, Cloud &amp; Deploy</label>
+                  <input type="text" [(ngModel)]="quote.techStack.hosting" placeholder="es. Google Cloud Run, Firebase Hosting, SSL Let's Encrypt">
+                </div>
+                <div class="form-group">
+                  <label>Stima Costi Infrastruttura Cloud &amp; Canoni Futuri</label>
+                  <input type="text" [(ngModel)]="quote.techStack.maintenanceCosts" placeholder="es. Stimati € 20 - 45 / mese a consumo GCP">
+                </div>
+
+                <div class="form-section-title mt-4">Pianificazione e Fasi Operative</div>
+                @for (phase of quote.phases; track $index; let pIdx = $index) {
+                  <div class="phase-item-card">
+                    <div class="form-group-row">
+                      <div class="form-group flex-grow">
+                        <label>Titolo Fase #{{ pIdx + 1 }}</label>
+                        <input type="text" [(ngModel)]="phase.phase" placeholder="es. Fase 1: Analisi e Prototipazione UI/UX">
+                      </div>
+                      <div class="form-group" style="max-width: 160px;">
+                        <label>Tempistica</label>
+                        <input type="text" [(ngModel)]="phase.timing" placeholder="es. Settimana 1-2">
+                      </div>
+                      <button class="btn-danger-sm align-end" (click)="removePhase(pIdx)" [disabled]="quote.phases.length <= 1">✕</button>
+                    </div>
+                    <div class="form-group">
+                      <label>Dettaglio Attività e Milestone di Rilascio</label>
+                      <textarea [(ngModel)]="phase.description" rows="2" placeholder="Descrizione delle consegne e dei collaudi previsti..."></textarea>
+                    </div>
+                  </div>
+                }
+                <button class="btn btn-outline-sm mt-2" (click)="addPhase()">+ Aggiungi Fase di Sviluppo</button>
+
+                <div class="next-step-row">
+                  <button class="btn btn-outline" (click)="activeSection = 'modules'">← Indietro</button>
+                  <button class="btn btn-primary" (click)="activeSection = 'economic'">Avanti: Prezzo &amp; Pagamenti →</button>
+                </div>
+              </div>
+            }
+
+            <!-- TAB 5: VALORE ECONOMICO & MODALITÀ DI PAGAMENTO -->
+            @if (activeSection === 'economic') {
+              <div class="tab-pane fade-in">
+                <div class="form-section-title">Valore Economico dell'Offerta</div>
+
+                <div class="economic-summary-box">
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label>Prezzo Imponibile (€) *</label>
+                      <input type="number" [(ngModel)]="quote.priceNet" min="0" step="50">
+                    </div>
+                    <div class="form-group">
+                      <label>Aliquota IVA (%)</label>
+                      <input type="number" [(ngModel)]="quote.taxRate" min="0" max="100">
+                    </div>
+                  </div>
+
+                  <div class="totals-display">
+                    <div class="total-row">
+                      <span>Totale Imponibile:</span>
+                      <strong>€ {{ formatCurrency(quote.priceNet) }}</strong>
+                    </div>
+                    <div class="total-row">
+                      <span>IVA ({{ quote.taxRate }}%):</span>
+                      <span>€ {{ formatCurrency(getTaxAmount()) }}</span>
+                    </div>
+                    <div class="total-row grand-total">
+                      <span>Totale Complessivo Lordo:</span>
+                      <strong>€ {{ formatCurrency(getTotalGross()) }}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section-title mt-4">Modalità e Tranche di Pagamento (Milestones)</div>
+                @for (m of quote.milestones; track $index; let mIdx = $index) {
+                  <div class="milestone-item-row">
+                    <div class="form-group flex-grow">
+                      <label>Descrizione Tranche #{{ mIdx + 1 }}</label>
+                      <input type="text" [(ngModel)]="m.title" placeholder="es. All'avvio dei lavori">
+                    </div>
+                    <div class="form-group" style="max-width: 120px;">
+                      <label>% Quota</label>
+                      <input type="number" [(ngModel)]="m.percentage" min="1" max="100">
+                    </div>
+                    <div class="milestone-calc-box">
+                      <span class="calc-label">Importo:</span>
+                      <span class="calc-val">€ {{ formatCurrency(getMilestoneAmount(m.percentage)) }}</span>
+                    </div>
+                    <button class="btn-danger-sm align-end" (click)="removeMilestone(mIdx)" [disabled]="quote.milestones.length <= 1">✕</button>
+                  </div>
+                }
+                <button class="btn btn-outline-sm mt-2" (click)="addMilestone()">+ Aggiungi Tranche di Pagamento</button>
+
+                <div class="next-step-row">
+                  <button class="btn btn-outline" (click)="activeSection = 'tech'">← Indietro</button>
+                  <button class="btn btn-primary" (click)="activeSection = 'inclusions'">Avanti: Inclusioni &amp; Note →</button>
+                </div>
+              </div>
+            }
+
+            <!-- TAB 6: INCLUSIONI, ESCLUSIONI E NOTE -->
+            @if (activeSection === 'inclusions') {
+              <div class="tab-pane fade-in">
+                <div class="form-section-title">Servizi Inclusi nella Fornitura</div>
+                @for (inc of quote.inclusions; track $index) {
+                  <div class="array-item-row">
+                    <input type="text" [(ngModel)]="quote.inclusions[$index]" placeholder="Voce inclusa...">
+                    <button class="btn-danger-sm" (click)="removeInclusion($index)" [disabled]="quote.inclusions.length <= 1">✕</button>
+                  </div>
+                }
+                <button class="btn btn-outline-sm mt-2" (click)="addInclusion()">+ Aggiungi Servizio Incluso</button>
+
+                <div class="form-section-title mt-4">Servizi Esclusi (Extra a Consumo)</div>
+                @for (exc of quote.exclusions; track $index) {
+                  <div class="array-item-row">
+                    <input type="text" [(ngModel)]="quote.exclusions[$index]" placeholder="Voce esclusa...">
+                    <button class="btn-danger-sm" (click)="removeExclusion($index)" [disabled]="quote.exclusions.length <= 1">✕</button>
+                  </div>
+                }
+                <button class="btn btn-outline-sm mt-2" (click)="addExclusion()">+ Aggiungi Voce Esclusa</button>
+
+                <div class="form-section-title mt-4">Note Contrattuali e Clausole Finali</div>
+                <div class="form-group">
+                  <textarea [(ngModel)]="quote.notes" rows="3" placeholder="Eventuali note integrative o condizioni particolari per il cliente..."></textarea>
+                </div>
+
+                <div class="form-actions-footer">
+                  <div class="checkbox-wrapper">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="saveClientToAddressBook">
+                      Salva o aggiorna automaticamente il cliente nella Rubrica Firestore
+                    </label>
+                  </div>
+
+                  <div class="footer-btn-group">
+                    <button class="btn btn-outline" (click)="previewPDF()">
+                      👁️ Anteprima PDF
+                    </button>
+                    <button class="btn btn-secondary" (click)="downloadPDF()">
+                      📥 Scarica PDF
+                    </button>
+                    <button class="btn btn-primary" (click)="saveQuote()">
+                      💾 {{ editingQuoteId ? 'Aggiorna Preventivo' : 'Salva Preventivo' }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+
+          </div>
+
+          <!-- Colonna Destra: Storico Preventivi Salvati su Firestore -->
+          <div class="glass-card quotes-history-container">
+            <div class="history-header">
+              <h3>Preventivi Salvati ({{ filteredQuotes.length }})</h3>
+              <div class="history-tools">
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Cerca cliente o oggetto..." class="search-input">
+                <div class="select-wrapper">
+                  <select [(ngModel)]="statusFilter">
+                    <option value="ALL">Tutti gli stati</option>
+                    <option value="draft">Bozze</option>
+                    <option value="sent">Inviati</option>
+                    <option value="accepted">Accettati</option>
+                    <option value="rejected">Rifiutati</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="quotes-list-scroll">
+              @if (filteredQuotes.length === 0) {
+                <div class="empty-state">
+                  <p>Nessun preventivo trovato.</p>
+                  <button class="btn btn-outline-sm" (click)="newQuote()">Crea il primo preventivo</button>
+                </div>
+              }
+
+              @for (q of filteredQuotes; track q.id) {
+                <div class="quote-item-card" [class.selected]="editingQuoteId === q.id" (click)="loadQuoteIntoForm(q)">
+                  <div class="card-top">
+                    <span class="status-pill" [ngClass]="getStatusClass(q.status)">
+                      {{ getStatusLabel(q.status) }}
+                    </span>
+                    <span class="quote-date">{{ q.date | date:'dd/MM/yyyy' }}</span>
+                  </div>
+
+                  <h4 class="quote-subject">{{ q.subject }}</h4>
+                  <div class="quote-client-info">
+                    <strong>{{ q.client.company || q.client.name }}</strong>
+                    @if (q.client.company && q.client.name) {
+                      <span>({{ q.client.name }})</span>
+                    }
+                  </div>
+
+                  <div class="card-bottom">
+                    <span class="quote-price">€ {{ formatCurrency(q.priceNet) }} + IVA</span>
+
+                    <div class="item-actions">
+                      <button class="action-btn" (click)="previewPDF(q); $event.stopPropagation()" title="Anteprima PDF">
+                        👁️
+                      </button>
+                      <button class="action-btn" (click)="downloadPDF(q); $event.stopPropagation()" title="Scarica PDF">
+                        📥
+                      </button>
+                      <button class="action-btn" (click)="duplicateQuote(q); $event.stopPropagation()" title="Duplica Preventivo">
+                        📑
+                      </button>
+                      <button class="action-btn danger" (click)="deleteQuote(q.id!, $event)" title="Elimina Preventivo">
+                        🗑️
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ======================================================= -->
+    <!-- TAB 2: CANONI & MANUTENZIONI SEMESTRALI -->
+    <!-- ======================================================= -->
+    @if (currentTab === 'maintenance') {
+      <div class="tab-content-area fade-in">
+        <div class="section-intro-bar">
+          <div>
+            <h2>🔄 Canoni di Assistenza &amp; Manutenzioni Semestrali</h2>
+            <p>Traccia i contratti attivi, calcola le scadenze ogni 6 mesi, invia notifiche WhatsApp immediate ai soci e registra gli incassi delle quote.</p>
+          </div>
+          <div class="section-actions-right">
+            <button class="btn btn-outline" (click)="sendTestWhatsAppToPartners()">
+              🔔 Test WhatsApp Soci
+            </button>
+            <button class="btn btn-primary" (click)="resetContractForm()">
+              + Nuovo Canone
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="metrics-grid">
+          <div class="metric-card glass-card">
+            <span class="metric-title">Fatturato Ricorrente Annuo (ARR)</span>
+            <span class="metric-value text-cyan">€ {{ formatCurrency(totalAnnualRecurringRevenue) }}</span>
+            <span class="metric-desc">Valore totale dei contratti attivi registrati</span>
+          </div>
+          <div class="metric-card glass-card">
+            <span class="metric-title">Contratti Totali</span>
+            <span class="metric-value">{{ contracts.length }}</span>
+            <span class="metric-desc">Clienti con canone di manutenzione attivo</span>
+          </div>
+          <div class="metric-card glass-card" [class.highlight-warning]="expiringContractsCount > 0">
+            <span class="metric-title">In Scadenza (Prossimi 15 gg)</span>
+            <span class="metric-value" [class.text-danger]="expiringContractsCount > 0">{{ expiringContractsCount }}</span>
+            <span class="metric-desc">Contratti pronti per invio notifica ai soci</span>
+          </div>
+        </div>
+
+        <div class="quotes-grid mt-4">
+          <!-- Colonna Sinistra: Maschera Registrazione Canone -->
+          <div class="glass-card quote-form-container">
+            <div class="form-header-bar">
+              <div class="form-title-group">
+                <h3>{{ editingContractId ? 'Modifica Contratto Canone' : 'Registra Nuovo Canone di Manutenzione' }}</h3>
+                @if (editingContractId) {
+                  <span class="editing-tag">MODIFICA CONTRATTO</span>
+                }
+              </div>
+              <button class="btn btn-outline-sm" (click)="resetContractForm()">
+                + Resetta Maschera
+              </button>
+            </div>
+
+            <!-- Selezione Rapida da Rubrica Clienti -->
+            <div class="client-selection-box">
+              <label>Collega da Rubrica Clienti ({{ clients.length }} salvati):</label>
+              <div class="select-wrapper">
+                <select (change)="onContractClientSelect($event)">
+                  <option value="">-- Seleziona da Rubrica Clienti o compila sotto --</option>
+                  @for (c of clients; track c.id) {
+                    <option [value]="c.id" [selected]="contractForm.clientId === c.id">
+                      {{ c.company ? c.company + ' - ' : '' }}{{ c.name }} {{ c.phone ? '(' + c.phone + ')' : '' }}
+                    </option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <div class="form-section-title">Anagrafica Cliente</div>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label>Nome Referente *</label>
+                <input type="text" [(ngModel)]="contractForm.client.name" placeholder="es. Leonardo Mansueto">
+              </div>
+              <div class="form-group">
+                <label>Ragione Sociale / Azienda</label>
+                <input type="text" [(ngModel)]="contractForm.client.company" placeholder="es. Tamborrino Srl">
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label>Telefono per Avvisi WhatsApp</label>
+                <input type="text" [(ngModel)]="contractForm.client.phone" placeholder="+39 340 ...">
+              </div>
+              <div class="form-group">
+                <label>Email Referente</label>
+                <input type="email" [(ngModel)]="contractForm.client.email" placeholder="cliente@azienda.it">
+              </div>
+            </div>
+
+            <div class="form-section-title mt-4">Dettagli Canone &amp; Scadenze</div>
+            <div class="form-group">
+              <label>Denominazione Servizio di Assistenza *</label>
+              <input type="text" [(ngModel)]="contractForm.serviceName" placeholder="es. Manutenzione Piattaforma Web &amp; Assistenza Cloud">
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label>Frequenza di Fatturazione</label>
+                <div class="select-wrapper">
+                  <select [(ngModel)]="contractForm.billingFrequency" (change)="onContractFrequencyChange()">
+                    <option value="SEMESTRAL">Semestrale (ogni 6 mesi) - Raccomandato</option>
+                    <option value="ANNUAL">Annuale (ogni 12 mesi)</option>
+                    <option value="QUARTERLY">Trimestrale (ogni 3 mesi)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Canone Annuo Complessivo (€)</label>
+                <input type="number" [(ngModel)]="contractForm.annualPrice" (ngModelChange)="onContractAnnualPriceChange()" min="0" step="50">
+              </div>
+              <div class="form-group">
+                <label>Quota per Periodo (€)</label>
+                <input type="number" [(ngModel)]="contractForm.periodPrice" min="0" step="25">
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label>Data Inizio Contratto</label>
+                <input type="date" [(ngModel)]="contractForm.startDate" (change)="onContractStartDateChange()">
+              </div>
+              <div class="form-group">
+                <label>Prossima Scadenza (Rata)</label>
+                <input type="date" [(ngModel)]="contractForm.nextDueDate">
+              </div>
+              <div class="form-group">
+                <label>Preavviso Notifica (Giorni)</label>
+                <input type="number" [(ngModel)]="contractForm.noticeDaysBefore" min="1" max="30">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Note e Accordi Particolari</label>
+              <textarea [(ngModel)]="contractForm.notes" rows="3" placeholder="es. Include 4 ore mensili di sviluppo o aggiornamento plugin..."></textarea>
+            </div>
+
+            <div class="checkbox-wrapper mb-3">
+              <label>
+                <input type="checkbox" [(ngModel)]="saveContractClientToAddressBook">
+                Salva o aggiorna automaticamente questo cliente nella Rubrica Firestore
+              </label>
+            </div>
+
+            <div class="footer-btn-group">
+              <button class="btn btn-outline" (click)="resetContractForm()">Annulla</button>
+              <button class="btn btn-primary" (click)="saveContract()">
+                💾 {{ editingContractId ? 'Aggiorna Canone' : 'Memorizza Canone su Firestore' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Colonna Destra: Elenco Contratti Attivi & Scadenze -->
+          <div class="glass-card quotes-history-container">
+            <div class="history-header">
+              <h3>Canoni Registrati ({{ filteredContracts.length }})</h3>
+              <div class="history-tools">
+                <input type="text" [(ngModel)]="contractSearchTerm" placeholder="Cerca cliente o servizio..." class="search-input">
+                <div class="select-wrapper">
+                  <select [(ngModel)]="contractFilter">
+                    <option value="ALL">Tutti i Canoni</option>
+                    <option value="EXPIRING">In Scadenza (<=15 gg)</option>
+                    <option value="ACTIVE">Attivi (>15 gg)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="quotes-list-scroll">
+              @if (filteredContracts.length === 0) {
+                <div class="empty-state">
+                  <p>Nessun contratto di manutenzione trovato.</p>
+                  <button class="btn btn-outline-sm" (click)="resetContractForm()">Registra nuovo contratto</button>
+                </div>
+              }
+
+              @for (c of filteredContracts; track c.id) {
+                <div class="contract-card" [class.urgent-border]="getDaysRemaining(c.nextDueDate) <= 5" (click)="editContract(c)">
+                  <div class="card-top">
+                    <span class="status-pill" [ngClass]="getContractStatusInfo(c).cssClass">
+                      {{ getContractStatusInfo(c).label }}
+                    </span>
+                    <span class="quote-date">Scadenza: <strong>{{ c.nextDueDate | date:'dd/MM/yyyy' }}</strong></span>
+                  </div>
+
+                  <h4 class="contract-service-name">{{ c.serviceName }}</h4>
+                  <div class="quote-client-info">
+                    <strong>{{ c.client?.company || c.client?.name }}</strong>
+                    @if (c.client?.company && c.client?.name) {
+                      <span> - Ref: {{ c.client?.name }}</span>
+                    }
+                    @if (c.client?.phone) {
+                      <div class="client-phone-row">📞 {{ c.client?.phone }}</div>
+                    }
+                  </div>
+
+                  <div class="contract-pricing-row">
+                    <div>
+                      <span class="label">Quota Periodica:</span>
+                      <strong class="text-cyan">€ {{ formatCurrency(c.periodPrice) }} + IVA</strong>
+                    </div>
+                    <div>
+                      <span class="label">Canone Annuo:</span>
+                      <span>€ {{ formatNumber(c.annualPrice) }}</span>
+                    </div>
+                  </div>
+
+                  @if (c.paymentHistory && c.paymentHistory.length > 0) {
+                    <div class="payment-history-preview">
+                      <span class="history-label">Ultimo incasso: {{ c.paymentHistory[c.paymentHistory.length - 1].date | date:'dd/MM/yyyy' }} ({{ c.paymentHistory[c.paymentHistory.length - 1].periodLabel }})</span>
+                    </div>
+                  }
+
+                  <div class="contract-actions-footer">
+                    <button class="btn-renew-pill" (click)="markContractAsPaidAndRenew(c, $event)" title="Incassa quota e proroga scadenza di 6 mesi">
+                      💶 Incassa &amp; Proroga 6 Mesi
+                    </button>
+                    <button class="action-btn-whatsapp" (click)="sendAlertForContractNow(c, $event)" title="Invia Notifica WhatsApp ai soci">
+                      🔔 WhatsApp
+                    </button>
+                    <button class="action-btn danger" (click)="deleteContract(c.id!, $event)" title="Elimina Contratto">
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ======================================================= -->
+    <!-- TAB 3: RUBRICA CLIENTI DEDICATA (FIRESTORE) -->
+    <!-- ======================================================= -->
+    @if (currentTab === 'clients') {
+      <div class="tab-content-area fade-in">
+        <div class="section-intro-bar">
+          <div>
+            <h2>👥 Rubrica Clienti Firestore ({{ clients.length }})</h2>
+            <p>Visualizza e gestisci l'elenco completo dei clienti registrati. Con un solo click puoi generare un preventivo o attivare un canone di manutenzione.</p>
+          </div>
+          <button class="btn btn-primary" (click)="openNewClientModal()">
+            + Aggiungi Nuovo Cliente
+          </button>
+        </div>
+
+        <!-- Barra di Ricerca Clienti -->
+        <div class="glass-card client-search-bar">
+          <input type="text" [(ngModel)]="clientSearchTerm" placeholder="Cerca cliente per nome, azienda, email, telefono, città o P.IVA..." class="search-input w-100">
+        </div>
+
+        <!-- Griglia Clienti -->
+        <div class="clients-grid mt-4">
+          @if (filteredClientsList.length === 0) {
+            <div class="glass-card empty-clients-box">
+              <p>Nessun cliente presente in rubrica corrispondente alla ricerca.</p>
+              <button class="btn btn-outline" (click)="openNewClientModal()">Aggiungi Cliente Adesso</button>
+            </div>
+          }
+
+          @for (c of filteredClientsList; track c.id) {
+            <div class="glass-card client-card fade-in">
+              <div class="client-card-header">
+                <div class="client-avatar-badge">
+                  {{ (c.company ? c.company.slice(0, 2) : c.name.slice(0, 2)).toUpperCase() }}
+                </div>
+                <div class="client-title-group">
+                  <h4>{{ c.company || c.name }}</h4>
+                  @if (c.company && c.name) {
+                    <span class="client-ref-name">Ref: {{ c.name }}</span>
+                  }
+                </div>
+                <button class="btn-danger-icon" (click)="deleteClient(c.id!, $event)" title="Elimina dalla rubrica">
+                  🗑️
+                </button>
+              </div>
+
+              <div class="client-details-list">
+                @if (c.email) {
+                  <div class="client-detail-row">
+                    <span class="detail-label">Email:</span>
+                    <a [href]="'mailto:' + c.email" class="detail-link">{{ c.email }}</a>
+                  </div>
+                }
+                @if (c.phone) {
+                  <div class="client-detail-row">
+                    <span class="detail-label">Telefono:</span>
+                    <a [href]="'tel:' + c.phone" class="detail-link">{{ c.phone }}</a>
+                  </div>
+                }
+                @if (c.vat) {
+                  <div class="client-detail-row">
+                    <span class="detail-label">P.IVA/CF:</span>
+                    <span class="detail-text">{{ c.vat }}</span>
+                  </div>
+                }
+                @if (c.address || c.city) {
+                  <div class="client-detail-row">
+                    <span class="detail-label">Sede:</span>
+                    <span class="detail-text">{{ c.address ? c.address + ', ' : '' }}{{ c.city }}</span>
+                  </div>
+                }
+              </div>
+
+              <div class="client-card-actions">
+                <button class="btn btn-outline-sm" (click)="openEditClientModal(c, $event)">
+                  ✏️ Modifica
+                </button>
+                <button class="btn btn-secondary-sm" (click)="startQuoteForClient(c)">
+                  📄 Preventivo
+                </button>
+                <button class="btn btn-primary-sm" (click)="startMaintenanceForClient(c)">
+                  🔄 Canone
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- MODALE: AGGIUNGI / MODIFICA CLIENTE -->
+  <!-- ========================================================= -->
+  @if (showClientModal) {
+    <div class="modal-backdrop fade-in" (click)="showClientModal = false">
+      <div class="modal-card glass-card" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>{{ editingClientId ? 'Modifica Cliente' : 'Nuovo Cliente Rubrica' }}</h3>
+          <button class="modal-close-btn" (click)="showClientModal = false">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group-row">
+            <div class="form-group">
+              <label>Nome Referente *</label>
+              <input type="text" [(ngModel)]="clientModalForm.name" placeholder="es. Leonardo Mansueto">
+            </div>
+            <div class="form-group">
+              <label>Ragione Sociale / Azienda</label>
+              <input type="text" [(ngModel)]="clientModalForm.company" placeholder="es. Tamborrino Srl">
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="clientModalForm.email" placeholder="contatto@azienda.it">
+            </div>
+            <div class="form-group">
+              <label>Telefono</label>
+              <input type="text" [(ngModel)]="clientModalForm.phone" placeholder="+39 340 ...">
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label>Partita IVA / Codice Fiscale</label>
+              <input type="text" [(ngModel)]="clientModalForm.vat" placeholder="es. IT01234567890">
+            </div>
+            <div class="form-group">
+              <label>Indirizzo e N. Civico</label>
+              <input type="text" [(ngModel)]="clientModalForm.address" placeholder="es. Via delle Industrie 5">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Città e CAP</label>
+            <input type="text" [(ngModel)]="clientModalForm.city" placeholder="es. 70100 Bari (BA)">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline" (click)="showClientModal = false">Annulla</button>
+          <button class="btn btn-primary" (click)="saveClientFromModal()">
+            💾 {{ editingClientId ? 'Salva Modifiche' : 'Salva in Firestore' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- ========================================================= -->
+  <!-- MODALE: IMPOSTAZIONI NOTIFICHE WHATSAPP SOCI -->
+  <!-- ========================================================= -->
+  @if (showSettingsModal) {
+    <div class="modal-backdrop fade-in" (click)="showSettingsModal = false">
+      <div class="modal-card glass-card" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>⚙️ Configurazione Alert WhatsApp Soci</h3>
+          <button class="modal-close-btn" (click)="showSettingsModal = false">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <p class="section-help-text">Configura i numeri dei soci e le chiavi API CallMeBot per ricevere notifiche WhatsApp automatiche quando i canoni semestrali si avvicinano alla scadenza.</p>
+
+          <div class="settings-partner-box">
+            <h4>📱 Socio 1 (Hi-Tech)</h4>
+            <div class="form-group-row">
+              <div class="form-group flex-grow">
+                <label>Numero di Telefono (con prefisso int.)</label>
+                <input type="text" [(ngModel)]="adminSettings.phone1" placeholder="+393456425468">
+              </div>
+              <div class="form-group flex-grow">
+                <label>API Key CallMeBot</label>
+                <input type="text" [(ngModel)]="adminSettings.apiKey1" placeholder="es. 123456">
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-partner-box mt-3">
+            <h4>📱 Socio 2 (Hi-Tech)</h4>
+            <div class="form-group-row">
+              <div class="form-group flex-grow">
+                <label>Numero di Telefono (con prefisso int.)</label>
+                <input type="text" [(ngModel)]="adminSettings.phone2" placeholder="+393512135403">
+              </div>
+              <div class="form-group flex-grow">
+                <label>API Key CallMeBot</label>
+                <input type="text" [(ngModel)]="adminSettings.apiKey2" placeholder="es. 654321">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group-row mt-3">
+            <div class="form-group">
+              <label>Giorni di Preavviso Scadenza</label>
+              <input type="number" [(ngModel)]="adminSettings.defaultNoticeDays" min="1" max="30">
+            </div>
+            <div class="form-group align-end">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" [(ngModel)]="adminSettings.autoCheckOnLogin">
+                Verifica automatica ad ogni login admin
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline" (click)="sendTestWhatsAppToPartners()">
+            🔔 Invia Test WhatsApp
+          </button>
+          <button class="btn btn-primary" (click)="saveAdminSettings()">
+            💾 Salva Impostazioni
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

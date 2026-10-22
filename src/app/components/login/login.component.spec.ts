@@ -68,14 +68,14 @@ describe('LoginComponent', () => {
     expect(mockAuthService.login).not.toHaveBeenCalled();
   });
 
-  it('should execute login and navigate to returnUrl or /quotes', async () => {
+  it('should execute login and navigate to returnUrl or /admin', async () => {
     component.email = 'admin@hitech.com';
     component.password = 'secretPassword123';
 
     await component.onSubmit();
 
     expect(mockAuthService.login).toHaveBeenCalledWith('admin@hitech.com', 'secretPassword123');
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/quotes');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/admin');
   });
 
   it('should execute register when in registration mode', async () => {

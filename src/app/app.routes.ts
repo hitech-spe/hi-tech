@@ -57,10 +57,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/quote-simulator/quote-simulator.component').then(m => m.QuoteSimulatorComponent) 
   },
   { 
-    path: 'quotes', 
-    loadComponent: () => import('./components/quotes/quotes.component').then(m => m.QuotesComponent), 
+    path: 'admin', 
+    loadComponent: () => import('./components/admin/admin.component').then(m => m.AdminComponent), 
     canActivate: [authGuard] 
   },
+  { path: 'quotes', redirectTo: 'admin', pathMatch: 'full' },
   { 
     path: 'login', 
     loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) 

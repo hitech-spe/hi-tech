@@ -28,6 +28,10 @@
       "TITLE": "Customer Quote Management - Reserved Area | Hi-Tech",
       "DESCRIPTION": "Reserved area for agents and administrators to manage clients, quotes, and generate personalized PDFs."
     },
+    "ADMIN": {
+      "TITLE": "Admin Dashboard | Hi-Tech Solutions",
+      "DESCRIPTION": "Reserved management area for quotes, maintenance contracts, and client address book."
+    },
     "PRIVACY_POLICY": {
       "TITLE": "Privacy Policy | Hi-Tech - Data Protection",
       "DESCRIPTION": "Read Hi-Tech Solutions' privacy policy. Discover how we collect, protect, and process your personal data in compliance with GDPR."
@@ -43,6 +47,7 @@
     "SERVICES": "Services",
     "QUOTE_AI": "AI Quote",
     "QUOTES": "My Quotes",
+    "ADMIN": "Admin Dashboard",
     "Partnership": "Partnership",
     "CONTACT": "Contact",
     "INSIGHTS": "Insight & Innovation"
