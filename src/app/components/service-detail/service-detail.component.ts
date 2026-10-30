@@ -5,18 +5,35 @@ import { Subscription } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
 import {UpperCasePipe, isPlatformBrowser, Location, DOCUMENT} from "@angular/common";
 
-interface Service {
+export interface ServiceSection {
+  title: string;
+  content: string;
+  points?: string[];
+}
+
+export interface ServiceFaq {
+  question: string;
+  answer: string;
+}
+
+export interface Service {
   id: string;
   title: string;
   description: string;
   features: string[];
   fullContent: string;
+  sections?: ServiceSection[];
+  faqs?: ServiceFaq[];
+  technologies?: string[];
   translations?: {
     [locale: string]: {
       title: string;
       description: string;
       features: string[];
       fullContent: string;
+      sections?: ServiceSection[];
+      faqs?: ServiceFaq[];
+      technologies?: string[];
     }
   };
 }
@@ -40,45 +57,259 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     {
       id: 'sviluppo-piattaforme-web-b2b',
       title: 'Sviluppo Piattaforme Web B2B',
-      description: 'Applicazioni web moderne, scalabili e ottimizzate per processi aziendali complessi.',
-      features: ['Angular/React Frameworks', 'Microservizi Java/Spring', 'Infrastruttura Cloud Native', 'SEO & Performance Opt.'],
-      fullContent: 'Progettiamo e sviluppiamo piattaforme web B2B su misura che trasformano i processi operativi in vantaggi competitivi. Le nostre soluzioni sono scalabili, sicure e progettate per integrarsi perfettamente con i vostri sistemi esistenti, garantendo un\'esperienza utente fluida e professionale.',
+      description: 'Applicazioni web enterprise moderne, scalabili, resilienti e ottimizzate per processi aziendali complessi.',
+      features: ['Framework Moderni (Angular, React)', 'Architetture a Microservizi Java/Spring & Node.js', 'Infrastruttura Cloud Native & API REST/GraphQL', 'Sicurezza Enterprise & Performance Optimization'],
+      fullContent: 'Progettiamo e sviluppiamo piattaforme web B2B su misura capaci di digitalizzare e ottimizzare i processi operativi aziendali. Realizziamo portali per clienti e fornitori, dashboard di business intelligence e gestionali web evoluti, integrabili perfettamente con i sistemi informativi esistenti (ERP, CRM) per garantire efficienza, tracciabilità e una user experience fluida.',
+      technologies: ['Angular', 'React', 'Java & Spring Boot', 'Node.js & TypeScript', 'PostgreSQL', 'Docker', 'REST & GraphQL APIs', 'Tailwind/SCSS'],
+      sections: [
+        {
+          title: 'Architetture a Microservizi e Integrazione API',
+          content: 'Sviluppiamo backend modulari a microservizi basati su Spring Boot e Node.js, collegati tramite API RESTful e GraphQL per scambiare dati in modo rapido, sicuro e standardizzato con i tuoi sistemi aziendali legacy o terze parti.'
+        },
+        {
+          title: 'UI/UX Design per Ambienti Produttivi Complessi',
+          content: 'L\'efficienza operativa dipende dalla facilità d\'uso: progettiamo interfacce utente chiare, veloci ed ergonomiche, pensate per accelerare i flussi di lavoro quotidiani degli operatori e ridurre drasticamente il margine di errore.'
+        },
+        {
+          title: 'Sicurezza Enterprise e Compliance Dati',
+          content: 'Implementiamo protocolli avanzati di autenticazione e autorizzazione (OAuth 2.0, OpenID Connect, RBAC), crittografia dei dati sensibili e audit trail dettagliati per rispettare le normative GDPR e gli standard di settore.'
+        }
+      ],
+      faqs: [
+        {
+          question: 'La piattaforma può integrarsi con il nostro gestionale aziendale (ERP o CRM)?',
+          answer: 'Certamente. Sviluppiamo connettori e integrazioni API bidirezionali con i principali gestionali di mercato (SAP, Zucchetti, Salesforce, Microsoft Dynamics) o database proprietari, garantendo la sincronizzazione dei dati in tempo reale.'
+        },
+        {
+          question: 'In che modo garantite la scalabilità dell\'applicazione con l\'aumento degli utenti?',
+          answer: 'Grazie all\'architettura Cloud Native a microservizi e container Docker, la piattaforma può scalare orizzontalmente in modo automatico su più server cloud, sostenendo carichi di lavoro intensi senza cali di prestazioni.'
+        }
+      ],
       translations: {
         en: {
           title: 'B2B Web Platform Development',
-          description: 'Modern, scalable web applications optimized for complex business processes.',
-          features: ['Angular/React Frameworks', 'Java/Spring Microservices', 'Cloud Native Infrastructure', 'SEO & Performance Opt.'],
-          fullContent: 'We design and develop custom B2B web platforms that transform operational processes into competitive advantages. Our solutions are scalable, secure, and designed to integrate perfectly with your existing systems, ensuring a smooth and professional user experience.'
+          description: 'Modern, scalable, resilient web applications optimized for complex enterprise business processes.',
+          features: ['Modern Frameworks (Angular, React)', 'Microservices in Java/Spring & Node.js', 'Cloud Native & REST/GraphQL APIs', 'Enterprise Security & Performance Optimization'],
+          fullContent: 'We design and develop custom B2B web platforms capable of digitalizing and streamlining core corporate operations. We build client/supplier portals, business intelligence dashboards, and management platforms that seamlessly integrate with your existing ERP/CRM systems, delivering efficiency, traceability, and a first-class user experience.',
+          technologies: ['Angular', 'React', 'Java & Spring Boot', 'Node.js & TypeScript', 'PostgreSQL', 'Docker', 'REST & GraphQL APIs', 'Tailwind/SCSS'],
+          sections: [
+            {
+              title: 'Microservices Architectures & API Integration',
+              content: 'We build modular microservices backends using Spring Boot and Node.js, interconnected via RESTful and GraphQL APIs to exchange data rapidly and securely with legacy systems or third-party tools.'
+            },
+            {
+              title: 'UI/UX Design for Complex Workflows',
+              content: 'Operational efficiency relies on ease of use: we design intuitive, ergonomic web interfaces crafted to streamline daily workflows and significantly reduce human error.'
+            },
+            {
+              title: 'Enterprise Security & Compliance',
+              content: 'We enforce robust authentication and authorization protocols (OAuth 2.0, OpenID Connect, RBAC), end-to-end data encryption, and audit logs to comply with GDPR and industry standards.'
+            }
+          ],
+          faqs: [
+            {
+              question: 'Can the platform integrate with our existing ERP or CRM software?',
+              answer: 'Absolutely. We develop custom bidirectional API connectors for leading ERPs (SAP, Salesforce, Microsoft Dynamics) as well as proprietary databases, ensuring seamless real-time data sync.'
+            },
+            {
+              question: 'How do you ensure application scalability as users grow?',
+              answer: 'Through Cloud Native microservices and Docker containers, the platform automatically scales horizontally across cloud nodes to support heavy traffic peaks without performance degradation.'
+            }
+          ]
         }
       }
     },
     {
       id: 'sviluppo-app-mobile-native',
-      title: 'Sviluppo App Mobile Native',
-      description: 'Esperienze mobile ad alte prestazioni per iOS e Android.',
-      features: ['Flutter & Dart', 'Integrazione IoT/Industria 4.0', 'UX/UI Design Avanzato', 'Pubblicazione Store'],
-      fullContent: 'Creiamo applicazioni mobile native e cross-platform che mettono la potenza del vostro business nelle mani dei vostri utenti. Specializzati in soluzioni per l\'Industria 4.0, integriamo sensori, monitoraggio in tempo reale e interfacce intuitive per massimizzare la produttività mobile.',
+      title: 'Sviluppo App Mobile Native & Cross-Platform',
+      description: 'Applicazioni mobile iOS e Android ad alte prestazioni, fluide, sicure e connesse all\'ecosistema aziendale.',
+      features: ['Sviluppo Flutter & Dart Cross-Platform', 'Integrazione IoT & Sensori Industriali 4.0', 'Esperienza Utente UX/UI Mobile-First', 'Pubblicazione & Manutenzione Continua sugli Store'],
+      fullContent: 'Creiamo applicazioni mobile native e cross-platform ad alte performance che mettono la potenza del vostro business nelle mani di collaboratori e clienti. Specializzati in soluzioni per l\'Industria 4.0, logistica e mobile commerce, integriamo sensori hardware, telemetria in tempo reale, funzionamento offline e notifiche push intelligenti per garantire la massima produttività sul campo.',
+      technologies: ['Flutter & Dart', 'iOS (Swift)', 'Android (Kotlin)', 'Firebase', 'Bluetooth Low Energy (BLE)', 'SQLite/Room', 'REST APIs', 'App Store & Google Play'],
+      sections: [
+        {
+          title: 'Single Codebase ad Alte Prestazioni con Flutter',
+          content: 'Sviluppiamo con Flutter per coprire sia iOS che Android con una sola base di codice di altissimo livello qualitativo, garantendo rendering grafico a 60/120 fps, dimezzando i tempi di time-to-market e riducendo i costi di manutenzione futura.'
+        },
+        {
+          title: 'Funzionamento Offline e Sincronizzazione Dati',
+          content: 'Le app per contesti operativi devono funzionare ovunque. Implementiamo database locali protetti e logiche di sincronizzazione bidirezionale intelligente in background non appena la connettività di rete viene ripristinata.'
+        },
+        {
+          title: 'Integrazione Hardware, Sensori e Barcode Scanner',
+          content: 'Sfruttiamo le API hardware del dispositivo per interagire con lettori ottici, barcode/QR scanner industriali, antenne RFID, dispositivi BLE e coordinate GPS ad alta precisione.'
+        }
+      ],
+      faqs: [
+        {
+          question: 'È meglio scegliere un\'app nativa pura o una soluzione cross-platform in Flutter?',
+          answer: 'Flutter rappresenta oggi lo standard ideale per la stragrande maggioranza dei progetti: compila direttamente in codice macchina nativo ARM, offre prestazioni indistinguibili da un\'app nativa pura e garantisce risparmi sostanziali nello sviluppo parallelo per iOS e Android.'
+        },
+        {
+          question: 'Vi occupate anche delle pratiche di approvazione sugli Store (Apple e Google)?',
+          answer: 'Sì, gestiamo l\'intero processo di pubblicazione: configurazione degli account sviluppatore, firma digitale dei pacchetti, conformità alle linee guida e ottimizzazione delle schede (App Store Optimization - ASO).'
+        }
+      ],
       translations: {
         en: {
-          title: 'Native Mobile App Development',
-          description: 'High-performance mobile experiences for iOS and Android.',
-          features: ['Flutter & Dart', 'IoT/Industry 4.0 Integration', 'Advanced UX/UI Design', 'Store Publishing'],
-          fullContent: 'We create native and cross-platform mobile applications that put the power of your business in the hands of your users. Specialized in Industry 4.0 solutions, we integrate sensors, real-time monitoring, and intuitive interfaces to maximize mobile productivity.'
+          title: 'Native & Cross-Platform Mobile App Development',
+          description: 'High-performance, fluid, secure iOS and Android mobile apps connected to your business ecosystem.',
+          features: ['Flutter & Dart Cross-Platform Development', 'IoT & Industry 4.0 Hardware Integration', 'Mobile-First UX/UI Design', 'Store Publishing & Ongoing Maintenance'],
+          fullContent: 'We engineer high-performance native and cross-platform mobile apps that put the power of your business directly into the hands of your workforce and customers. Specializing in Industry 4.0, logistics, and mobile commerce, we integrate hardware sensors, real-time telemetry, offline operation, and intelligent push notifications for maximum productivity.',
+          technologies: ['Flutter & Dart', 'iOS (Swift)', 'Android (Kotlin)', 'Firebase', 'Bluetooth Low Energy (BLE)', 'SQLite/Room', 'REST APIs', 'App Store & Google Play'],
+          sections: [
+            {
+              title: 'High-Performance Single Codebase with Flutter',
+              content: 'We use Flutter to target both iOS and Android from a single codebase, delivering 60/120 fps animations, halving time-to-market, and significantly lowering long-term maintenance costs.'
+            },
+            {
+              title: 'Offline-First Operation & Smart Sync',
+              content: 'Field apps must stay reliable anywhere. We implement secure local storage and background synchronization that kicks in automatically once internet connectivity is restored.'
+            },
+            {
+              title: 'Hardware, Sensor & Barcode Scanner Integration',
+              content: 'We leverage native hardware APIs to integrate optical readers, industrial barcode/QR scanners, RFID antennas, BLE beacons, and high-accuracy GPS positioning.'
+            }
+          ],
+          faqs: [
+            {
+              question: 'Is it better to build purely native or cross-platform with Flutter?',
+              answer: 'Flutter is the gold standard for most enterprise apps today: it compiles directly to native ARM machine code, delivers identical native performance, and saves substantial budget by maintaining a single codebase.'
+            },
+            {
+              question: 'Do you manage the approval and publishing on App Store and Google Play?',
+              answer: 'Yes, we handle the complete lifecycle: developer accounts, cryptographic code signing, store compliance reviews, and App Store Optimization (ASO).'
+            }
+          ]
         }
       }
     },
     {
       id: 'consulenza-cloud-aziendale',
-      title: 'Consulenza Cloud Aziendale',
-      description: 'Migrazione, gestione e ottimizzazione di infrastrutture cloud sicure.',
-      features: ['Cloud Migration (AWS/Azure)', 'Kubernetes & Docker', 'DevOps & CI/CD', 'Security & Compliance'],
-      fullContent: 'Accompagniamo le aziende nella transizione verso il Cloud, garantendo scalabilità e riduzione dei costi operativi. Dalla migrazione alla gestione di cluster Kubernetes, implementiamo architetture resilienti e sicure che supportano la crescita del vostro business senza interruzioni.',
+      title: 'Consulenza Cloud Aziendale & Cloud Native Solutions',
+      description: 'Migrazione strategica, architetture Cloud Native, orchestrazione Kubernetes e ottimizzazione dei costi FinOps su AWS, Azure e Google Cloud.',
+      features: [
+        'Cloud Migration & Assessment (AWS, Azure, GCP)',
+        'Orchestrazione Microservizi con Kubernetes & Docker',
+        'Automazione DevOps & Pipeline CI/CD (GitHub Actions, GitLab)',
+        'FinOps & Riduzione Costi Infrastruttura Cloud (25%-45%)',
+        'Sicurezza Avanzata Zero-Trust & Disaster Recovery Multi-Regione',
+        'Monitoraggio Proattivo 24/7 & Telemetria (Prometheus & Grafana)'
+      ],
+      fullContent: 'Accompagniamo medie e grandi imprese nella transizione strategica verso il Cloud Computing, eliminando i vincoli dell\'hardware obsoleto on-premise e garantendo architetture ad alta affidabilità. Progettiamo ambienti ibridi, multi-cloud e serverless studiati per offrire scalabilità dinamica, massima sicurezza operativa e piena conformità alle normative europee (GDPR e ISO 27001). Grazie a un approccio orientato all\'ingegneria del software moderna, trasformiamo l\'infrastruttura IT da centro di costo a vero acceleratore di business.',
+      technologies: [
+        'Amazon Web Services (AWS)',
+        'Microsoft Azure',
+        'Google Cloud Platform (GCP)',
+        'Kubernetes & Docker',
+        'Terraform & Ansible (IaC)',
+        'CI/CD (GitLab, GitHub Actions)',
+        'Prometheus & Grafana',
+        'ArgoCD & Helm'
+      ],
+      sections: [
+        {
+          title: 'Assessment Infrastrutturale & Roadmap di Migrazione',
+          content: 'Ogni progetto comincia con un audit approfondito dello stack tecnologico aziendale, dei database e delle dipendenze applicative. Definiamo la strategia di migrazione più idonea (Rehost, Replatform o Refactor Cloud-Native), stabilendo Proof of Concept (PoC) e pianificazioni dettagliate per azzerare i tempi di fermo produttivo (zero downtime).'
+        },
+        {
+          title: 'Architetture a Microservizi e Orchestrazione Kubernetes',
+          content: 'Modernizziamo le applicazioni monolitiche trasformandole in architetture a microservizi scalabili e containerizzate. Gestiamo cluster Kubernetes su AWS (EKS), Azure (AKS) e GCP (GKE), configurando bilanciatori di carico intelligenti, service mesh e auto-scaling orizzontale automatico per sostenere picchi imprevisti di traffico.'
+        },
+        {
+          title: 'Infrastructure as Code (IaC) e Automazione DevOps',
+          content: 'Trattiamo l\'infrastruttura esattamente come il software: versionata, testata e riproducibile tramite Terraform e Ansible. Integrando pipeline CI/CD automatizzate, riduciamo i tempi di deploy da settimane a minuti, eliminando gli errori di configurazione manuale e consentendo rilasci continui e sicuri in produzione.'
+        },
+        {
+          title: 'FinOps: Controllo Intelligente e Riduzione Costi Cloud',
+          content: 'Senza una governance mirata, i costi delle risorse cloud possono crescere in modo incontrollato. Applichiamo metodologie FinOps certificate per monitorare la spesa in tempo reale, eliminare l\'over-provisioning, negoziare Savings Plans/Reserved Instances e implementare spegnimenti pianificati degli ambienti non produttivi, ottenendo risparmi compresi tra il 25% e il 45%.'
+        }
+      ],
+      faqs: [
+        {
+          question: 'Quali sono le prime fasi per avviare una migrazione al Cloud?',
+          answer: 'Il processo ha inizio con il Cloud Readiness Assessment: analizziamo le applicazioni esistenti, i flussi di dati, i requisiti di latenza e le normative di conformità. Segue la creazione di un piano di migrazione a fasi con ambienti pilota di test, garantendo che il passaggio definitivo avvenga in sicurezza e senza interruzioni di servizio.'
+        },
+        {
+          question: 'Come garantite la sicurezza e la conformità GDPR dei dati sul Cloud?',
+          answer: 'Configuriamo architetture conformi alle direttive europee con crittografia end-to-end (sia per i dati a riposo che in transito), gestione granulare dei permessi (IAM con principio di minimo privilegio), audit log centralizzati e piani di Disaster Recovery e backup geografico per garantire la sovranità e l\'integrità dei dati.'
+        },
+        {
+          question: 'Quale provider Cloud scegliere tra AWS, Azure e Google Cloud Platform?',
+          answer: 'La scelta dipende dalle specificità aziendali: Azure è particolarmente indicata per realtà con forte integrazione nell\'ecosistema Microsoft; AWS offre il catalogo di servizi gestiti più vasto al mondo; GCP eccelle nel data analytics, intelligenza artificiale e Kubernetes. Possiamo anche strutturare una strategia Multi-Cloud per evitare il vendor lock-in.'
+        },
+        {
+          question: 'Come si evitano interruzioni di servizio (downtime) durante il passaggio?',
+          answer: 'Adottiamo strategie di rilascio progressive, come il Blue/Green Deployment o il Canary Deployment, affiancate da repliche asincrone e sincronizzazioni in tempo reale dei database. Il traffico reale degli utenti viene spostato sul Cloud solo quando il nuovo ambiente è stato interamente validato e collaudato.'
+        },
+        {
+          question: 'Offrite supporto continuativo e monitoraggio post-migrazione?',
+          answer: 'Assolutamente sì. Forniamo servizi di Managed Cloud Operations: monitoraggio proattivo H24/7 con allarmi tempestivi, applicazione costante delle patch di sicurezza, ottimizzazione ciclica dei costi (FinOps) e supporto tecnico sistemistico specializzato per ogni esigenza.'
+        }
+      ],
       translations: {
         en: {
-          title: 'Enterprise Cloud Consulting',
-          description: 'Migration, management, and optimization of secure cloud infrastructures.',
-          features: ['Cloud Migration (AWS/Azure)', 'Kubernetes & Docker', 'DevOps & CI/CD', 'Security & Compliance'],
-          fullContent: 'We accompany companies in the transition to the Cloud, ensuring scalability and reduction of operational costs. From migration to managing Kubernetes clusters, we implement resilient and secure architectures that support the growth of your business without interruptions.'
+          title: 'Enterprise Cloud Consulting & Cloud Native Solutions',
+          description: 'Secure migration, Cloud Native architectures, Kubernetes orchestration, and FinOps cost optimization across AWS, Azure, and Google Cloud.',
+          features: [
+            'Cloud Migration & Assessment (AWS, Azure, GCP)',
+            'Microservices Orchestration with Kubernetes & Docker',
+            'DevOps Automation & CI/CD Pipelines (GitHub Actions, GitLab)',
+            'FinOps & Cloud Infrastructure Cost Reduction (25%-45%)',
+            'Zero-Trust Security & Multi-Region Disaster Recovery',
+            '24/7 Proactive Monitoring & Telemetry (Prometheus & Grafana)'
+          ],
+          fullContent: 'We guide medium and enterprise businesses through strategic transitions to Cloud Computing, eliminating constraints of legacy on-premise hardware and delivering high-availability architectures. We engineer hybrid, multi-cloud, and serverless environments designed for dynamic scalability, robust security, and full compliance with European regulations (GDPR and ISO 27001). Utilizing modern software engineering practices, we turn IT infrastructure from a cost center into a core business accelerator.',
+          technologies: [
+            'Amazon Web Services (AWS)',
+            'Microsoft Azure',
+            'Google Cloud Platform (GCP)',
+            'Kubernetes & Docker',
+            'Terraform & Ansible (IaC)',
+            'CI/CD (GitLab, GitHub Actions)',
+            'Prometheus & Grafana',
+            'ArgoCD & Helm'
+          ],
+          sections: [
+            {
+              title: 'Infrastructure Assessment & Migration Roadmap',
+              content: 'Every project begins with a deep audit of your current tech stack, databases, and application dependencies. We define the optimal migration pathway (Rehost, Replatform, or Refactor Cloud-Native), establishing Proof of Concepts (PoC) and rigorous planning to guarantee zero downtime.'
+            },
+            {
+              title: 'Microservices Architectures & Kubernetes Orchestration',
+              content: 'We modernize legacy monolithic applications into scalable, containerized microservices. Managing production Kubernetes clusters across AWS (EKS), Azure (AKS), and GCP (GKE), we configure intelligent load balancing, service meshes, and automated horizontal scaling to handle unexpected traffic spikes effortlessly.'
+            },
+            {
+              title: 'Infrastructure as Code (IaC) & DevOps Automation',
+              content: 'We treat infrastructure just like software: versioned, tested, and fully reproducible through Terraform and Ansible. By integrating automated CI/CD pipelines, deployment times shrink from weeks to minutes while human error is eliminated, enabling safe and continuous delivery.'
+            },
+            {
+              title: 'FinOps: Intelligent Cost Control & Optimization',
+              content: 'Unmonitored cloud resources quickly lead to runaway expenses. We apply certified FinOps methodologies to monitor spending in real time, eliminate over-provisioning, configure Reserved Instances/Savings Plans, and automate shutdown schedules for staging environments, saving 25% to 45% on average.'
+            }
+          ],
+          faqs: [
+            {
+              question: 'What are the first steps to initiate a Cloud migration?',
+              answer: 'We start with a comprehensive Cloud Readiness Assessment: auditing existing applications, data flows, latency requirements, and compliance. We then design a phased migration roadmap with pilot test environments, guaranteeing safe and seamless cutover.'
+            },
+            {
+              question: 'How do you guarantee data security and GDPR compliance in the Cloud?',
+              answer: 'We architect environments adhering to European standards with end-to-end encryption (both at rest and in transit), least-privilege IAM policies, centralized audit logs, and geographic disaster recovery backups to guarantee data sovereignty and business continuity.'
+            },
+            {
+              question: 'Which cloud provider should we choose: AWS, Azure, or GCP?',
+              answer: 'The choice depends on your business goals: Azure is ideal for enterprises heavily integrated with Microsoft tools; AWS provides the broadest portfolio of managed cloud services globally; GCP excels in AI, data analytics, and native Kubernetes. We can also build a Multi-Cloud strategy to prevent vendor lock-in.'
+            },
+            {
+              question: 'How do you avoid service downtime during migration?',
+              answer: 'We employ progressive deployment patterns such as Blue/Green or Canary releases, combined with real-time database replication. Production traffic is only switched over once the cloud environment has been thoroughly load-tested and validated.'
+            },
+            {
+              question: 'Do you offer ongoing post-migration management and support?',
+              answer: 'Yes, we provide 24/7 Managed Cloud Operations: proactive telemetry and alerting, continuous security patching, recurring FinOps reviews, and dedicated senior sysadmin support.'
+            }
+          ]
         }
       }
     },
@@ -309,6 +540,8 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     if (existingScript) existingScript.remove();
     const existingBcScript = this.document.getElementById('breadcrumb-jsonld-schema');
     if (existingBcScript) existingBcScript.remove();
+    const existingFaqScript = this.document.getElementById('faq-jsonld-schema');
+    if (existingFaqScript) existingFaqScript.remove();
   }
 
   private updateService(id: string): void {
@@ -423,6 +656,31 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     bcScript.type = 'application/ld+json';
     bcScript.text = JSON.stringify(breadcrumbSchema);
     this.document.head.appendChild(bcScript);
+
+    // 3. Schema FAQ se presenti
+    const existingFaqScript = this.document.getElementById('faq-jsonld-schema');
+    if (existingFaqScript) existingFaqScript.remove();
+
+    if (service.faqs && service.faqs.length > 0) {
+      const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": service.faqs.map((faq: ServiceFaq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      };
+
+      const faqScript = this.document.createElement('script');
+      faqScript.id = 'faq-jsonld-schema';
+      faqScript.type = 'application/ld+json';
+      faqScript.text = JSON.stringify(faqSchema);
+      this.document.head.appendChild(faqScript);
+    }
   }
 
   private localizeService(service: Service): Service {

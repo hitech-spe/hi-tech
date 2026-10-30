@@ -235,7 +235,13 @@
     "PRIVACY": "Privacy Policy",
     "TERMS": "Termini e Condizioni",
     "DESC": "Innovazione e tecnologia al servizio del tuo business. Creiamo il futuro digitale, un progetto alla volta.",
-    "INSTAGRAM": "Seguici su Instagram"
+    "INSTAGRAM": "Seguici su Instagram",
+    "QUICK_LINKS": "Navigazione",
+    "MAIN_SERVICES": "Servizi Principali",
+    "CLOUD_SERVICE": "Consulenza Cloud Aziendale",
+    "WEB_SERVICE": "Piattaforme Web B2B",
+    "MOBILE_SERVICE": "App Mobile Native",
+    "WP_SERVICE": "Siti Web WordPress"
   },
   "SERVICE_DETAIL": {
     "BACK": "Torna ai Servizi",
@@ -247,7 +253,11 @@
     "NOT_FOUND": "Servizio non trovato",
     "NOT_FOUND_DESC": "Spiacenti, il servizio richiesto non è disponibile.",
     "BACK_TO_LIST": "Torna alla lista",
-    "BOOK_CONSULTATION": "Prenota Consulenza"
+    "BOOK_CONSULTATION": "Prenota Consulenza",
+    "METHODOLOGY": "Metodologia & Fasi Operative",
+    "TECH_STACK": "Stack Tecnologico & Piattaforme",
+    "FAQ_TITLE": "Domande Frequenti (FAQ)",
+    "FAQ_SUBTITLE": "Risposte chiare alle domande più comuni sulla nostra consulenza"
   },
   "QUOTE": {
     "TITLE": "Simulatore",

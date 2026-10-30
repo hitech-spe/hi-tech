@@ -234,7 +234,13 @@
     "PRIVACY": "Privacy Policy",
     "TERMS": "Terms and Conditions",
     "DESC": "Innovation and technology at the service of your business. We create the digital future, one project at a time.",
-    "INSTAGRAM": "Follow us on Instagram"
+    "INSTAGRAM": "Follow us on Instagram",
+    "QUICK_LINKS": "Navigation",
+    "MAIN_SERVICES": "Core Services",
+    "CLOUD_SERVICE": "Enterprise Cloud Consulting",
+    "WEB_SERVICE": "B2B Web Platforms",
+    "MOBILE_SERVICE": "Native Mobile Apps",
+    "WP_SERVICE": "WordPress Websites"
   },
   "SERVICE_DETAIL": {
     "BACK": "Back to Services",
@@ -246,7 +252,11 @@
     "NOT_FOUND": "Service not found",
     "NOT_FOUND_DESC": "Sorry, the requested service is not available.",
     "BACK_TO_LIST": "Back to list",
-    "BOOK_CONSULTATION": "Book a Consultation"
+    "BOOK_CONSULTATION": "Book a Consultation",
+    "METHODOLOGY": "Methodology & Operational Phases",
+    "TECH_STACK": "Technology Stack & Platforms",
+    "FAQ_TITLE": "Frequently Asked Questions (FAQ)",
+    "FAQ_SUBTITLE": "Clear answers to the most common questions regarding our consulting"
   },
   "QUOTE": {
     "TITLE": "AI Quote",

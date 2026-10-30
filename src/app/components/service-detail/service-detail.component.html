@@ -15,6 +15,7 @@
       </div>
     </div>
 
+    <!-- Sezione Dettaglio Principale & Caratteristiche -->
     <div class="detail-content animated-panel delay-2">
       <div class="tech-panel main-info">
         <h3>{{ 'SERVICE_DETAIL.SOLUTION_DETAIL' | translate }}</h3>
@@ -35,6 +36,68 @@
         </ul>
       </div>
     </div>
+
+    <!-- Sezioni Dettagliate & Metodologia (Se presenti) -->
+    @if (service.sections && service.sections.length > 0) {
+      <div class="sections-container animated-panel delay-2">
+        <div class="section-title-wrapper">
+          <h2 class="section-heading">{{ 'SERVICE_DETAIL.METHODOLOGY' | translate }}</h2>
+        </div>
+        <div class="sections-grid">
+          @for (sec of service.sections; track sec.title) {
+            <div class="tech-panel section-card">
+              <div class="section-card-header">
+                <div class="section-bullet"></div>
+                <h3>{{sec.title}}</h3>
+              </div>
+              <p>{{sec.content}}</p>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Stack Tecnologico (Se presente) -->
+    @if (service.technologies && service.technologies.length > 0) {
+      <div class="tech-stack-container animated-panel delay-2">
+        <div class="section-title-wrapper">
+          <h2 class="section-heading">{{ 'SERVICE_DETAIL.TECH_STACK' | translate }}</h2>
+        </div>
+        <div class="tech-badges-grid">
+          @for (tech of service.technologies; track tech) {
+            <div class="tech-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              <span>{{tech}}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Sezione FAQ Accordion per SEO e Risposte Utente (Se presenti) -->
+    @if (service.faqs && service.faqs.length > 0) {
+      <div class="faq-container animated-panel delay-3">
+        <div class="section-title-wrapper text-center">
+          <h2 class="section-heading">{{ 'SERVICE_DETAIL.FAQ_TITLE' | translate }}</h2>
+          <p class="section-subheading">{{ 'SERVICE_DETAIL.FAQ_SUBTITLE' | translate }}</p>
+        </div>
+        <div class="faq-list">
+          @for (faq of service.faqs; track faq.question; let i = $index) {
+            <details class="faq-card" [open]="i === 0">
+              <summary class="faq-question">
+                <span class="faq-q-text">{{faq.question}}</span>
+                <span class="faq-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </span>
+              </summary>
+              <div class="faq-answer">
+                <p>{{faq.answer}}</p>
+              </div>
+            </details>
+          }
+        </div>
+      </div>
+    }
 
     <div class="cta-section animated-panel delay-3">
       <div class="tech-panel cta-panel">

@@ -32,9 +32,20 @@
                 </div>
             </div>
 
-            <!-- Quick Links -->
+            <!-- Main Services Links -->
             <div class="footer-section">
-                <h3>{{ 'HEADER.SERVICES' | translate }}</h3>
+                <h3>{{ 'FOOTER.MAIN_SERVICES' | translate }}</h3>
+                <ul>
+                    <li><a routerLink="/services/consulenza-cloud-aziendale/">{{ 'FOOTER.CLOUD_SERVICE' | translate }}</a></li>
+                    <li><a routerLink="/services/sviluppo-piattaforme-web-b2b/">{{ 'FOOTER.WEB_SERVICE' | translate }}</a></li>
+                    <li><a routerLink="/services/sviluppo-app-mobile-native/">{{ 'FOOTER.MOBILE_SERVICE' | translate }}</a></li>
+                    <li><a routerLink="/services/adastra-wordpress/">{{ 'FOOTER.WP_SERVICE' | translate }}</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Navigation Links -->
+            <div class="footer-section">
+                <h3>{{ 'FOOTER.QUICK_LINKS' | translate }}</h3>
                 <ul>
                     <li><a routerLink="/services/">{{ 'HEADER.SERVICES' | translate }}</a></li>
                     <li><a routerLink="/quote-ai/">{{ 'HEADER.QUOTE_AI' | translate }}</a></li>
